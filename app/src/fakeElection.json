@@ -1,0 +1,9 @@
+{
+    "name": "fakeElection",
+    "adminID": "fakeAdmin",
+    "votersID": ["1", "2"],
+    "candidates": ["Mike", "Alice", "Bob"],
+    "collectivePublicKey": null,
+    "electionID": null,
+    "electionStatus": null
+  }

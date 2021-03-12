@@ -1,0 +1,96 @@
+.App {
+  text-align: center;
+  color: rgb(24, 37, 49);
+}
+
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+nav{
+  color: #61fb75;
+  text-align: left;
+  display: inline;
+  width:200px;
+
+}
+
+
+.nav-links{
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /*text-align: match-parent;*/
+  background-color: aliceblue;
+
+}
+
+.nav-links li{
+  float: left;
+  color: rgb(172, 31, 31);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: aliceblue;
+}
+
+/*Style for ElectionForm  */
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-content-left {
+  background: linear-gradient(
+    90deg,
+    aliceblue 0%,
+    rgb(187, 239, 240) 100%
+  );
+  border-radius: 10px 0 0 10px;
+
+}
+.choices-saved{
+  list-style: none;
+  display: inline;
+}
+
+.form-inputs {
+  margin-bottom: 0.5rem;
+  width: 80%;
+}
+
+.ch{
+  display: inline-block;
+}
+
+.remove-btn {
+  
+}
+
+
+
+
+
+
+
+
