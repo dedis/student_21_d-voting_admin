@@ -11,7 +11,8 @@ function App() {
   return (
     <Router>
     <div className="App">
-        <NavBar />
+        <Route path='/:page' component={NavBar} />
+        <Route exact path='/' component={NavBar}/>
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/create-election" component={CreateElection}/>

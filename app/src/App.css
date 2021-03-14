@@ -16,34 +16,29 @@
   color: white;
 }
 
-nav{
-  color: #61fb75;
-  text-align: left;
-  display: inline;
-  width:200px;
+/*Style for NavBar  */
 
-}
-
-
-.nav-links{
-  display: block;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  /*text-align: match-parent;*/
-  background-color: aliceblue;
-
+.nav-wrapper{
+  display:flex;
+  background-color: rgb(208, 221, 233);
 }
 
 .nav-links li{
-  float: left;
-  color: rgb(172, 31, 31);
-  text-align: center;
+  display: inline-flex;
   padding: 14px 16px;
-  text-decoration: none;
-  background-color: aliceblue;
+  float:left;
+  color:#cf5364
 }
+.nav-links li:hover{
+  color: #772626;
+}
+.active{
+  color: black;
+  background-color: yellow;
+}
+
+
+
 
 /*Style for ElectionForm  */
 
@@ -79,13 +74,7 @@ nav{
   width: 80%;
 }
 
-.ch{
-  display: inline-block;
-}
 
-.remove-btn {
-  
-}
 
 
 
