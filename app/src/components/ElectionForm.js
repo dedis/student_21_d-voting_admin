@@ -9,10 +9,15 @@ function ElectionForm() {
 
     const [candidates, setCandidates] = useState([]);
 
+    const[errors, setErrors] = useState({});
+
     const[isSubmitting, setIsSubmitting] = useState(false);
 
     const saveFormData = async() => {
-        const election = [electionName, candidates];
+        const election = {};
+        election['electionName']=electionName;
+        election['candidates'] = candidates;
+        console.log(JSON.stringify(election));
         try{
             const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election', {
                 method: 'POST',
@@ -28,24 +33,35 @@ function ElectionForm() {
    
     }
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault();
+    const validate = () => {
+        let errors = {};
+        let isValid = true;
+
         if(candidates.length === 0){
-            alert('You must add at least one candidate!');
-            return;
+            errors['candidates'] = 'You must add at least one candidate!';
+            isValid = false;
         }
         if(newCandidate.length !== 0){
-            alert('Are you sure you dont want to add the candidate?');
+           errors['newCandidate'] = 'Are you sure you dont want to add the candidate?';
+            isValid = false;
         }
-        setIsSubmitting(true);
-        try{
-            await saveFormData();
-            alert('Your election was successfully submitted!')
-            setElectionName('');
-            setNewCandidate('');
-            setCandidates([]);
-        } catch (e){
-            alert('Election creation failed! ${e.message}');
+        setErrors(errors);
+        return isValid;
+    }
+
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+        if(validate()){
+            setIsSubmitting(true);
+            try{
+                await saveFormData();
+                alert('Your election was successfully submitted!')
+                setElectionName('');
+                setNewCandidate('');
+                setCandidates([]);
+            } catch (e){
+                alert('Election creation failed! ${e.message}');
+            }
         }
     };
 
@@ -103,17 +119,22 @@ function ElectionForm() {
                 className='form-label'>
                     Add a candidate:
                 </label>
+                
                 <input
                     id='new-choice'
                     type = 'text'
+                    name = 'newCandidate'
                     value={newCandidate} 
                     onChange={handleChangeCandidate}      
                     className = 'form-choice'  
-                    placeholder = 'add a candidate'           
-                />
+                    placeholder = 'add a candidate'   
+                    />               
                 <button type='button' className='submit-choice' onClick={handleAdd} >
                     Add
                 </button>
+                <span className='form-error'>{errors.newCandidate}</span>
+                <span className='form-error'>{errors.candidates}</span>
+                
             </div>
             <div className='form-candidates'>
                 <ul className='choices-saved'>
