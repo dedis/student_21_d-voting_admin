@@ -8,7 +8,8 @@ function CreateElection() {
   return (
     <div>
       
-      <h1>Create Election</h1>
+      <h3>Create a new election by filling out the information below</h3>
+      
       <div className='election-form'>
       <ElectionForm />
       </div>

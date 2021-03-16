@@ -7,12 +7,46 @@ function ElectionForm() {
 
     const [newCandidate, setNewCandidate] = useState('');
 
-    const [candidates, setCandidates] = useState({
-    candidates: []
-    });
+    const [candidates, setCandidates] = useState([]);
 
-    const handleSubmit = e =>{
-    e.preventDefault();
+    const[isSubmitting, setIsSubmitting] = useState(false);
+
+    const saveFormData = async() => {
+        const election = [electionName, candidates];
+        try{
+            const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election', {
+                method: 'POST',
+                body: JSON.stringify(election)
+            });
+        /* Need to deal with the response : saving id, key,...!!!!!!!*/
+            const data = await response.json();
+            console.log(data);
+            return;
+        } catch(e) {
+            return e;
+        }
+   
+    }
+
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+        if(candidates.length === 0){
+            alert('You must add at least one candidate!');
+            return;
+        }
+        if(newCandidate.length !== 0){
+            alert('Are you sure you dont want to add the candidate?');
+        }
+        setIsSubmitting(true);
+        try{
+            await saveFormData();
+            alert('Your election was successfully submitted!')
+            setElectionName('');
+            setNewCandidate('');
+            setCandidates([]);
+        } catch (e){
+            alert('Election creation failed! ${e.message}');
+        }
     };
 
     const handleChangeName = e => {
@@ -36,14 +70,12 @@ function ElectionForm() {
     };
 
     setNewCandidate('');
-    setCandidates({
-        candidates: candidates.candidates.concat(newItem)
-    });     
+    setCandidates(candidates.concat(newItem));     
     };
 
     const handleDelete = choiceId => {
-    const choices = candidates.candidates.filter(candi => candi.id !== choiceId);
-    setCandidates({candidates: choices});
+    const choices = candidates.filter(candi => candi.id !== choiceId);
+    setCandidates(choices);
     }
 
     return(
@@ -57,7 +89,7 @@ function ElectionForm() {
                 </label>
                 <input
                     id='new-name'
-                    type='text'
+                    type='text' required
                     value={electionName}  
                     onChange={handleChangeName}    
                     className = 'form-name'  
@@ -69,7 +101,7 @@ function ElectionForm() {
                 
                 <label htmlFor="new-choice"
                 className='form-label'>
-                    Enter a possible choice:
+                    Add a candidate:
                 </label>
                 <input
                     id='new-choice'
@@ -79,15 +111,15 @@ function ElectionForm() {
                     className = 'form-choice'  
                     placeholder = 'add a candidate'           
                 />
-                <button className='submit-choice' onClick={handleAdd} >
+                <button type='button' className='submit-choice' onClick={handleAdd} >
                     Add
                 </button>
             </div>
             <div className='form-candidates'>
                 <ul className='choices-saved'>
-                {candidates.candidates.map(cand => (
+                {candidates.map(cand => (
                     <div className='ch'>
-                    <li>
+                    <li key={cand.id}>
                             {cand.text}
                             <button className='delete-btn' onClick={() => handleDelete(cand.id)}>
                             Delete
@@ -100,13 +132,18 @@ function ElectionForm() {
 
 
             <div>
-                <button type='submit' className='submit-form'>
+                <button type='submit' className='submit-form' onSubmit={handleSubmit}>
                     Create election
                 </button>
             </div>
         </form>
     </div>
     );
+}
+
+
+function validateForm(){
+
 }
 
 export default ElectionForm;
