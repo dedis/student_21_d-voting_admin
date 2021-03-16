@@ -1,158 +1,112 @@
-import { render } from '@testing-library/react';
-import React from 'react';
+
+import {React, useState} from 'react';
 import '../App.css';
 
+function ElectionForm() {
+    const [electionName, setElectionName] = useState('');
 
-class ElectionForm extends React.Component{
+    const [newCandidate, setNewCandidate] = useState('');
 
-    constructor(props){
-        super(props);
-        this.state = {title:'', choices: [], text : ''};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        
+    const [candidates, setCandidates] = useState({
+    candidates: []
+    });
+
+    const handleSubmit = e =>{
+    e.preventDefault();
+    };
+
+    const handleChangeName = e => {
+    setElectionName(e.target.value);
     }
 
-    
-    render(){
-        return(
-        <div className="form-content-left">
+    const handleChangeCandidate = e => {
+    setNewCandidate(e.target.value);
+    }
 
-            <form className = 'form-choices' onSubmit={this.handleSubmit}>
+    const handleAdd = () => {
+    if (newCandidate.length === 0){
+        /* add message to user!!!!!! */
+        return;
+    };
+    
+    const newItem = {
+        id: Date.now(),
+        text: newCandidate
+   
+    };
+
+    setNewCandidate('');
+    setCandidates({
+        candidates: candidates.candidates.concat(newItem)
+    });     
+    };
+
+    const handleDelete = choiceId => {
+    const choices = candidates.candidates.filter(candi => candi.id !== choiceId);
+    setCandidates({candidates: choices});
+    }
+
+    return(
+    <div className="form-content-left">
+
+        <form className = 'form-choices' onSubmit={handleSubmit}>
+            <div>
+                <label htmlFor="new-name"
+                className='form-label'>
+                    Enter the name of the election: 
+                </label>
+                <input
+                    id='new-name'
+                    type='text'
+                    value={electionName}  
+                    onChange={handleChangeName}    
+                    className = 'form-name'  
+                    placeholder = 'enter the name'           
+                />
+            </div>
+
+            <div>
                 
                 <label htmlFor="new-choice"
                 className='form-label'>
-                    Enter a possible choice
+                    Enter a possible choice:
                 </label>
                 <input
                     id='new-choice'
-                    onChange={this.handleChange}
-                    value={this.state.text}      
+                    type = 'text'
+                    value={newCandidate} 
+                    onChange={handleChangeCandidate}      
                     className = 'form-choice'  
                     placeholder = 'add a candidate'           
                 />
-                <button className='submit-choice'>
+                <button className='submit-choice' onClick={handleAdd} >
                     Add
                 </button>
-                
-                <Choices onDelete={this.handleDelete}  value={this.state.choices} />
-            </form>
-        </div>
-        );
-    }
-    handleSubmit(e) {
-        e.preventDefault();
-        if (this.state.text.length === 0){
-            return;
-        }
-        const newItem = {
-            text:this.state.text,
-            id: Date.now()
-        };
-        this.setState(state=> ({
-            choices: state.choices.concat(newItem),
-            text:''
-        }))
-    }
-
-    handleChange(e) {
-        this.setState({text: e.target.value});
-    }
-
-    handleDelete = choiceId => {
-        
-        const choices = this.state.choices.filter(choice => choice.id !== choiceId);
-        this.setState({choices: choices});
-    }
-}
-
-function Choices(props){
-    const value = props.value;
-      return (
-        <ul className='choices-saved'>
-          {value.map(choice => (
-            <div className='ch'>
-                    <Choice 
-                    id = {choice.id}
-                    value = {choice.text}                   
-                    onDelete ={props.onDelete} />
             </div>
-          ))}
-        </ul>
-      );   
-}
+            <div className='form-candidates'>
+                <ul className='choices-saved'>
+                {candidates.candidates.map(cand => (
+                    <div className='ch'>
+                    <li>
+                            {cand.text}
+                            <button className='delete-btn' onClick={() => handleDelete(cand.id)}>
+                            Delete
+                        </button>
+                    </li>
+                    </div>
+                ))}
+                </ul>
+            </div>
 
-function Choice({id, value, onDelete}){
-        return(
+
             <div>
-                <li>
-                {value}
-                <button className='delete-btn' onClick={() => onDelete(id)}>
-                    Delete
+                <button type='submit' className='submit-form'>
+                    Create election
                 </button>
-                </li>
             </div>
-        )
+        </form>
+    </div>
+    );
 }
-
-
-
-/*function SelectQuestion(){
-        const [values, setValues] = useState({
-            object: '',
-            choices: []
-        });
-
-        const handleChange = e => {
-            const {object, value} = e.target
-            setValues({
-                ...values,
-                object: value
-            })
-        };
-
-        const handleSubmit = e => {
-            e.preventdefault();
-        }
-
-        return(
-        <div>
-           <form className='form' onSubmit={this.handleSubmit}> 
-            <div className='form-inputs'>
-                <label htmlFor="objectName"
-                className='form-label'>
-                    Object: 
-                </label>
-                <input
-                    id='object'
-                    type='text'
-                    name='object'
-                    className='form-input'
-                    placeholder='Enter the object of the question'
-                    onChange = {handleChange}
-                />
-            </div>
-            
-            <div className='form-inputs'>
-                <label htmlFor="choices"
-                className='form-label'>
-                   Choices: 
-                </label>
-                <input
-                    id='choices'
-                    type='text'
-                    name='choices'
-                    className='form-input'
-                    placeholder='Enter the possible choices'
-                />
-                
-            </div>
-            </form>
-        </div>
-            
-        );
-    };
-*/
 
 export default ElectionForm;

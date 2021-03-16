@@ -66,12 +66,16 @@
 }
 .choices-saved{
   list-style: none;
-  display: inline;
+  display: block;
 }
 
 .form-inputs {
   margin-bottom: 0.5rem;
   width: 80%;
+}
+
+.form-label {
+  margin-right:10px;
 }
 
 
