@@ -55,7 +55,7 @@
   align-items: center;
 }
 
-.form-content-left {
+/*.form-content-left {
   background: linear-gradient(
     90deg,
     aliceblue 0%,
@@ -64,6 +64,7 @@
   border-radius: 10px 0 0 10px;
 
 }
+*/
 .choices-saved{
   list-style: none;
   display: block;
@@ -85,7 +86,62 @@
 
 
 
+/* Style for election status page*/
 
+.election-name-pointer{
+  cursor:pointer;
+  background-color: white;
+  text-decoration: underline;
+  color:#cf5364;
+}
+
+.election-name-pointer:hover{
+  display: inline-flex;
+  color: #772626;
+}
+
+.election-btn{
+  border-radius: 8px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.election-status{
+  display: inline-flex;
+  margin: 20px 20px;
+}
+
+.election-status-text{
+  display: inline-flex;
+  margin:0px 5px;
+}
+
+.election-status-on{
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.election-status-closed{
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
+  background-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.election-status-cancelled{
+  display: inline-flex;
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
 
 
 

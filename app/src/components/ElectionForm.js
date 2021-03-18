@@ -140,7 +140,7 @@ function ElectionForm() {
                 <ul className='choices-saved'>
                 {candidates.map(cand => (
                     <div className='ch'>
-                    <li key={cand.id}>
+                    <li key={cand}>
                             {cand.text}
                             <button className='delete-btn' onClick={() => handleDelete(cand.id)}>
                             Delete
