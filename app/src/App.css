@@ -145,6 +145,19 @@
 
 
 
+/*Footer*/
+
+.footer{
+  margin-top: 1vh;
+  padding: 1rem;
+  background-color: gray;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+
 
 
 

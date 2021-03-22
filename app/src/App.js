@@ -5,6 +5,7 @@ import CreateElection from './components/CreateElection';
 import Election from './components/Election';
 import NavBar from './components/NavBar';
 import About from './components/About';
+import Footer from './components/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
           <Route path="/elections" component={Election}/>
           <Route path="/about" component={About}/>
         </Switch>
+        <Footer/>
     </div>
+
   </Router>
   );
 }

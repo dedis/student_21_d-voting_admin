@@ -65,11 +65,14 @@ function Election() {
                 return <span>
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>open</span>
+                    <button className='election-btn' onClick={handleClose}>Close</button>
+                <button className='election-btn' onClick={handleCancel}>Cancel</button>
                 </span>;  
             case '2':
                  return <span>
                  <span className='election-status-closed'></span>
                  <span className='election-status-text'>closed</span>
+                 <button className='election-btn'>See results</button>
                  </span>;  
             case '3':
                 return <span>
@@ -104,7 +107,7 @@ function Election() {
                 <span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> handleClick()}>{electionName}</span>
                 <span className='tooltiptext'></span>
                 <div className='election-status'>{getStatus(electionStatus)}</div>
-                {renderButton(electionStatus)}
+                
             </div>
             
          </div> 
