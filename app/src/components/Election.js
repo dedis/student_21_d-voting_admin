@@ -12,10 +12,6 @@ import '../App.css';
 
 function Election() {
 
-    useEffect(()=> {
-        fetchItems();
-    }, []);
-
     /*Election fields that will be retrieved from get request */
     const [electionName, setName] = useState('');
     const [candidates, setCandidates] = useState([]);
@@ -23,6 +19,9 @@ function Election() {
 
     const[showDetails, setShowDetails] = useState(false);
 
+    useEffect(()=> {
+        fetchItems();
+    }, []);
 
 
     const fetchItems = async() => {

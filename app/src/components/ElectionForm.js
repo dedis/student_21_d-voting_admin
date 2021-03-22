@@ -162,10 +162,7 @@ function ElectionForm() {
             </form>
         </div>
 
-    <div className="form-content-right">
-        <UploadFile></UploadFile>
-        <button className='json-upload-btn'>Upload</button>
-    </div>
+
 </div>
     );
 }
