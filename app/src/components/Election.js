@@ -100,8 +100,9 @@ function Election() {
   }  
 
   return (
-    <div>
-        <h1>Election status</h1>
+    <div className='election-wrapper'>
+        <h3>Election status</h3  >
+        This page lists all the elections that have ever been created. Click on the election name to display additional details.
         <div className = 'election-overview'>
             <div className='election-name'>
                 <span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> handleClick()}>{electionName}</span>
@@ -122,6 +123,8 @@ function Election() {
   );
 }
 
+
+/* */
 function ElectionInfoCard(candidates){
 
     return (

@@ -1,6 +1,11 @@
+
+
 .App {
-  text-align: center;
-  color: rgb(24, 37, 49);
+  display: inline-flexbox;
+  text-align: left;
+  height: 100vh;
+  color: #E7DFDD;
+  background-color: rgb(27, 35, 43);
 }
 
 
@@ -15,33 +20,44 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+/*
+.home{
+  display: flex;
+  flex-flow: column;
+  height: auto;
+  background-color: #898a8d;
+}
+*/
 
 /*Style for NavBar  */
 
 .nav-wrapper{
   display:flex;
-  background-color: rgb(208, 221, 233);
+  background-color: rgb(27, 35, 43);
 }
 
 .nav-links li{
   display: inline-flex;
   padding: 14px 16px;
   float:left;
-  color:#cf5364
+  color:#E7DFDD
 }
 .nav-links li:hover{
-  color: #772626;
-}
-.active{
-  color: black;
-  background-color: yellow;
+  color: #922cac;
 }
 
+/*Style for CreateElection*/
+
+.create-election-wrapper{
+  padding-left: 3%;
+
+}
 
 
 
 /*Style for ElectionForm  */
 
+/*
 .form {
   position: absolute;
   top: 50%;
@@ -54,6 +70,23 @@
   justify-content: center;
   align-items: center;
 }
+*/
+
+.form-content-left{
+  width:50%;
+  float:left;
+}
+.form-content-right{
+  margin-left:50%;
+}
+
+.json-upload-box{
+ margin-top: 15px;
+}
+
+.json-upload-btn{
+  margin-top: 15px;
+}
 
 /*.form-content-left {
   background: linear-gradient(
@@ -65,8 +98,14 @@
 
 }
 */
+
+
 .choices-saved{
   list-style: none;
+  display: block;
+}
+
+.form-name{
   display: block;
 }
 
@@ -76,7 +115,10 @@
 }
 
 .form-label {
+  display: block;
   margin-right:10px;
+  padding-bottom:10px ;
+  padding-top: 15px;
 }
 
 .form-error{
@@ -84,20 +126,52 @@
   font-size: 12px;
 }
 
+.submit-choice-btn{
+  margin-left: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-form-btn{
+  align-content: center;
+  margin-top: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-btn{
+  margin-left: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 
 
 /* Style for election status page*/
 
+.election-wrapper{
+  padding-left: 3%;
+}
+
 .election-name-pointer{
   cursor:pointer;
-  background-color: white;
+  background-color: rgb(27, 35, 43);
   text-decoration: underline;
-  color:#cf5364;
+  color:#922cac;
 }
 
 .election-name-pointer:hover{
   display: inline-flex;
-  color: #772626;
+  color: #7b2391;
+}
+
+.election-candidates{
+  list-style: none;
+  display: inline-block;
+}
+
+.election-candidates{
+  display: inline-block;
 }
 
 .election-btn{
@@ -150,7 +224,10 @@
 .footer{
   margin-top: 1vh;
   padding: 1rem;
-  background-color: gray;
+  background: linear-gradient(   
+    rgb(27, 35, 43) 0%,
+    rgb(19, 25, 31) 100%
+  );
   position: fixed;
   bottom: 0;
   left: 0;

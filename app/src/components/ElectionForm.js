@@ -1,6 +1,7 @@
 
 import {React, useState} from 'react';
 import '../App.css';
+import UploadFile from './UploadFile';
 
 function ElectionForm() {
     const [electionName, setElectionName] = useState('');
@@ -95,70 +96,77 @@ function ElectionForm() {
     }
 
     return(
-    <div className="form-content-left">
+    <div>
+        <div className="form-content-left">
 
-        <form className = 'form-choices' onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="new-name"
-                className='form-label'>
-                    Enter the name of the election: 
-                </label>
-                <input
-                    id='new-name'
-                    type='text' required
-                    value={electionName}  
-                    onChange={handleChangeName}    
-                    className = 'form-name'  
-                    placeholder = 'enter the name'           
-                />
-            </div>
+            <form className = 'form-choices' onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="new-name"
+                    className='form-label'>
+                        Election name*: 
+                    </label>
+                    <input
+                        id='new-name'
+                        type='text' required
+                        value={electionName}  
+                        onChange={handleChangeName}    
+                        className = 'form-name'  
+                        placeholder = 'enter the name'           
+                    />
+                </div>
 
-            <div>
-                
-                <label htmlFor="new-choice"
-                className='form-label'>
-                    Add a candidate:
-                </label>
-                
-                <input
-                    id='new-choice'
-                    type = 'text'
-                    name = 'newCandidate'
-                    value={newCandidate} 
-                    onChange={handleChangeCandidate}      
-                    className = 'form-choice'  
-                    placeholder = 'add a candidate'   
-                    />               
-                <button type='button' className='submit-choice' onClick={handleAdd} >
-                    Add
-                </button>
-                <span className='form-error'>{errors.newCandidate}</span>
-                <span className='form-error'>{errors.candidates}</span>
-                
-            </div>
-            <div className='form-candidates'>
-                <ul className='choices-saved'>
-                {candidates.map(cand => (
-                    <div className='ch'>
-                    <li key={cand}>
-                            {cand.text}
-                            <button className='delete-btn' onClick={() => handleDelete(cand.id)}>
-                            Delete
-                        </button>
-                    </li>
-                    </div>
-                ))}
-                </ul>
-            </div>
+                <div>
+                    
+                    <label htmlFor="new-choice"
+                    className='form-label'>
+                        Add a candidate*:
+                    </label>
+                    
+                    <input
+                        id='new-choice'
+                        type = 'text'
+                        name = 'newCandidate'
+                        value={newCandidate} 
+                        onChange={handleChangeCandidate}      
+                        className = 'form-choice'  
+                        placeholder = 'add a candidate'   
+                        />               
+                    <button type='button' className='submit-choice-btn' onClick={handleAdd} >
+                        Add
+                    </button>
+                    <span className='form-error'>{errors.newCandidate}</span>
+                    <span className='form-error'>{errors.candidates}</span>
+                    
+                </div>
+                <div className='form-candidates'>
+                    <ul className='choices-saved'>
+                    {candidates.map(cand => (
+                        <div className='ch'>
+                        <li key={cand}>
+                                {cand.text}
+                                <button className='delete-btn' onClick={() => handleDelete(cand.id)}>
+                                Delete
+                            </button>
+                        </li>
+                        </div>
+                    ))}
+                    </ul>
+                </div>
 
 
-            <div>
-                <button type='submit' className='submit-form' onSubmit={handleSubmit}>
-                    Create election
-                </button>
-            </div>
-        </form>
+                <div>
+                    <button type='submit' className='submit-form-btn' onSubmit={handleSubmit}>
+                        Create election
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    <div className="form-content-right">
+        <UploadFile></UploadFile>
+        <button className='json-upload-btn'>Upload</button>
     </div>
+</div>
     );
 }
 

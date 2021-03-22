@@ -28,7 +28,7 @@ function App() {
 }
 
 const Home = () => (
-  <div>
+  <div classeName='home'>
     <h1>Home Page</h1>
   </div>
 );
