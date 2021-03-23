@@ -45,21 +45,21 @@ function Election() {
     }
 
     const handleClose = () =>{
-        /*API call to close election*/
+        /*TODO: API call to close election*/
 
 
         setStatus('2');
     }
 
     const handleCancel = () =>{
-        /*API call to cancel election*/
+        /*TODO: API call to cancel election*/
 
 
         setStatus('3');
     }
 
     const handleResult = () => {
-        /*API call to get result OR already got result when retrieved election?*/
+        /*TODO: API call to get result OR already got result when retrieved election?*/
     }
 
     const getStatus = (status) => {
@@ -89,33 +89,15 @@ function Election() {
             default :
                   return 'couldnt match status number';
                };
-    }
-
-  const renderButton = (status) => {
-        if(status === '1'){
-            return <div className='election-ongoing'>
-                <button className='election-btn' onClick={handleClose}>Close</button>
-                <button className='election-btn' onClick={handleCancel}>Cancel</button>
-                </div>
-        }
-        if(status === '2'){
-            return <button className='election-btn'>See results</button>;
-        }
-        return;
-
-  }  
+    }  
 
   return (
     <div className='election-wrapper'>
         <h3>Election status</h3  >
         This page lists all the elections that have ever been created. Click on the election name to display additional details.
-        
-         
-          
-              
 
         <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionName, 'status': electionStatus}} getStatus = {getStatus} setStatus={setStatus} handleClick={handleClick}/>
+            <ElectionTable value={{'name': electionName, 'status': electionStatus}} getStatus = {getStatus} handleClick={handleClick}/>
         </div>   
         <div className='election-details'>
                {showDetails? <ElectionInfoCard candidates={candidates} /> :<span></span>}
@@ -139,32 +121,6 @@ function ElectionInfoCard(candidates){
 
     )
 } 
-/*
-function Status(status){
-    const getStatus = () => {
-        switch (status.status){
-            case '-1':
-                return 'status not retrieved'
-            
-            case '1':
-                return 'on going';
-            case '2':
-                return 'closed';
-            case '3':
-                return 'canceled';
-
-            default :
-                return 'couldnt match status number';
-        }
-    }
-
-    return(
-        <span>
-            {getStatus()}
-        </span>
-    )
-}
-*/
 
 
 

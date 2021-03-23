@@ -18,7 +18,6 @@ function ElectionForm() {
         const election = {};
         election['electionName']=electionName;
         election['candidates'] = candidates;
-        console.log(JSON.stringify(election));
         try{
             const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election', {
                 method: 'POST',
@@ -26,7 +25,6 @@ function ElectionForm() {
             });
         /* Need to deal with the response : saving id, key,...!!!!!!!*/
             const data = await response.json();
-            console.log(data);
             return;
         } catch(e) {
             return e;
@@ -167,9 +165,5 @@ function ElectionForm() {
     );
 }
 
-
-function validateForm(){
-
-}
 
 export default ElectionForm;

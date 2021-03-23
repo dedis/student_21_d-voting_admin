@@ -6,9 +6,6 @@ import '../../App.css';
 
 const ElectionTable = (props) => {
 
-    const handleClose = () => {
-        props.setStatus('2');
-    }
 
     const renderTableHeader = () => {
         return Object.keys(props.value).map((key,index) => {
@@ -34,22 +31,11 @@ const ElectionTable = (props) => {
                 <span className='tooltiptext'></span>
             </td>)
     })};
-/*
-        return Object.values(props.value).map((election,index) => {
-            return (
-                <tr key={election.name}>
-                    <td>{election.name}</td>
-                    <td>{election.status}</td>
-                </tr>
-            )
-            
-        })
-*/
-        
+  
     
     return(
         <div>
-            <table className='table-elections' variant='dark'>
+            <table className='table-elections'>
                 <tbody>
                     <tr>{renderTitle()}</tr>
                     <tr className='table-header'>{renderTableHeader()}</tr>
