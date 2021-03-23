@@ -15,7 +15,7 @@ function UploadFile() {
   return(
 
     <div className="form-content-right">
-      Choose your file from your computer:
+      Choose a json file from your computer:
 
       <input type="file" className ='input-file'
         multiple={false}

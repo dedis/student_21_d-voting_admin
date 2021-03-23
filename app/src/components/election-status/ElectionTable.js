@@ -6,8 +6,12 @@ import '../../App.css';
 
 const ElectionTable = (props) => {
 
+    const handleClose = () => {
+        props.setStatus('2');
+    }
+
     const renderTableHeader = () => {
-        return Object.keys(props.props).map((key,index) => {
+        return Object.keys(props.value).map((key,index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
         
@@ -15,12 +19,23 @@ const ElectionTable = (props) => {
 
     const renderTitle = () => {
         /* TO DO: instead of 1, it should calculate the length of props*/ 
-        return <th colspan='2' type='header' className='oh'>ELECTIONS (1)</th>
+        
+        return <th colSpan='2'>ELECTIONS (1)</th>
     }
 
     const renderTableData = () =>{
-           
-        return Object.values(props).map((election,index) => {
+
+        return Object.entries(props.value).map(([k, val])=>{
+            if(k === 'status')
+            return <td>{props.getStatus(val)}</td>
+            return (
+                <td>
+                <span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>
+                <span className='tooltiptext'></span>
+            </td>)
+    })};
+/*
+        return Object.values(props.value).map((election,index) => {
             return (
                 <tr key={election.name}>
                     <td>{election.name}</td>
@@ -29,8 +44,9 @@ const ElectionTable = (props) => {
             )
             
         })
+*/
         
-    }
+    
     return(
         <div>
             <table className='table-elections' variant='dark'>

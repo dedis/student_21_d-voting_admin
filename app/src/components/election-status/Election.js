@@ -62,9 +62,9 @@ function Election() {
         /*API call to get result OR already got result when retrieved election?*/
     }
 
-    const getStatus = () => {
+    const getStatus = (status) => {
 
-        switch (electionStatus){
+        switch (status){
             case '-1':
                  return 'status not retrieved';           
             case '1':
@@ -109,26 +109,18 @@ function Election() {
     <div className='election-wrapper'>
         <h3>Election status</h3  >
         This page lists all the elections that have ever been created. Click on the election name to display additional details.
-        <div className = 'election-overview'>
-            <div className='election-name'>
-                <span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> handleClick()}>{electionName}</span>
-                <span className='tooltiptext'></span>
-                <div className='election-status'>{getStatus(electionStatus)}</div>
-    
-            </div>
-            
-         </div> 
+        
          
           
-          <div className='election-details'>
+              
+
+        <div classeName = 'election-table-wrapper'>
+            <ElectionTable value={{'name': electionName, 'status': electionStatus}} getStatus = {getStatus} setStatus={setStatus} handleClick={handleClick}/>
+        </div>   
+        <div className='election-details'>
                {showDetails? <ElectionInfoCard candidates={candidates} /> :<span></span>}
                
-          </div>      
-
-        <div>
-            <ElectionTable props={{'name': electionName, 'status': electionStatus
-        }} />
-        </div>    
+          </div>   
 
     </div>
   );
