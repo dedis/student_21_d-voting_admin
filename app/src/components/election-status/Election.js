@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from 'react';
 
-import '../App.css';
+import '../../App.css';
+import ElectionTable from './ElectionTable';
 
 /*Assumption : for now an election is simply a json file with the following field
     - electionName: string
@@ -17,11 +18,14 @@ function Election() {
     const [candidates, setCandidates] = useState([]);
     const [electionStatus, setStatus] = useState(-1);
 
+    const [electionData,setData] = useState({});
+    
+
     const[showDetails, setShowDetails] = useState(false);
 
     useEffect(()=> {
         fetchItems();
-    }, []);
+    }, []); /*!!!! need to check what this empty array means */ 
 
 
     const fetchItems = async() => {
@@ -31,6 +35,9 @@ function Election() {
         setName(items.electionName);
         setCandidates(items.candidates);
         setStatus(items.electionStatus);
+
+        setData(items);
+ 
     } 
     
     const handleClick = () =>{
@@ -65,18 +72,18 @@ function Election() {
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>open</span>
                     <button className='election-btn' onClick={handleClose}>Close</button>
-                <button className='election-btn' onClick={handleCancel}>Cancel</button>
+                    <button className='election-btn' onClick={handleCancel}>Cancel</button>
                 </span>;  
             case '2':
                  return <span>
-                 <span className='election-status-closed'></span>
-                 <span className='election-status-text'>closed</span>
-                 <button className='election-btn'>See results</button>
+                    <span className='election-status-closed'></span>
+                    <span className='election-status-text'>closed</span>
+                    <button className='election-btn'>See results</button>
                  </span>;  
             case '3':
                 return <span>
-                <span className='election-status-cancelled'></span>
-                <span className='election-status-text'>cancelled</span>
+                    <span className='election-status-cancelled'></span>
+                    <span className='election-status-text'>cancelled</span>
                 </span>;  
 
             default :
@@ -107,7 +114,7 @@ function Election() {
                 <span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> handleClick()}>{electionName}</span>
                 <span className='tooltiptext'></span>
                 <div className='election-status'>{getStatus(electionStatus)}</div>
-                
+    
             </div>
             
          </div> 
@@ -116,7 +123,12 @@ function Election() {
           <div className='election-details'>
                {showDetails? <ElectionInfoCard candidates={candidates} /> :<span></span>}
                
-          </div>          
+          </div>      
+
+        <div>
+            <ElectionTable props={{'name': electionName, 'status': electionStatus
+        }} />
+        </div>    
 
     </div>
   );

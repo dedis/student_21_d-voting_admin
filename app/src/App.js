@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './App.css';
-import CreateElection from './components/CreateElection';
-import Election from './components/Election';
-import NavBar from './components/NavBar';
+import CreateElection from './components/election-creation/CreateElection';
+import Election from './components/election-status/Election';
+import NavBar from './components/navigation/NavBar';
 import About from './components/About';
 import Footer from './components/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';

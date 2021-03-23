@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 
-import '../App.css';
+import '../../App.css';
 
 function UploadFile() {
 
@@ -8,8 +8,6 @@ function UploadFile() {
     const [file, setFile] = useState(null);
 
     const uploadJSON = e => {
-        alert('hello');
-
         /*TO DO : NEED TO CHECK THE FILE IS CORRECT */
     }
 

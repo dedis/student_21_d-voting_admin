@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Election from './../Election';
-import renderButton from './../Election';
+import Election from '../election-status/Election';
+import renderButton from '../election-status/Election';
 
 import {render} from '@testing-library/react';
 

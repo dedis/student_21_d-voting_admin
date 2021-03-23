@@ -236,6 +236,27 @@
 }
 
 
+/*Style for ElectionTable */
+
+
+.table-elections{
+  text-align: center;
+  border: 1px solid #ddd;
+  width:90%;
+}
+
+.table-elections td, .table-elections th{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-elections th{
+  border: 1px solid #ddd;
+  padding-top:12px;
+  padding-bottom: 12px;
+  text-align:center;
+  background-color: #922cac;
+}
 
 /*Footer*/
 
