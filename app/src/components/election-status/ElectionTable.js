@@ -2,6 +2,8 @@ import React from 'react';
 import '../../App.css';
 
 
+
+
 const ElectionTable = (props) => {
 
     const renderTableHeader = () => {
@@ -17,9 +19,6 @@ const ElectionTable = (props) => {
     }
 
     const renderTableData = () =>{
-        Object.values(props).map((election,index) => {
-            console.log(election.name);
-           });
            
         return Object.values(props).map((election,index) => {
             return (
@@ -34,7 +33,7 @@ const ElectionTable = (props) => {
     }
     return(
         <div>
-            <table className='table-elections'>
+            <table className='table-elections' variant='dark'>
                 <tbody>
                     <tr>{renderTitle()}</tr>
                     <tr className='table-header'>{renderTableHeader()}</tr>
@@ -45,6 +44,7 @@ const ElectionTable = (props) => {
         </div>
     );
 }
+
 
   
 export default ElectionTable;

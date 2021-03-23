@@ -4,6 +4,7 @@ import './App.css';
 import CreateElection from './components/election-creation/CreateElection';
 import Election from './components/election-status/Election';
 import NavBar from './components/navigation/NavBar';
+import Home from './components/homepage/Home';
 import About from './components/About';
 import Footer from './components/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -27,10 +28,6 @@ function App() {
   );
 }
 
-const Home = () => (
-  <div classeName='home'>
-    <h1>Home Page</h1>
-  </div>
-);
+
 
 export default App;

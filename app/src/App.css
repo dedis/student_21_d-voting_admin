@@ -2,10 +2,12 @@
 
 .App {
   display: inline-flexbox;
-  text-align: left;
+  text-align: center;
+  padding-left: 3%;
   height: 100vh;
   color: #E7DFDD;
   background-color: rgb(27, 35, 43);
+  justify-content: center;
 }
 
 
@@ -20,14 +22,41 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-/*
-.home{
-  display: flex;
-  flex-flow: column;
-  height: auto;
-  background-color: #898a8d;
+.home-text{
+  padding-bottom: 5%;
 }
-*/
+
+.home-left{
+  width:50%;
+  float:left;
+  min-width: 250px;
+  justify-content: center;
+}
+.home-right{
+  margin-left:50%;
+  justify-content: center;
+}
+.signin-admin-btn{
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  width:200px;
+  height:30px;
+  
+}
+
+.signin-voter-btn{
+  display: block;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  width:200px;
+  height:30px;
+}
+
+
+
 
 /*Style for NavBar  */
 
