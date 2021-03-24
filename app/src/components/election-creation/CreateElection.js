@@ -7,18 +7,13 @@ import UploadFile from './UploadFile';
 
 function CreateElection() {
   return (
-    <div className= 'create-election-wrapper'>
-      
+    <div className= 'create-election-wrapper'>     
       <h4>Create a new election by filling out the information below or by uploading a json file</h4>
       
       <div className='election-form'>
-      <ElectionForm />
-      
-      <UploadFile />
-
+        <ElectionForm />        
+        <UploadFile />
       </div>
-
-
     </div>
   );
 }

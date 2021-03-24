@@ -65,11 +65,17 @@ function ElectionForm() {
     };
 
     const handleChangeName = e => {
-    setElectionName(e.target.value);
+        setElectionName(e.target.value);
     }
 
     const handleChangeCandidate = e => {
-    setNewCandidate(e.target.value);
+        setNewCandidate(e.target.value);
+    }
+
+    const checkUniqueCandidate = (cand) => {
+        console.log(cand);
+        console.log(candidates);
+        return candidates.some(item => cand ===item.text);
     }
 
     const handleAdd = () => {
@@ -81,7 +87,11 @@ function ElectionForm() {
             return;
         };
 
-        
+        if(checkUniqueCandidate(newCandidate)){
+            errors['unique'] = 'This candidate has already been added.'
+            setErrors(errors);
+            return;
+        }
         
         const newItem = {
             id: Date.now(),
@@ -137,6 +147,7 @@ function ElectionForm() {
                     <button type='button' className='submit-choice-btn' onClick={handleAdd} >
                         Add
                     </button>
+                    <span className='form-error'>{errors.unique}</span>
                     <span className='form-error'>{errors.empty}</span>
                     <span className='form-error'>{errors.newCandidate}</span>
                     <span className='form-error'>{errors.candidates}</span>
