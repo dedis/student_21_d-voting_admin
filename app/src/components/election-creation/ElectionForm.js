@@ -1,6 +1,6 @@
 
 import {React, useState} from 'react';
-import '../../App.css';
+import './ElectionForm.css';
 import UploadFile from './UploadFile';
 
 function ElectionForm() {
@@ -73,24 +73,29 @@ function ElectionForm() {
     }
 
     const handleAdd = () => {
-    if (newCandidate.length === 0){
-        /* add message to user!!!!!! */
-        return;
-    };
-    
-    const newItem = {
-        id: Date.now(),
-        text: newCandidate
-   
-    };
+        let errors = {};
+        if (newCandidate.length === 0){
+            /* add message to user!!!!!! */
+            errors['empty'] = 'There is nothing to add.';
+            setErrors(errors);
+            return;
+        };
 
-    setNewCandidate('');
-    setCandidates(candidates.concat(newItem));     
-    };
+        
+        
+        const newItem = {
+            id: Date.now(),
+            text: newCandidate
+    
+        };
+
+        setNewCandidate('');
+        setCandidates(candidates.concat(newItem));     
+    }
 
     const handleDelete = choiceId => {
-    const choices = candidates.filter(candi => candi.id !== choiceId);
-    setCandidates(choices);
+        const choices = candidates.filter(candi => candi.id !== choiceId);
+        setCandidates(choices);
     }
 
     return(
@@ -132,6 +137,7 @@ function ElectionForm() {
                     <button type='button' className='submit-choice-btn' onClick={handleAdd} >
                         Add
                     </button>
+                    <span className='form-error'>{errors.empty}</span>
                     <span className='form-error'>{errors.newCandidate}</span>
                     <span className='form-error'>{errors.candidates}</span>
                     

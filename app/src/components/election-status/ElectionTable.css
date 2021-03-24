@@ -1,0 +1,38 @@
+.table-elections{
+    margin-top: 3%;
+    border-collapse: collapse;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    text-align: center;
+    width:90%;
+  }
+  
+  .table-elections td, .table-elections th{ 
+    padding: 8px;
+  }
+  
+  .table-elections th{
+    background-color: #7b2391;
+    color:#282c34;
+    text-align: center;
+  }
+  
+  .table-elections tbody tr{ 
+    border-bottom: 1px solid rgb(45, 51, 58);
+    background-color:rgb(27, 35, 43);
+  }
+  
+  .table-elections tbody tr:last-of-type{
+    border-bottom: 2px solid #922cac;
+  }
+
+  .election-name-pointer{
+    cursor:pointer;
+    background-color: rgb(27, 35, 43);
+    text-decoration: underline;
+    color:#922cac;
+  }
+  
+  .election-name-pointer:hover{
+    display: inline-flex;
+    color: #7b2391;
+  }

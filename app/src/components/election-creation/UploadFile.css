@@ -1,0 +1,15 @@
+.form-content-right{
+    margin-left:50%;
+  }
+  
+  .upload-json-btn{
+    display: block;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .input-file{
+    display: block;
+    padding-top: 1%;
+  }

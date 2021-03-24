@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from 'react';
 
-import '../../App.css';
+import './Election.css';
 import ElectionTable from './ElectionTable';
 
 /*Assumption : for now an election is simply a json file with the following field

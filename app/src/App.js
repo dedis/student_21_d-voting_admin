@@ -6,7 +6,7 @@ import Election from './components/election-status/Election';
 import NavBar from './components/navigation/NavBar';
 import Home from './components/homepage/Home';
 import About from './components/About';
-import Footer from './components/Footer';
+import Footer from './components/footer/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {

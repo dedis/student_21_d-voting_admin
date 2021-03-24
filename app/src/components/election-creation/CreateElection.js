@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../App.css';
+import './CreateElection.css';
 import ElectionForm from './ElectionForm.js'
 import UploadFile from './UploadFile';
 

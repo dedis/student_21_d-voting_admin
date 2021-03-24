@@ -1,0 +1,55 @@
+.election-wrapper{
+    padding-left: 3%;
+  }
+  
+
+  
+  .election-candidates{
+    list-style: none;
+    display: inline-block;
+  }
+  
+  
+  
+  .election-btn{
+    border-radius: 8px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  .election-status{
+    display: inline-flex;
+    margin: 20px 20px;
+  }
+  
+  .election-status-text{
+    display: inline-flex;
+    margin:0px 5px;
+  }
+  
+  .election-status-on{
+    display: inline-flex;
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .election-status-closed{
+    display: inline-flex;
+    height: 15px;
+    width: 15px;
+    background-color: grey;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .election-status-cancelled{
+    display: inline-flex;
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+  }
