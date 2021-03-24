@@ -1,0 +1,32 @@
+.home-text{
+    padding-bottom: 5%;
+  }
+  
+  .home-left{
+    width:50%;
+    float:left;
+    min-width: 250px;
+    justify-content: center;
+  }
+  .home-right{
+    margin-left:50%;
+    justify-content: center;
+  }
+  .signin-admin-btn{
+    display: block;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    width:200px;
+    height:30px;
+    
+  }
+  
+  .signin-voter-btn{
+    display: block;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    width:200px;
+    height:30px;
+  }

@@ -1,0 +1,15 @@
+.nav-wrapper{
+    display:flex;
+    background-color: rgb(27, 35, 43);
+  
+  }
+  
+  .nav-links li{
+    display: inline-flex;
+    padding: 10px 10px;
+    float:left;
+    color:#E7DFDD
+  }
+  .nav-links li:hover{
+    color: #922cac;
+  }

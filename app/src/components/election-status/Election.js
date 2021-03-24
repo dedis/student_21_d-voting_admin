@@ -71,8 +71,8 @@ function Election() {
                 return <span>
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>open</span>
-                    <button className='election-btn' onClick={handleClose}>Close</button>
-                    <button className='election-btn' onClick={handleCancel}>Cancel</button>
+                    <button className='election-btn' onClick={() => {if(window.confirm('Are you sure you want to close this election?'))handleClose();}}>Close</button>
+                    <button className='election-btn' onClick={() => {if(window.confirm('Are you sure you want to cancel this election?'))handleCancel();}}>Cancel</button>
                 </span>;  
             case '2':
                  return <span>
