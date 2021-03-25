@@ -23,6 +23,9 @@ function NavBar() {
                 <NavLink to='/elections' className='nav_link'  activeStyle={activeStyle}>
                     <li>Election status</li>
                 </NavLink>
+                <NavLink to='/vote' className='nav-link' activeStyle={activeStyle}>
+                    <li>Cast a vote</li>
+                </NavLink>
                 <NavLink to='/about' className='nav_link'  activeStyle={activeStyle}>
                     <li>About</li>
                 </NavLink>

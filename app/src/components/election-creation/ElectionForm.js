@@ -81,7 +81,6 @@ function ElectionForm() {
     const handleAdd = () => {
         let errors = {};
         if (newCandidate.length === 0){
-            /* add message to user!!!!!! */
             errors['empty'] = 'There is nothing to add.';
             setErrors(errors);
             return;

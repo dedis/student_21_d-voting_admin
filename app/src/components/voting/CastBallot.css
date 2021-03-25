@@ -1,0 +1,25 @@
+.cast-ballot{
+    padding-left: 3%;
+    padding-top: 3%;
+    text-align: left;
+
+}
+
+.ballot-indication{
+
+}
+
+.cast-ballot-error{
+    color: #898a8d;
+    font-size: 12px;
+    padding-bottom: 3%;
+}
+.cast-ballot-card{
+    padding-left: 3%;
+}
+
+.cast-ballot-btn{
+    align-content: center;
+    border-radius: 8px;
+    cursor: pointer;    
+}

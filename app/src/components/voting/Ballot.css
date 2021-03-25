@@ -1,0 +1,26 @@
+.ballot{
+
+    text-align: left;
+}
+
+.ballot-title{
+    font-weight: bold;
+    color: #7b2391;
+    padding-bottom: 1%;
+}
+
+.checkbox-full{
+   padding-bottom: 1%;
+}
+
+.checkbox-text{
+    padding-bottom: 1%;
+}
+
+.checkbox-label{
+    padding-left: 1%;
+}
+
+.checkbox-choice{
+   
+}
