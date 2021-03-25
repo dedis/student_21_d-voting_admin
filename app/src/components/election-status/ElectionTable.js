@@ -1,5 +1,6 @@
 import React from 'react';
 import './ElectionTable.css';
+import {Link} from 'react-router-dom';
 
 
 
@@ -27,8 +28,9 @@ const ElectionTable = (props) => {
             return <td>{props.getStatus(val)}</td>
             return (
                 <td>
-                <span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>
-                <span className='tooltiptext'></span>
+                    <Link to={`/elections/${val}`}>{val}</Link>
+                {/*<span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>
+                <span className='tooltiptext'></span>*/}
             </td>)
     })};
   

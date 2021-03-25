@@ -1,4 +1,5 @@
 import React, {useEffect,useState} from 'react';
+import {Link} from 'react-router-dom';
 
 import './Election.css';
 import ElectionTable from './ElectionTable';
@@ -100,7 +101,11 @@ function Election() {
             <ElectionTable value={{'name': electionName, 'status': electionStatus}} getStatus = {getStatus} handleClick={handleClick}/>
         </div>   
         <div className='election-details'>
-               {showDetails? <ElectionInfoCard candidates={candidates} /> :<span></span>}
+               {showDetails? 
+               (<div>
+                   
+               <ElectionInfoCard candidates={candidates} /> 
+               </div>):<span></span>}
                
           </div>   
 

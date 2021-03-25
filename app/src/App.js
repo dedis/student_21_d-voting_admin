@@ -9,6 +9,7 @@ import CastBallot from './components/voting/CastBallot';
 import About from './components/About';
 import Footer from './components/footer/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ElectionDetails from './components/election-status/ElectionDetails';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/create-election" component={CreateElection}/>
-          <Route path="/elections" component={Election}/>
+          <Route path="/elections" exact component={Election}/>
+          <Route path="/elections/:id" component={ElectionDetails}/>
           <Route path="/vote" component={CastBallot}/>
           <Route path="/about" component={About}/>
         </Switch>
