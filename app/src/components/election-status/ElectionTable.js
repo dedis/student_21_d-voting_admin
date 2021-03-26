@@ -28,7 +28,8 @@ const ElectionTable = (props) => {
             return <td>{props.getStatus(val)}</td>
             return (
                 <td>
-                    <Link to={`/elections/${val}`}>{val}</Link>
+                    <Link to={{pathname:`/elections/${val}`,
+                data: props}}>{val}</Link>
                 {/*<span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>
                 <span className='tooltiptext'></span>*/}
             </td>)

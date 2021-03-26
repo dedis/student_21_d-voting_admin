@@ -18,6 +18,7 @@ function Election() {
     const [electionName, setName] = useState('');
     const [candidates, setCandidates] = useState([]);
     const [electionStatus, setStatus] = useState(-1);
+    
 
     const [electionData,setData] = useState({});
     
