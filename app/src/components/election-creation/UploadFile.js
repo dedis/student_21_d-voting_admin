@@ -6,9 +6,43 @@ function UploadFile() {
 
 
     const [file, setFile] = useState(null);
+    const [errors, setErrors] = useState({});
+
+
+    /*Check that the filename has indeed the extension .json
+    Important: User can bypass this test by renaming the extension
+     -> backend needs to perform other verification! */
+    const validateFileExtension = () =>{
+      let errors = {};
+      if(file === null){
+        console.log("no file")
+        errors['nothing'] = 'No file found';
+        setErrors(errors);
+        return false;
+      } else {
+        let fileName = file.name;
+        if(fileName.substring(fileName.length-5,fileName.length)!=='.json'){
+          console.log("wrong extension");
+          errors['extension'] = 'The file is not a json file.';
+          setErrors(errors);
+          return false;
+        }
+        return true;
+      }
+      
+        
+      
+      console.log(file);
+      
+    }
 
     const uploadJSON = e => {
-        /*TO DO : NEED TO CHECK THE FILE IS CORRECT */
+
+        
+        if(validateFileExtension()){
+          setFile('');
+          /*TODO : send file to backend*/ 
+        }
     }
 
 
@@ -22,7 +56,8 @@ function UploadFile() {
         accept='.json'
         onChange = {(e) => setFile(e.target.files[0])}  
         />
-
+        <span className='form-error'>{errors.nothing}</span>
+        <span className='form-error'>{errors.extension}</span>
         <input type="button" className = 'upload-json-btn' value="Upload" onClick={uploadJSON} />
 
 

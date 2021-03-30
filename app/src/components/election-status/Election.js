@@ -34,7 +34,7 @@ function Election() {
 
 
     const fetchItems = async() => {
-        const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election/100');
+        const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
         
         /*TODO: define a status with backend to mean that no election exists  */
         if(!response.ok){
@@ -54,9 +54,7 @@ function Election() {
  
     } 
     
-    const handleClick = () =>{
-        setShowDetails(!showDetails);
-    }
+
 
     const handleClose = () =>{
         /*TODO: API call to close election*/
@@ -105,23 +103,16 @@ function Election() {
                };
     }  
 
-    /* */
+    /*Show all the elections retrieved if any */
     const showElection = ()=>{
         return (
             <div>
                 {electionRetrieved? (<div>
             Click on the election name to display additional details.
             <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionName, 'status': electionStatus}} candidates = {candidates} getStatus = {getStatus} handleClick={handleClick}/>
+            <ElectionTable value={{'name': electionName, 'status': electionStatus}} candidates = {candidates} getStatus = {getStatus}/>
             </div>   
-            <div className='election-details'>
-                {showDetails? 
-                (<div>
-                    
-                <ElectionInfoCard candidates={candidates} /> 
-                </div>):<span></span>}
-                
-            </div>
+
         </div>):<div>No election were retrieved!</div>}
             </div>
         )
@@ -138,18 +129,6 @@ function Election() {
 }
 
 
-/* */
-function ElectionInfoCard(candidates){
-
-    return (
-        <div className='election-candidates'>
-                Candidates:
-                {candidates.candidates.map(cand => 
-                <li key={cand} className='election-candidate'>{cand}</li>)}
-        </div>
-
-    )
-} 
 
 
 
