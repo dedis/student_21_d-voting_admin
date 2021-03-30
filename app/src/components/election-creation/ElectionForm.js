@@ -64,11 +64,16 @@ function ElectionForm() {
         }
     };
 
+    const onSubmitPreventDefault = e =>{
+        e.preventDefault();
+    }
+
     const handleChangeName = e => {
         setElectionName(e.target.value);
     }
 
     const handleChangeCandidate = e => {
+        e.preventDefault();
         setNewCandidate(e.target.value);
     }
 
@@ -78,7 +83,9 @@ function ElectionForm() {
         return candidates.some(item => cand ===item.text);
     }
 
-    const handleAdd = () => {
+    const handleAdd = e => {
+        console.log("hello");
+        e.preventDefault()
         let errors = {};
         if (newCandidate.length === 0){
             errors['empty'] = 'There is nothing to add.';
@@ -99,6 +106,7 @@ function ElectionForm() {
         };
 
         setNewCandidate('');
+        console.log("hello");
         setCandidates(candidates.concat(newItem));     
     }
 
@@ -108,7 +116,7 @@ function ElectionForm() {
     }
 
     return(
-    <div>
+    <div className='form-wrapper'>
         <div className="form-content-left">
 
             <form className = 'form-choices' onSubmit={handleSubmit}>
@@ -139,11 +147,12 @@ function ElectionForm() {
                         type = 'text'
                         name = 'newCandidate'
                         value={newCandidate} 
-                        onChange={handleChangeCandidate}      
+                        onChange={handleChangeCandidate}    
+                        onSubmit = {onSubmitPreventDefault}  
                         className = 'form-choice'  
                         placeholder = 'add a candidate'   
                         />               
-                    <button type='button' className='submit-choice-btn' onClick={handleAdd} >
+                    <button type='button' className='submit-choice-btn' onClick={handleAdd} onSubmit={onSubmitPreventDefault} >
                         Add
                     </button>
                     <span className='form-error'>{errors.unique}</span>
@@ -158,7 +167,7 @@ function ElectionForm() {
                         <div className='ch'>
                         <li key={cand}>
                                 {cand.text}
-                                <button className='delete-btn' onClick={() => handleDelete(cand.id)}>
+                                <button type='button' className='delete-btn' onClick={() => handleDelete(cand.id)} onSubmit={onSubmitPreventDefault}>
                                 Delete
                             </button>
                         </li>
