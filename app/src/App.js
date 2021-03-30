@@ -15,16 +15,18 @@ function App() {
   return (
     <Router>
     <div className="App">
-        <Route path='/:page' component={NavBar} />
-        <Route exact path='/' component={NavBar}/>
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/create-election" component={CreateElection}/>
-          <Route path="/elections" exact component={Election}/>
-          <Route path="/elections/:id" component={ElectionDetails}/>
-          <Route path="/vote" component={CastBallot}/>
-          <Route path="/about" component={About}/>
-        </Switch>
+        <div className='content'>
+          <Route path='/:page' component={NavBar} />
+          <Route exact path='/' component={NavBar}/>
+          <Switch>
+            <Route path="/" exact component={Home}/>
+            <Route path="/create-election" component={CreateElection}/>
+            <Route path="/elections" exact component={Election}/>
+            <Route path="/elections/:id" component={ElectionDetails}/>
+            <Route path="/vote" component={CastBallot}/>
+            <Route path="/about" component={About}/>
+          </Switch>
+        </div>
         <Footer/>
     </div>
 

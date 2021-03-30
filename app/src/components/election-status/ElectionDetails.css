@@ -1,6 +1,7 @@
 
 .election-details-wrapper{
     padding-left: 3%;
+    padding-bottom: 3%;
 }
 
 .election-candidates{
@@ -27,5 +28,5 @@ padding-bottom: 3%;
 }
 
 .back-btn{
-
+    
 }

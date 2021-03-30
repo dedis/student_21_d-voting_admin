@@ -4,6 +4,7 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
     text-align: center;
     width:90%;
+    background-color : rgb(27, 35, 43);
   }
   
   .table-elections td, .table-elections th{ 

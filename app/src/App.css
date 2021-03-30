@@ -1,7 +1,6 @@
 
 
 .App {
-  display: inline-flexbox;
   text-align: left;
   padding-left: 3%;
   height: 100vh;
@@ -9,6 +8,7 @@
   background-color: rgb(27, 35, 43);
   justify-content: center;
   scroll-behavior: smooth;
+  overflow: scroll;
 }
 
 
@@ -23,8 +23,9 @@
   color: white;
 }
 
-.html{
-  scroll-behavior: smooth;
+.content{
+  padding-bottom: 5%;
+  background-color: rgb(27, 35, 43);
 }
 
 
