@@ -8,8 +8,8 @@
   color: #E7DFDD;
   background-color: rgb(27, 35, 43);
   justify-content: center;
+  scroll-behavior: smooth;
 }
-
 
 
 .App-header {
@@ -23,7 +23,9 @@
   color: white;
 }
 
-
+.html{
+  scroll-behavior: smooth;
+}
 
 
 /*

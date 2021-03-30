@@ -1,8 +1,10 @@
 import React from 'react';
 import '../../App.css';
 import './NavBar.css';
+import logo from '../../assets/logoWithoutText.png'
 
 import {NavLink} from 'react-router-dom';
+
 
 
 function NavBar() {
@@ -12,8 +14,12 @@ function NavBar() {
   return (
     
     <nav className = "nav-wrapper">
-        <div className = "nav-container">
+       
+        
+        <span className = "nav-container">
+        
             <ul className = "nav-links">
+            
                 <NavLink  exact to='/' className='nav_link'  activeStyle={activeStyle}>
                     <li>Home</li>
                 </NavLink>
@@ -31,7 +37,8 @@ function NavBar() {
                 </NavLink>
                 
             </ul>
-        </div>
+        </span>
+        <img src={logo}></img>
     </nav>
 
   );

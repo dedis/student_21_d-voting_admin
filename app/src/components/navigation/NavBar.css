@@ -1,9 +1,23 @@
 .nav-wrapper{
     display:flex;
+    padding-top: 2%;
     background-color: rgb(27, 35, 43);
   
   }
-  
+  img{
+    padding-top: 1%;
+    display: inline;
+    height:50px;
+    width:auto;
+    float: right;
+  }
+  .nav-container{
+    display: inline;
+  }
+  .nav-logo{
+    display: inline;
+    width: 10%;
+  }
   .nav-links li{
     display: inline-flex;
     padding: 10px 10px;

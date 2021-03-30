@@ -99,7 +99,7 @@ function Election() {
         This page lists all the elections that have ever been created. Click on the election name to display additional details.
 
         <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionName, 'status': electionStatus}} getStatus = {getStatus} handleClick={handleClick}/>
+            <ElectionTable value={{'name': electionName, 'status': electionStatus}} candidates = {candidates} getStatus = {getStatus} handleClick={handleClick}/>
         </div>   
         <div className='election-details'>
                {showDetails? 
