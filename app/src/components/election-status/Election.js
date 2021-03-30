@@ -21,6 +21,9 @@ function Election() {
     
 
     const [electionData,setData] = useState({});
+
+    const [loading, setLoading] = useState(true);
+    const [electionRetrieved, setElectionRetrieved] = useState(false);
     
 
     const[showDetails, setShowDetails] = useState(false);
@@ -31,14 +34,23 @@ function Election() {
 
 
     const fetchItems = async() => {
-        const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
+        const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election/100');
         
+        /*TODO: define a status with backend to mean that no election exists  */
+        if(!response.ok){
+
+        } else {
         const items = await response.json();
+        console.log(response);
         setName(items.electionName);
         setCandidates(items.candidates);
         setStatus(items.electionStatus);
-
         setData(items);
+
+        setElectionRetrieved(true); //means there is actually at least an election that exists
+        }
+
+        setLoading(false);
  
     } 
     
@@ -93,23 +105,34 @@ function Election() {
                };
     }  
 
+    /* */
+    const showElection = ()=>{
+        return (
+            <div>
+                {electionRetrieved? (<div>
+            Click on the election name to display additional details.
+            <div classeName = 'election-table-wrapper'>
+            <ElectionTable value={{'name': electionName, 'status': electionStatus}} candidates = {candidates} getStatus = {getStatus} handleClick={handleClick}/>
+            </div>   
+            <div className='election-details'>
+                {showDetails? 
+                (<div>
+                    
+                <ElectionInfoCard candidates={candidates} /> 
+                </div>):<span></span>}
+                
+            </div>
+        </div>):<div>No election were retrieved!</div>}
+            </div>
+        )
+    }
+
   return (
     <div className='election-wrapper'>
-        <h3>Election status</h3  >
-        This page lists all the elections that have ever been created. Click on the election name to display additional details.
-
-        <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionName, 'status': electionStatus}} candidates = {candidates} getStatus = {getStatus} handleClick={handleClick}/>
-        </div>   
-        <div className='election-details'>
-               {showDetails? 
-               (<div>
-                   
-               <ElectionInfoCard candidates={candidates} /> 
-               </div>):<span></span>}
-               
-          </div>   
-
+        This page lists all the elections that have ever been created. 
+    {!loading?
+        (showElection())   
+    : <p className='loading'></p>}
     </div>
   );
 }

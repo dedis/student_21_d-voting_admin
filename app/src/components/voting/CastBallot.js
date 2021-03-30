@@ -32,6 +32,9 @@ function CastBallot(){
 
     const sendBallot = () =>{
         /*TODO: API call to send ballot to backend */
+
+
+        alert('Your vote was successfully submitted!')
     }
 
     const handleClick = () => {

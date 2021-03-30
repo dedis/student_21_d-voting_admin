@@ -1,5 +1,6 @@
 .election-wrapper{
     padding-left: 3%;
+    padding-top:3%;
     background-color : rgb(27, 35, 43);
   }
   
@@ -44,4 +45,8 @@
     background-color: red;
     border-radius: 50%;
     display: inline-block;
+  }
+
+  .loading{
+    background-color: blueviolet;
   }
