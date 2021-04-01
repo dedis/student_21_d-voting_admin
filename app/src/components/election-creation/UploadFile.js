@@ -1,9 +1,11 @@
-import {React, useState} from 'react';
+import {React, useState, useContext} from 'react';
 
 import './UploadFile.css';
+import {Translations} from '../language/Translations';
+import {LanguageContext} from '../language/LanguageContext';
 
 function UploadFile() {
-
+    const [context, setContext] = useContext(LanguageContext);
 
     const [file, setFile] = useState(null);
     const [errors, setErrors] = useState({});
@@ -57,7 +59,7 @@ function UploadFile() {
         onChange = {(e) => setFile(e.target.files[0])}  
         />
         <span className='form-error'>{errors.nothing}</span>
-        <span className='form-error'>{errors.extension}</span>
+        <span className='upload-error'>{errors.extension}</span>
         <input type="button" className = 'upload-json-btn' value="Upload" onClick={uploadJSON} />
 
 

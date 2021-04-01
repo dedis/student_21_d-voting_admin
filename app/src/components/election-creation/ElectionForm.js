@@ -1,9 +1,11 @@
 
-import {React, useState} from 'react';
+import {React, useState, useContext} from 'react';
 import './ElectionForm.css';
-import UploadFile from './UploadFile';
+import {Translations} from '../language/Translations';
+import {LanguageContext} from '../language/LanguageContext';
 
 function ElectionForm() {
+    const [context, setContext] = useContext(LanguageContext);
     const [electionName, setElectionName] = useState('');
 
     const [newCandidate, setNewCandidate] = useState('');
@@ -37,11 +39,11 @@ function ElectionForm() {
         let isValid = true;
 
         if(candidates.length === 0){
-            errors['candidates'] = 'You must add at least one candidate!';
+            errors['candidates'] = Translations[context].errorCandidates;
             isValid = false;
         }
         if(newCandidate.length !== 0){
-           errors['newCandidate'] = 'Are you sure you dont want to add the candidate?';
+           errors['newCandidate'] = Translations[context].errorNewCandidate;
             isValid = false;
         }
         setErrors(errors);
@@ -54,12 +56,12 @@ function ElectionForm() {
             setIsSubmitting(true);
             try{
                 await saveFormData();
-                alert('Your election was successfully submitted!')
+                alert(Translations[context].electionSuccess)
                 setElectionName('');
                 setNewCandidate('');
                 setCandidates([]);
             } catch (e){
-                alert('Election creation failed! ${e.message}');
+                alert(Translations[context].electionFail);
             }
         }
     };
@@ -84,7 +86,6 @@ function ElectionForm() {
     }
 
     const handleAdd = e => {
-        console.log("hello");
         e.preventDefault()
         let errors = {};
         if (newCandidate.length === 0){
@@ -106,7 +107,6 @@ function ElectionForm() {
         };
 
         setNewCandidate('');
-        console.log("hello");
         setCandidates(candidates.concat(newItem));     
     }
 
