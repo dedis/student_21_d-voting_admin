@@ -17,9 +17,9 @@ import StatusSuccess from './StatusSuccess';
 function Election() {
 
 
-    const [electionRetrieved, setElectionRetrieved] = useState(false);
     
-    const {loading,data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
+    
+    const {loading,electionRetrieved, data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/100');
 
 
     
@@ -46,10 +46,7 @@ function Election() {
         This page lists all the elections that have ever been created. 
     {!loading?
         (   
-            <div classeName = 'election-table-wrapper'>
-                {console.log(data)}
-            <ElectionTable value={{'name': data.electionName, 'status': data.electionStatus}} candidates = {data.candidates} />
-            </div> )   
+            showElection() )   
     : <p className='loading'>Loading...</p>}
     </div>
   );

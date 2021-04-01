@@ -6,6 +6,7 @@ import {React, useState, useEffect, useRef} from 'react';
 const useFetchData = (url) => {
     const cache = useRef({})
     const [loading, setLoading] = useState(true);
+    const [electionRetrieved, setElectionRetrieved] = useState(false);
     const [data, setData]= useState([]);
 
     useEffect(()=>{
@@ -22,12 +23,15 @@ const useFetchData = (url) => {
                 console.log("fetch");
                 /*TODO: define a status with backend to mean that no election exists  */
                 if(!response.ok){
-        
+                    setLoading(false);
+                    setElectionRetrieved(false);
+                    
                 } else {
                 const data = await response.json();
                 cache.current[url] = data;
                 setData(data);
                 setLoading(false);
+                setElectionRetrieved(true);
                 }
             }
         };
@@ -35,7 +39,7 @@ const useFetchData = (url) => {
         fetchItems()
         console.log(data);
     },[url]);
-    return {loading, data};
+    return {loading, electionRetrieved, data};
 };
 
 export default useFetchData;
