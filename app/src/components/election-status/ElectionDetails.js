@@ -24,7 +24,6 @@ function ElectionDetails(props) {
             <div className='election-title'>{data.electionName}</div>
             <div className='election-start-date'>Start date: fakeDate</div>
             Status: <StatusSuccess stat={data.electionStatus} />
-            {console.log(data.candidates)}
             <div className='election-candidates'>
                     Candidates:
                     {data.candidates.map((cand) => 

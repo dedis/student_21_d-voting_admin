@@ -1,15 +1,22 @@
-import {React,useState} from 'react';
+
+import {React,useContext} from 'react';
 
 import './About.css';
+import {Translations} from './language/Translations';
+import {LanguageContext} from './language/LanguageContext';
+
 
 function About() {
- 
+ const [context, setContext] = useContext(LanguageContext)
   
   return(
     <div className='about-container'>
       <div className='about-text'>
-      This website hosts an evoting interface based on <a href="https://github.com/dedis/dela">Dela</a>, the latest blockchain-based distributed ledger from the DEDIS lab.
-      </div>    
+        {Translations[context].about}
+      </div> 
+      
+        
+ 
     </div>
     );
 

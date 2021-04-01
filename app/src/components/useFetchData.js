@@ -7,7 +7,7 @@ const useFetchData = (url) => {
     const cache = useRef({})
     const [loading, setLoading] = useState(true);
     const [electionRetrieved, setElectionRetrieved] = useState(false);
-    const [data, setData]= useState([]);
+    const [electionData, setElectionData]= useState([]);
 
     useEffect(()=>{
         if (!url) return;
@@ -16,7 +16,7 @@ const useFetchData = (url) => {
             if(cache.current[url]){
                 console.log("cache");
                 const data = cache.current[url];
-                setData(data);
+                setElectionData(data);
                 setLoading(false)
             } else {
                 const response = await fetch(url);
@@ -29,7 +29,7 @@ const useFetchData = (url) => {
                 } else {
                 const data = await response.json();
                 cache.current[url] = data;
-                setData(data);
+                setElectionData(data);
                 setLoading(false);
                 setElectionRetrieved(true);
                 }
@@ -37,9 +37,9 @@ const useFetchData = (url) => {
         };
 
         fetchItems()
-        console.log(data);
+
     },[url]);
-    return {loading, electionRetrieved, data};
+    return {loading, electionRetrieved, electionData};
 };
 
 export default useFetchData;

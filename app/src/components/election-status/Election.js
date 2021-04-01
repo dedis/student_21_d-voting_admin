@@ -19,7 +19,7 @@ function Election() {
 
     
     
-    const {loading,electionRetrieved, data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/100');
+    const {loading,electionRetrieved, data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
 
 
     
