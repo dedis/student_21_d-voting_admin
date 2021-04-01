@@ -1,12 +1,12 @@
 import React from 'react';
 import './ElectionTable.css';
 import {Link} from 'react-router-dom';
+import StatusSuccess from './StatusSuccess';
 
 
 
 
 const ElectionTable = (props) => {
-
 
     const renderTableHeader = () => {
         return Object.keys(props.value).map((key,index) => {
@@ -25,7 +25,7 @@ const ElectionTable = (props) => {
 
         return Object.entries(props.value).map(([k, val])=>{
             if(k === 'status')
-            return <td>{props.getStatus(val)}</td>
+            return <td><StatusSuccess stat={props.value.status} /></td>
             return (
                 <td>
                     <Link to={{pathname:`/elections/${val}`,

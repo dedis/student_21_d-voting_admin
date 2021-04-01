@@ -8,10 +8,13 @@ import Home from './components/homepage/Home';
 import CastBallot from './components/voting/CastBallot';
 import About from './components/About';
 import Footer from './components/footer/Footer';
+import useFetchData from './components/useFetchData';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ElectionDetails from './components/election-status/ElectionDetails';
 
 function App() {
+
+  
   return (
     <Router>
     <div className="App">

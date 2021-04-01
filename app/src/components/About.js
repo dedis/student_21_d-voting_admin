@@ -1,9 +1,10 @@
-import React from 'react';
+import {React,useState} from 'react';
 
 import './About.css';
 
 function About() {
-
+ 
+  
   return(
     <div className='about-container'>
       <div className='about-text'>

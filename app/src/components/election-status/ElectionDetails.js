@@ -2,45 +2,45 @@ import React, {useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import './ElectionDetails.css';
+import useFetchData from '../useFetchData';
+import StatusSuccess from './StatusSuccess';
 
 
 function ElectionDetails(props) {
 
+    //TODO: later on, props will be an id to then make a custom https request
+    const {loading,data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
+    
     /*The data related to the election params is in props.location.data */
-    const candidates = props.location.data.candidates;
+    //const candidates = props.location.data.candidates;
     
     return (
-        <div className = 'election-details-wrapper'>
+        <div>
+            
+        {!loading?
+        (<div className='election-wrapper'>
             <h1>Election details</h1>
-            {console.log(props.location.data)}
-            {console.log(candidates)}
-            <div className='election-title'>{props.location.data.value.name}</div>
+            
+            <div className='election-title'>{data.electionName}</div>
             <div className='election-start-date'>Start date: fakeDate</div>
-            <div className='election-details-status'>Status: {props.location.data.getStatus(props.location.data.value.status)}</div>
+            Status: <StatusSuccess stat={data.electionStatus} />
+            {console.log(data.candidates)}
             <div className='election-candidates'>
                     Candidates:
-                    {candidates.map(cand => 
+                    {data.candidates.map((cand) => 
                     <li key={cand} className='election-candidate'>{cand}</li>)}
             </div>
+                    
             <Link to='/elections'>
             <button className='back-btn'>Back</button>
             </Link>
-        </div>
+        </div>):<p></p>
+    }
+    </div>
 
     );
 
 
-    const ElectionInfoCard = (candidates) =>{
-
-        return (
-            <div className='election-candidates'>
-                    Candidates:
-                    {candidates.candidates.map(cand => 
-                    <li key={cand} className='election-candidate'>{cand}</li>)}
-            </div>
-    
-        )
-    }
 }
 
 
