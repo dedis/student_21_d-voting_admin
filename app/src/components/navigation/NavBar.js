@@ -19,44 +19,50 @@ function NavBar() {
 
   return (
     
-    <nav className = "nav-wrapper">
-       
-        
-        <span className = "nav-container">
-        
-            <ul className = "nav-links">
-            
-                <NavLink  exact to='/' className='nav_link'  activeStyle={activeStyle}>
+    <div className='nav-links'>
+            <ul>
+                
+                <NavLink  exact to='/'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarHome}</li>
                 </NavLink>
-                <NavLink to='/create-election' className='nav_link'   activeStyle={activeStyle}>
+                <NavLink to='/create-election'   activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarCreate}</li>
                 </NavLink>
-                <NavLink to='/elections' className='nav_link'  activeStyle={activeStyle}>
+                <NavLink to='/elections'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarStatus}</li>
                 </NavLink>
-                <NavLink to='/vote' className='nav-link' activeStyle={activeStyle}>
+                <NavLink to='/vote'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarVote}</li>
                 </NavLink>
-                <NavLink to='/about' className='nav_link'  activeStyle={activeStyle}>
+                <NavLink to='/about'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarAbout}</li>
                 </NavLink>
+                
                 <li>
                     <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
                         <option value='en'>en</option>
                         <option value='fr'>fr</option>
                     </select>
                 </li>
-                <li>
-                    <img src={logo}></img>
+                <li className='last'>
+                    
+                        <img src={logo}></img>
+                   
                 </li>
+            
+                </ul>
                 
-            </ul>
-        </span>
+                
+                
+            
+            
+
+            </div>
+      
         
 
         
-    </nav>
+    
 
   );
 }

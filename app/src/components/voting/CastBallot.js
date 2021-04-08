@@ -52,7 +52,7 @@ function CastBallot(){
 
     return (
         <div className = 'cast-ballot'>
-            <span className='ballot-indication'>You are allowed to vote on the election below</span>
+            <div className='ballot-indication'>You are allowed to vote on the election below</div>
             {!loading?(<div className='cast-ballot-card'>
                     <Ballot electionData={election} choice={choice} handleCheck = {handleCheck}></Ballot>
                     <div className='cast-ballot-error'>{errors.noCandidate}</div>

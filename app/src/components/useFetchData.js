@@ -27,8 +27,10 @@ const useFetchData = (url) => {
                     setElectionRetrieved(false);
                     
                 } else {
+            
                 const data = await response.json();
                 cache.current[url] = data;
+                console.log(data);
                 setElectionData(data);
                 setLoading(false);
                 setElectionRetrieved(true);

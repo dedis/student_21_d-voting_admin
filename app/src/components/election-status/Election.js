@@ -19,7 +19,7 @@ function Election() {
 
     
     
-    const {loading,electionRetrieved, data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
+    const {loading,electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
 
 
     
@@ -33,7 +33,7 @@ function Election() {
                 {electionRetrieved? (<div>
             Click on the election name to display additional details.
             <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': data.electionName, 'status': data.electionStatus}} candidates = {data.candidates} />
+            <ElectionTable value={{'name': electionData.electionName, 'status': electionData.electionStatus}} candidates = {electionData.candidates} />
             </div>   
 
         </div>):<div>No election were retrieved!</div>}

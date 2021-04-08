@@ -1,5 +1,9 @@
 .create-election-wrapper{
-    padding-left: 3%;
+    text-align: left;
 
   
   }
+
+.election-form{
+  text-align: left;
+}

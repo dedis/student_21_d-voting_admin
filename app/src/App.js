@@ -16,12 +16,16 @@ function App() {
  const [lanContext, setLanContext] = useState('en');
   
   return (
-    <Router>
     <div className="App">
+     <Router>
+    
         <LanguageContext.Provider value={[lanContext, setLanContext]}>
-          <div className='content'>
+          <div className='app-nav'>
             <Route path='/:page' component={NavBar} />
+          
             <Route exact path='/' component={NavBar}/>
+          </div>
+          <div className='app-page'>
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/create-election" component={CreateElection}/>
@@ -35,9 +39,10 @@ function App() {
             <Footer/>
           </div>
         </LanguageContext.Provider>
-    </div>
+    
 
-  </Router>
+    </Router>
+  </div>
   );
 }
 
