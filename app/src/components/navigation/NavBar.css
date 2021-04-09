@@ -13,16 +13,18 @@
 .nav-links{
   display: flex;
  width:100%;
+ border-bottom: 1px solid;
+ 
 }
 
 .nav-links li{
   display: inline-flex;
   padding: 10px;
-  color:#E7DFDD;
+  color:rgb(71, 71, 71);
   height: 50px;
 }
 .nav-links li:hover{
-  color: #922cac;
+  color: #177368;
 }
 
 .nav-links li.last:last-child{

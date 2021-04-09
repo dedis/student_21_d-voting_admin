@@ -1,5 +1,12 @@
-
+.footer-container{
+  background-color: white;
+}
 
 .footer-text{
   text-align: center;
+  background-color: whitesmoke;
+}
+
+a{
+  color:#177368;
 }

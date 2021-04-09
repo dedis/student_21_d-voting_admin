@@ -1,10 +1,10 @@
 .table-elections{
     margin-top: 3%;
     border-collapse: collapse;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width:90%;
-    background-color : rgb(27, 35, 43);
+    width:100%;
+    background-color : white;
   }
   
   .table-elections td, .table-elections th{ 
@@ -12,28 +12,32 @@
   }
   
   .table-elections th{
-    background-color: #7b2391;
+    background-color: #177368;
     color:#282c34;
     text-align: center;
   }
   
   .table-elections tbody tr{ 
-    border-bottom: 1px solid rgb(45, 51, 58);
+    border-bottom: 1px solid rgb(71, 71, 71);
     background-color:rgb(27, 35, 43);
   }
   
   .table-elections tbody tr:last-of-type{
-    border-bottom: 2px solid #922cac;
+    border-bottom: 2px solid #177368;
   }
 
   .election-name-pointer{
     cursor:pointer;
-    background-color: rgb(27, 35, 43);
+    background-color: rgb(71, 71, 71);
     text-decoration: underline;
-    color:#922cac;
+    color:#177368;
   }
   
   .election-name-pointer:hover{
     display: inline-flex;
-    color: #7b2391;
+    color: #177368;
+  }
+
+ .election-link{
+    color:#177368 ;
   }

@@ -12,7 +12,7 @@ function About() {
   return(
     <div className='about-container'>
       <div className='about-text'>
-        {Translations[context].about}
+        {/*Translations[context].about*/}
       </div> 
       
         

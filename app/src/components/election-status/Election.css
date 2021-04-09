@@ -1,7 +1,8 @@
 .election-wrapper{
-    padding-left: 3%;
     padding-top:3%;
-    background-color : rgb(27, 35, 43);
+    padding: 0.5%;
+    background-color: #f6f6fa;
+
   }
   
   .election-btn{
@@ -48,5 +49,5 @@
   }
 
   .loading{
-    background-color: blueviolet;
+    background-color: #177368;
   }

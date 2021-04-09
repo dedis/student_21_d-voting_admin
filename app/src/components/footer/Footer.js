@@ -5,7 +5,7 @@ import './Footer.css';
 
 const Footer = () => (
     <div className="footer-container">
-      <div className='footer-text'>Footer</div>
+      <div className='footer-text'><span>&#169; 2021 <a href="https://github.com/dedis/dela">https://github.com/dedis/dela</a></span> </div>
     </div>
   );
   

@@ -1,6 +1,6 @@
 
 .election-details-wrapper{
-    padding-left: 3%;
+
     padding-bottom: 3%;
 }
 
@@ -14,7 +14,8 @@ padding-bottom: 3%;
 }
 
 .election-candidate{
-    margin-left: 3%;
+    list-style: disc;
+    margin-left: 4%;
 }
 
 .election-start-date{

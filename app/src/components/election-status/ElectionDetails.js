@@ -9,7 +9,7 @@ import StatusSuccess from './StatusSuccess';
 function ElectionDetails(props) {
 
     //TODO: later on, props will be an id to then make a custom https request
-    const {loading,data} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
+    const {loading, electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
     
     /*The data related to the election params is in props.location.data */
     //const candidates = props.location.data.candidates;
@@ -21,12 +21,12 @@ function ElectionDetails(props) {
         (<div className='election-wrapper'>
             <h1>Election details</h1>
             
-            <div className='election-title'>{data.electionName}</div>
+            <div className='election-title'>{electionData.electionName}</div>
             <div className='election-start-date'>Start date: fakeDate</div>
-            Status: <StatusSuccess stat={data.electionStatus} />
+            Status: <StatusSuccess stat={electionData.electionStatus} />
             <div className='election-candidates'>
                     Candidates:
-                    {data.candidates.map((cand) => 
+                    {electionData.candidates.map((cand) => 
                     <li key={cand} className='election-candidate'>{cand}</li>)}
             </div>
                     
