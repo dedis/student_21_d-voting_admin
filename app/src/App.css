@@ -3,12 +3,13 @@
 .App {
 
   color: rgb(71, 71, 71);
-  min-height: 100vh;
+  min-height: 90vh;
   background-color: white;
   position:relative;
   scroll-behavior: smooth;
   overflow: scroll;
   padding-bottom:50px;
+  
 
 }
 
@@ -25,15 +26,13 @@
 }
 */
 
+
+
 .app-nav{
   display: flex;
- 
-  background-color: white;
-
-
- 
-  
-
+  height: 100%;
+  background-color:whitesmoke;
+  margin-bottom: 5%;
 }
  
 .app-page{

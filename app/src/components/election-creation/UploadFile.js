@@ -51,7 +51,7 @@ function UploadFile() {
   return(
 
     <div className="form-content-right">
-      Choose a json file from your computer:
+      {Translations[context].upload}
 
       <input type="file" className ='input-file'
         multiple={false}
@@ -60,7 +60,7 @@ function UploadFile() {
         />
         <span className='form-error'>{errors.nothing}</span>
         <span className='upload-error'>{errors.extension}</span>
-        <input type="button" className = 'upload-json-btn' value="Upload" onClick={uploadJSON} />
+        <input type="button" className = 'upload-json-btn' value={Translations[context].createElec} onClick={uploadJSON} />
 
 
 

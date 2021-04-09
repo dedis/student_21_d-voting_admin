@@ -3,6 +3,12 @@
 .form-content-left{
     width:50%;
     float:left;
+    background-color: #f6f6fa;
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: #ececf0;
+    margin-right: 10%;
+    padding: 1%;
   }
  
   
@@ -28,12 +34,12 @@
     margin-bottom: 3%;
   }
   .form-name:focus{
-    border-color: #922cac;
+    border-color: #177368;
   }
   
   
   .form-choice:focus{
-    border-color: #922cac;
+    border-color: #177368;
   }
   
   .form-inputs {

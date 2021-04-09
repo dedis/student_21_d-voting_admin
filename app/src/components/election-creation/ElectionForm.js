@@ -123,7 +123,7 @@ function ElectionForm() {
                 <div>
                     <label htmlFor="new-name"
                     className='form-label'>
-                        Election name*: 
+                        {Translations[context].elecName}*: 
                     </label>
                     <input
                         id='new-name'
@@ -131,7 +131,7 @@ function ElectionForm() {
                         value={electionName}  
                         onChange={handleChangeName}    
                         className = 'form-name'  
-                        placeholder = 'enter the name'           
+                        placeholder = {Translations[context].namePlaceHolder}          
                     />
                 </div>
 
@@ -139,7 +139,7 @@ function ElectionForm() {
                     
                     <label htmlFor="new-choice"
                     className='form-label'>
-                        Add a candidate*:
+                        {Translations[context].addCandidate} *:
                     </label>
                     
                     <input
@@ -150,10 +150,10 @@ function ElectionForm() {
                         onChange={handleChangeCandidate}    
                         onSubmit = {onSubmitPreventDefault}  
                         className = 'form-choice'  
-                        placeholder = 'add a candidate'   
+                        placeholder = {Translations[context].addCandPlaceHolder}  
                         />               
                     <button type='button' className='submit-choice-btn' onClick={handleAdd} onSubmit={onSubmitPreventDefault} >
-                        Add
+                    {Translations[context].add}
                     </button>
                     <span className='form-error'>{errors.unique}</span>
                     <span className='form-error'>{errors.empty}</span>
@@ -168,7 +168,7 @@ function ElectionForm() {
                         <li key={cand}>
                                 {cand.text}
                                 <button type='button' className='delete-btn' onClick={() => handleDelete(cand.id)} onSubmit={onSubmitPreventDefault}>
-                                Delete
+                                {Translations[context].delete} 
                             </button>
                         </li>
                         </div>
@@ -179,7 +179,7 @@ function ElectionForm() {
 
                 <div>
                     <button type='submit' className='submit-form-btn' onSubmit={handleSubmit}>
-                        Create election
+                    {Translations[context].createElec} 
                     </button>
                 </div>
             </form>

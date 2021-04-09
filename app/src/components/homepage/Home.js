@@ -1,14 +1,19 @@
-import React from 'react';
+import {React, useContext} from 'react';
 import './Home.css';
 import {Translations} from '../language/Translations';
+import {LanguageContext} from '../language/LanguageContext';
 
 
 
-const Home = () => (
+function Home(){
+  const [context, setContext] = useContext(LanguageContext);
+
+  return(
     <div classeName='home'>
-      <h1>Welcome to the e-voting platform!</h1>
-      
+      <h1>{Translations[context].homeTitle}</h1>
+      <div className='home-txt'>{Translations[context].homeText}</div>
     </div>
   );
+}
 
 export default Home;

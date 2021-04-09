@@ -21,32 +21,33 @@ function NavBar() {
     
     <div className='nav-links'>
             <ul>
+                <li className='nav-logo'>
+                    <img src={logo}></img>
+                </li>
                 
-                <NavLink  exact to='/'  activeStyle={activeStyle}>
+                <NavLink className='nodeco' exact to='/'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarHome}</li>
                 </NavLink>
-                <NavLink to='/create-election'   activeStyle={activeStyle}>
+                <NavLink className='nodeco' to='/create-election'   activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarCreate}</li>
                 </NavLink>
-                <NavLink to='/elections'  activeStyle={activeStyle}>
+                <NavLink className='nodeco' to='/elections'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarStatus}</li>
                 </NavLink>
-                <NavLink to='/vote'  activeStyle={activeStyle}>
+                <NavLink className='nodeco' to='/vote'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarVote}</li>
                 </NavLink>
-                <NavLink to='/about'  activeStyle={activeStyle}>
+                <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
                     <li>{Translations[lanContext].navBarAbout}</li>
                 </NavLink>
                 
-                <li>
-                    <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
+               
+                <li className='last'>
+                <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
                         <option value='en'>en</option>
                         <option value='fr'>fr</option>
                     </select>
-                </li>
-                <li className='last'>
-                    
-                        <img src={logo}></img>
+                        
                    
                 </li>
             

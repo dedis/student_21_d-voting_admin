@@ -1,5 +1,11 @@
 .form-content-right{
-    margin-left:50%;
+    margin-left:60%;
+    background-color: #f6f6fa;
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: #ececf0;
+    padding:1%;
+ 
   }
   
   .upload-json-btn{

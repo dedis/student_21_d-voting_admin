@@ -1,6 +1,13 @@
-.home-text{
+.home{
     padding-bottom: 5%;
   }
+
+h1{
+  text-align: center;
+}
+.home-txt{
+  text-align: center;
+}
 
   .signin-admin-btn{
     display: block;
