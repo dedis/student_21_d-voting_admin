@@ -5,7 +5,7 @@ function Ballot(props){
     const electionData = props.electionData;
     const choices = electionData.candidates; //array containing the possible candidates
     
-    const [choiceSelected, setChoice] = useState('');
+    
 
     const handleChange = e => {
         //setChoice(e.target.value);
@@ -16,6 +16,11 @@ function Ballot(props){
     return (
         <div className='ballot'>
             <div className = 'ballot-wrapper'>
+                {props.lastVote !== '' ?
+                    (<div className='past-vote'>You have already voted for <b>{props.lastVote}</b> on this election.
+                    <br />
+                    You can change your vote by simply casting a new vote.</div>): (<span></span>)
+                    }
                 <h3 className = 'ballot-title'>{electionData.electionName}</h3>
                 <div className='checkbox-text'>Pick one candidate</div>
                 {choices.length !== 0 ?

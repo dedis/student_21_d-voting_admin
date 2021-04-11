@@ -24,6 +24,7 @@ function CastBallot(){
         
         let choiceCached = sessionStorage.getItem('myVote');
         setChoice(choiceCached);
+        setLastVote(choiceCached);
 
     } 
 
@@ -57,9 +58,9 @@ function CastBallot(){
         return (
             <div>
                 {electionRetrieved? 
+                /* TODO: check that the election is open */
                 (<div className='cast-ballot-card'>
-                
-                <Ballot electionData={electionData} choice={choice} handleCheck = {handleCheck}></Ballot>
+                <Ballot electionData={electionData} choice={choice} handleCheck = {handleCheck} lastVote={lastVote}></Ballot>
                 <div className='cast-ballot-error'>{errors.noCandidate}</div>
                 <button className='cast-ballot-btn' onClick={handleClick}>Cast vote</button>
                 </div>)
