@@ -1,16 +1,19 @@
 import {React, useState, useEffect} from 'react';
 import Ballot from './Ballot';
 import './CastBallot.css';
+import useFetchData from '../useFetchData';
 
 
 function CastBallot(){
 
 
-    const [election, setElection] = useState({});
-    const [loading, setLoading] = useState(true); 
+ 
+    const {loading,electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1'); 
 
     const [choice, setChoice] = useState('');
     const [errors, setErrors] = useState({});
+    const [lastVote, setLastVote] = useState('');
+
 
     useEffect(()=> {
         fetchItems();
@@ -18,11 +21,9 @@ function CastBallot(){
 
 
     const fetchItems = async() => {
-        const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');   
-        const items = await response.json();
-
-        setElection(items);
-        setLoading(false);
+        
+        let choiceCached = sessionStorage.getItem('myVote');
+        setChoice(choiceCached);
 
     } 
 
@@ -33,6 +34,7 @@ function CastBallot(){
     const sendBallot = () =>{
         /*TODO: API call to send ballot to backend */
 
+        sessionStorage.setItem('myVote', choice);
 
         alert('Your vote was successfully submitted!')
     }
@@ -45,19 +47,34 @@ function CastBallot(){
             setErrors(errors);
             return;
         }
+        setLastVote(choice);
         sendBallot();
-        setChoice('');
+        //setChoice('');
         setErrors({});
+    }
+
+    const showBallot = () => {
+        return (
+            <div>
+                {electionRetrieved? 
+                (<div className='cast-ballot-card'>
+                
+                <Ballot electionData={electionData} choice={choice} handleCheck = {handleCheck}></Ballot>
+                <div className='cast-ballot-error'>{errors.noCandidate}</div>
+                <button className='cast-ballot-btn' onClick={handleClick}>Cast vote</button>
+                </div>)
+                : <p>There is currently nothing to vote on.</p>}
+            </div>
+
+        )
+
+
     }
 
     return (
         <div className = 'cast-ballot'>
             <div className='ballot-indication'>You are allowed to vote on the election below.</div>
-            {!loading?(<div className='cast-ballot-card'>
-                    <Ballot electionData={election} choice={choice} handleCheck = {handleCheck}></Ballot>
-                    <div className='cast-ballot-error'>{errors.noCandidate}</div>
-                    <button className='cast-ballot-btn' onClick={handleClick}>Cast vote</button>
-                </div>) : <p></p>}
+            {!loading? showBallot() : <p></p>}
 
             
         </div>
