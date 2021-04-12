@@ -6,7 +6,7 @@ import {LanguageContext} from '../language/LanguageContext';
 
 
 function Home(){
-  const [context, setContext] = useContext(LanguageContext);
+  const [context, ] = useContext(LanguageContext);
 
   return(
     <div classeName='home'>

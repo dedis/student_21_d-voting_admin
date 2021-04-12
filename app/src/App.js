@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, {useState} from 'react';
 
 import './App.css';
 import CreateElection from './components/election-creation/CreateElection';

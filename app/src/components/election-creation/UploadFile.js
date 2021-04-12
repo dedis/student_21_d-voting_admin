@@ -5,7 +5,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
 function UploadFile() {
-    const [context, setContext] = useContext(LanguageContext);
+    const [context, ] = useContext(LanguageContext);
 
     const [file, setFile] = useState(null);
     const [errors, setErrors] = useState({});

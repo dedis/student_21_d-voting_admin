@@ -1,4 +1,4 @@
-import React, {useEffect,useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import './ElectionDetails.css';
@@ -10,7 +10,7 @@ import {LanguageContext} from '../language/LanguageContext';
 
 function ElectionDetails(props) {
 
-    const [context, setContext] = useContext(LanguageContext);
+    const [context, ] = useContext(LanguageContext);
 
     //TODO: later on, props will be an id to then make a custom https request
     const {loading, electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');

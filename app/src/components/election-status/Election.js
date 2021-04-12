@@ -1,5 +1,5 @@
-import React, {useEffect,useState, useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useContext} from 'react';
+
 
 import './Election.css';
 import ElectionTable from './ElectionTable';
@@ -19,7 +19,7 @@ import {LanguageContext} from '../language/LanguageContext';
 function Election() {
 
 
-    const [context, setContext] = useContext(LanguageContext);
+    const [context, ] = useContext(LanguageContext);
     
     const {loading,electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
 

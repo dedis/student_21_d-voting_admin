@@ -6,7 +6,7 @@ import {LanguageContext} from '../language/LanguageContext';
 const useChangeStatus = (stat) =>{
 
     const [status, setStatus] = useState(stat);
-    const [context, setContext] = useContext(LanguageContext);
+    const [context, ] = useContext(LanguageContext);
     
 
     const handleClose = () =>{

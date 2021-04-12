@@ -7,7 +7,7 @@ import {LanguageContext} from './language/LanguageContext';
 
 
 function About() {
- const [context, setContext] = useContext(LanguageContext)
+ const [context, ] = useContext(LanguageContext)
   
   return(
     <div className='about-container'>

@@ -1,5 +1,5 @@
-import { setNestedObjectValues } from 'formik';
-import {React, useState, useEffect, useRef} from 'react';
+
+import {useState, useEffect, useRef} from 'react';
 
 
 /*custom hook to fetch data from the skipchain */
@@ -14,13 +14,11 @@ const useFetchData = (url) => {
         const fetchItems = async() => {
             setLoading(true);
             if(cache.current[url]){
-                console.log("cache");
                 const data = cache.current[url];
                 setElectionData(data);
                 setLoading(false)
             } else {
                 const response = await fetch(url);
-                console.log("fetch");
                 /*TODO: define a status with backend to mean that no election exists  */
                 if(!response.ok){
                     setLoading(false);
@@ -30,7 +28,6 @@ const useFetchData = (url) => {
             
                 const data = await response.json();
                 cache.current[url] = data;
-                console.log(data);
                 setElectionData(data);
                 setLoading(false);
                 setElectionRetrieved(true);

@@ -11,7 +11,7 @@ function CastBallot(){
 
  
     const {loading,electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1'); 
-    const [context, setContext] = useContext(LanguageContext);
+    const [context, ] = useContext(LanguageContext);
 
     const [choice, setChoice] = useState('');
     const [errors, setErrors] = useState({});

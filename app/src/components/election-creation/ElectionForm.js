@@ -5,7 +5,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
 function ElectionForm() {
-    const [context, setContext] = useContext(LanguageContext);
+    const [context, ] = useContext(LanguageContext);
     const [electionName, setElectionName] = useState('');
 
     const [newCandidate, setNewCandidate] = useState('');

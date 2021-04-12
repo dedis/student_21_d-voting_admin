@@ -22,7 +22,7 @@ function NavBar() {
     <div className='nav-links'>
         <ul>
             <li className='nav-logo'>
-                <img src={logo}></img>
+                <img src={logo} alt='small logo'></img>
             </li>
             
             <NavLink className='nodeco' exact to='/'  activeStyle={activeStyle}>
