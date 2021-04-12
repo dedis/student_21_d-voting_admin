@@ -13,12 +13,19 @@ import ElectionDetails from './components/election-status/ElectionDetails';
 import {LanguageContext} from './components/language/LanguageContext';
 
 function App() {
- const [lanContext, setLanContext] = useState('en');
+  const getBrowserLanguage = () => {
+    var userLang = navigator.language || navigator.userLanguage; 
+    if(userLang.substring(0,2) === 'fr'){
+      return 'fr'
+    }
+    return 'en';
+  }
+ const [lanContext, setLanContext] =  useState(getBrowserLanguage());
   
+ 
   return (
     <div className="App">
      <Router>
-    
         <LanguageContext.Provider value={[lanContext, setLanContext]}>
           <div className='app-nav'>
             <Route path='/:page' component={NavBar} />
