@@ -28,8 +28,13 @@ img{
   color:#177368;
  
 }
-.nav-links li:hover{
-  color: #177368;
+.nodeco:hover{
+  font-weight: bold;
+  background-color: white;
+}
+
+.nodeco:active{
+  color: aliceblue;
 }
 
 .nav-links li.last:last-child{

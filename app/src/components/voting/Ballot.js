@@ -1,10 +1,12 @@
-import {React,useState} from 'react';
+import {React,useContext} from 'react';
 import './Ballot.css';
+import {Translations} from '../language/Translations';
+import {LanguageContext} from '../language/LanguageContext';
 
 function Ballot(props){
     const electionData = props.electionData;
     const choices = electionData.candidates; //array containing the possible candidates
-    
+    const [context, setContext] = useContext(LanguageContext);
     
 
     const handleChange = e => {
@@ -16,13 +18,16 @@ function Ballot(props){
     return (
         <div className='ballot'>
             <div className = 'ballot-wrapper'>
-                {props.lastVote !== '' ?
-                    (<div className='past-vote'>You have already voted for <b>{props.lastVote}</b> on this election.
+                {console.log(props.lastVote)}
+                {props.lastVote !== null ?
+
+                    (
+                    <div className='past-vote'>{Translations[context].alreadyVoted} <b>{props.lastVote}</b> {Translations[context].alreadyVoted2}
                     <br />
-                    You can change your vote by simply casting a new vote.</div>): (<span></span>)
+                    {Translations[context].changeVote}</div>): (<span></span>)
                     }
                 <h3 className = 'ballot-title'>{electionData.electionName}</h3>
-                <div className='checkbox-text'>Pick one candidate</div>
+                <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
                 {choices.length !== 0 ?
                 choices.map(choice => (
                     <div className='checkbox-full'>

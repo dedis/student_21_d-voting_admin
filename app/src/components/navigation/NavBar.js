@@ -14,57 +14,42 @@ function NavBar() {
 
     const [lanContext, setLanContext] = useContext(LanguageContext);
     const activeStyle = {
-        fontWeight: "bold"
+        fontWeight: "bold",
     };
 
   return (
     
     <div className='nav-links'>
-            <ul>
-                <li className='nav-logo'>
-                    <img src={logo}></img>
-                </li>
-                
-                <NavLink className='nodeco' exact to='/'  activeStyle={activeStyle}>
-                    <li>{Translations[lanContext].navBarHome}</li>
-                </NavLink>
-                <NavLink className='nodeco' to='/create-election'   activeStyle={activeStyle}>
-                    <li>{Translations[lanContext].navBarCreate}</li>
-                </NavLink>
-                <NavLink className='nodeco' to='/elections'  activeStyle={activeStyle}>
-                    <li>{Translations[lanContext].navBarStatus}</li>
-                </NavLink>
-                <NavLink className='nodeco' to='/vote'  activeStyle={activeStyle}>
-                    <li>{Translations[lanContext].navBarVote}</li>
-                </NavLink>
-                <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
-                    <li>{Translations[lanContext].navBarAbout}</li>
-                </NavLink>
-                
-               
-                <li className='last'>
-                <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
-                        <option value='en'>en</option>
-                        <option value='fr'>fr</option>
-                    </select>
-                        
-                   
-                </li>
+        <ul>
+            <li className='nav-logo'>
+                <img src={logo}></img>
+            </li>
             
-                </ul>
-                
-                
-                
+            <NavLink className='nodeco' exact to='/'  activeStyle={activeStyle}>
+                <li>{Translations[lanContext].navBarHome}</li>
+            </NavLink>
+            <NavLink className='nodeco' to='/create-election'   activeStyle={activeStyle}>
+                <li>{Translations[lanContext].navBarCreate}</li>
+            </NavLink>
+            <NavLink className='nodeco' to='/elections'  activeStyle={activeStyle}>
+                <li>{Translations[lanContext].navBarStatus}</li>
+            </NavLink>
+            <NavLink className='nodeco' to='/vote'  activeStyle={activeStyle}>
+                <li>{Translations[lanContext].navBarVote}</li>
+            </NavLink>
+            <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
+                <li>{Translations[lanContext].navBarAbout}</li>
+            </NavLink>
             
             
-
-            </div>
-      
-        
-
-        
-    
-
+            <li className='last'>
+            <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
+                    <option value='en'>en</option>
+                    <option value='fr'>fr</option>
+                </select>
+            </li>           
+        </ul>
+    </div>
   );
 }
 

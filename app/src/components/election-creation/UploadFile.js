@@ -18,24 +18,18 @@ function UploadFile() {
       let errors = {};
       if(file === null){
         console.log("no file")
-        errors['nothing'] = 'No file found';
+        errors['nothing'] = Translations[context].noFile;
         setErrors(errors);
         return false;
       } else {
         let fileName = file.name;
         if(fileName.substring(fileName.length-5,fileName.length)!=='.json'){
-          console.log("wrong extension");
-          errors['extension'] = 'The file is not a json file.';
+          errors['extension'] = Translations[context].notJson;
           setErrors(errors);
           return false;
         }
         return true;
-      }
-      
-        
-      
-      console.log(file);
-      
+      }    
     }
 
     const uploadJSON = e => {
@@ -58,8 +52,8 @@ function UploadFile() {
         accept='.json'
         onChange = {(e) => setFile(e.target.files[0])}  
         />
-        <span className='form-error'>{errors.nothing}</span>
-        <span className='upload-error'>{errors.extension}</span>
+        <span className='error'>{errors.nothing}</span>
+        <span className='error'>{errors.extension}</span>
         <input type="button" className = 'upload-json-btn' value={Translations[context].createElec} onClick={uploadJSON} />
 
 

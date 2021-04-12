@@ -19,3 +19,8 @@
     display: block;
     padding-top: 1%;
   }
+
+  .error{
+    color: #898a8d;
+    font-size: 12px; 
+  }
