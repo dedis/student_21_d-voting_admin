@@ -14,7 +14,7 @@ import {LanguageContext} from './components/language/LanguageContext';
 
 function App() {
   const getBrowserLanguage = () => {
-    var userLang = navigator.language || navigator.userLanguage; 
+    var userLang = navigator.userLanguage || navigator.language; 
     if(userLang.substring(0,2) === 'fr'){
       return 'fr'
     }

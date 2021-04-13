@@ -3,6 +3,7 @@ import {React, useState, useContext} from 'react';
 import './ElectionForm.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
+import Modal from '../modal/Modal';
 
 function ElectionForm() {
     const [context, ] = useContext(LanguageContext);
@@ -15,6 +16,7 @@ function ElectionForm() {
     const[errors, setErrors] = useState({});
 
     const[isSubmitting, setIsSubmitting] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const saveFormData = async() => {
         const election = {};
@@ -57,6 +59,7 @@ function ElectionForm() {
             try{
                 await saveFormData();
                 alert(Translations[context].electionSuccess)
+                setShowModal(prev => !prev);
                 setElectionName('');
                 setNewCandidate('');
                 setCandidates([]);
@@ -80,8 +83,6 @@ function ElectionForm() {
     }
 
     const checkUniqueCandidate = (cand) => {
-        console.log(cand);
-        console.log(candidates);
         return candidates.some(item => cand ===item.text);
     }
 
@@ -117,6 +118,7 @@ function ElectionForm() {
 
     return(
     <div className='form-wrapper'>
+        {/*<Modal showModal={showModal} setShowModal={setShowModal} />*/}
         <div className="form-content-left">
 
             <form className = 'form-choices' onSubmit={handleSubmit}>
