@@ -33,8 +33,8 @@ export const Translations = {
         startDate: 'Start date:',
         candidates: 'Candidates:',
         back: 'Back',
-        closeElection: 'Close',
-        cancelElection: 'Cancel',
+        close: 'Close',
+        cancel: 'Cancel',
         confirmCloseElection: 'Are you sure you want to close this election?',
         confirmCancelElection: 'Are you sure you want to cancel this election?',
         statusOpen: 'Open',
@@ -50,6 +50,7 @@ export const Translations = {
         castVote: 'Cast vote',
         noVote: 'There is currently nothing to vote on.',
         voteAllowed: 'You are allowed to vote on the election below.',
+        yes: 'Yes',
         about: <Fragment>
             This website hosts the interface of an evoting system. This system runs smart contracts, handled by a set of Byzantine fault-tolerant nodes.
         <br/>
@@ -97,8 +98,8 @@ export const Translations = {
         startDate: 'Date de début:',
         candidates: 'Candidats:',
         back: 'Retour',
-        closeElection: 'Terminer',
-        cancelElection: 'Annuler',
+        close: 'Terminer',
+        cancel: 'Annuler',
         confirmCloseElection: 'Etes-vous sûr(e) de vouloir terminer l\'élection?',
         confirmCancelElection: 'Etes-vous sûr(e) de vouloir annuler l\'élection?',
         statusOpen: 'En cours',
@@ -114,6 +115,7 @@ export const Translations = {
         castVote: 'Voter',
         noVote: 'Il n\'y a actullemment aucune votation en cours.',
         voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous.',
+        yes: 'Oui',
         about: <Fragment>
         Ce site Internet héberge l'interface d'un système de vote électronique. Ce système exécute des contrats intelligents basés sur le problème des généraux byzantins.
     <br/>

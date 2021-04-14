@@ -4,7 +4,7 @@ import './UploadFile.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
-function UploadFile() {
+function UploadFile({setShowModal}) {
     const [context, ] = useContext(LanguageContext);
 
     const [file, setFile] = useState(null);
@@ -38,6 +38,9 @@ function UploadFile() {
         if(validateFileExtension()){
           setFile('');
           /*TODO : send file to backend*/ 
+
+
+          setShowModal(prev => !prev);
         }
     }
 

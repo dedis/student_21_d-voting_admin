@@ -1,5 +1,6 @@
 .form-content-right{
     display: block;
+    max-width: 50%;
     width: fit-content;
     height: fit-content;
     margin-left:60%;

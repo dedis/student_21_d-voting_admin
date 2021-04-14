@@ -3,10 +3,20 @@ import {React} from 'react';
 
 import './Modal.css';
 
-function Modal({showModal, setShowModal}){
+function Modal({showModal, setShowModal, textModal, buttonLeft, buttonRight}){
     
     const closeModal = () => {
         setShowModal(!showModal);
+    }
+
+    const displayButtons = () => {
+        return (
+            <div >
+                {buttonLeft!==null?(<button className='btn-left'>{buttonLeft}</button>):null}
+                <button className='btn-right' onClick={closeModal}>{buttonRight}</button>
+                
+            </div>
+        )
     }
 
     return (
@@ -14,8 +24,11 @@ function Modal({showModal, setShowModal}){
         {showModal? (
             <div className='modal-background'>
                 <div className='modal-wrapper'>
-                    Modal window
-                    <button className='close-btn' onClick={closeModal}>Close</button>
+                    <div className='text-container'>{textModal}</div>
+                    
+                    <div className='buttons-container'>
+                    {displayButtons()}
+                    </div>
                 </div>
             </div>)
         

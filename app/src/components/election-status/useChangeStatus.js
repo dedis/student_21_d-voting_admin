@@ -7,6 +7,9 @@ const useChangeStatus = (stat) =>{
 
     const [status, setStatus] = useState(stat);
     const [context, ] = useContext(LanguageContext);
+
+    
+
     
 
     const handleClose = () =>{
@@ -36,14 +39,14 @@ const useChangeStatus = (stat) =>{
                 return <span>
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>{Translations[context].statusOpen}</span>
-                    <button className='election-btn' onClick={() => {if(window.confirm(Translations[context].confirmCloseElection))handleClose();}}>{Translations[context].closeElection}</button>
-                    <button className='election-btn' onClick={() => {if(window.confirm(Translations[context].confirmCancelElection))handleCancel();}}>{Translations[context].cancelElection}</button>
+                    <button className='election-btn' onClick={() => {if(window.confirm(Translations[context].confirmCloseElection))handleClose();}}>{Translations[context].close}</button>
+                    <button className='election-btn' onClick={() => {if(window.confirm(Translations[context].confirmCancelElection))handleCancel();}}>{Translations[context].cancel}</button>
                 </span>;  
             case '2':
                 return <span>
                     <span className='election-status-closed'></span>
                     <span className='election-status-text'>{Translations[context].statusClose}</span>
-                    <button className='election-btn'>{Translations[context].seeResults}</button>
+                    <button className='election-btn'>{Translations[context].seeResfults}</button>
                 </span>;  
             case '3':
                 return <span>

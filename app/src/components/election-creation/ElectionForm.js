@@ -5,7 +5,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import Modal from '../modal/Modal';
 
-function ElectionForm() {
+function ElectionForm({setShowModal}){
     const [context, ] = useContext(LanguageContext);
     const [electionName, setElectionName] = useState('');
 
@@ -16,7 +16,7 @@ function ElectionForm() {
     const[errors, setErrors] = useState({});
 
     const[isSubmitting, setIsSubmitting] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    
 
     const saveFormData = async() => {
         const election = {};
@@ -58,7 +58,6 @@ function ElectionForm() {
             setIsSubmitting(true);
             try{
                 await saveFormData();
-                alert(Translations[context].electionSuccess)
                 setShowModal(prev => !prev);
                 setElectionName('');
                 setNewCandidate('');
@@ -108,6 +107,7 @@ function ElectionForm() {
         };
 
         setNewCandidate('');
+        setErrors({'newCandidate': ''})
         setCandidates(candidates.concat(newItem));     
     }
 
@@ -118,7 +118,6 @@ function ElectionForm() {
 
     return(
     <div className='form-wrapper'>
-        {/*<Modal showModal={showModal} setShowModal={setShowModal} />*/}
         <div className="form-content-left">
         <div className='option'>Option 1</div>
             <form className = 'form-choices' onSubmit={handleSubmit}>
