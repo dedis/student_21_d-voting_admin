@@ -15,7 +15,7 @@ function CreateElection() {
       <h4>{Translations[context].create}</h4>
       
       <div className='election-form'>
-        <ElectionForm />        
+        <ElectionForm />     
         <UploadFile />
       </div>
     </div>

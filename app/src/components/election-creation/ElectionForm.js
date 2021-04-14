@@ -120,7 +120,7 @@ function ElectionForm() {
     <div className='form-wrapper'>
         {/*<Modal showModal={showModal} setShowModal={setShowModal} />*/}
         <div className="form-content-left">
-
+        <div className='option'>Option 1</div>
             <form className = 'form-choices' onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="new-name"

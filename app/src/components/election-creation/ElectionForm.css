@@ -1,7 +1,8 @@
 
 
 .form-content-left{
-    width:50%;
+    width:fit-content;
+    height: fit-content;
     float:left;
     background-color: #f6f6fa;
     outline-style: solid;
@@ -75,4 +76,9 @@
     margin-left: 10px;
     border-radius: 8px;
     cursor: pointer;
+  }
+
+  .option{
+    font-weight:bold;
+    padding-bottom: 5%;
   }

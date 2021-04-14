@@ -1,4 +1,7 @@
 .form-content-right{
+    display: block;
+    width: fit-content;
+    height: fit-content;
     margin-left:60%;
     background-color: #f6f6fa;
     outline-style: solid;
@@ -23,4 +26,9 @@
   .error{
     color: #898a8d;
     font-size: 12px; 
+  }
+
+  .option{
+    font-weight:bold;
+    padding-bottom: 5%;
   }

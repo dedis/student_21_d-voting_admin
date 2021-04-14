@@ -45,6 +45,7 @@ function UploadFile() {
   return(
 
     <div className="form-content-right">
+      <div className='option'>Option 2</div>
       {Translations[context].upload}
 
       <input type="file" className ='input-file'
