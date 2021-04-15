@@ -1,20 +1,22 @@
-
 import {React} from 'react';
 
-import './Modal.css';
+function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
 
-function Modal({showModal, setShowModal, textModal,  buttonRight}){
-    
     const closeModal = () => {
-        setShowModal(false);
+        setShowModal(prev=>!prev);
     }
 
-
+    const validateChoice = () => {
+        setUserValidate(true);
+        closeModal();
+    }
 
     const displayButtons = () => {
         return (
-            <div >            
-                <button className='btn-right' onClick={closeModal}>{buttonRight}</button>              
+            <div >
+                <button className='btn-left' onClick={closeModal}>No</button>
+                <button className='btn-right' onClick={validateChoice}>Yes</button>
+                
             </div>
         )
     }
@@ -35,7 +37,6 @@ function Modal({showModal, setShowModal, textModal,  buttonRight}){
         :null}
         </div>
     );
-
 }
 
-export default Modal;
+export default ConfirmModal;

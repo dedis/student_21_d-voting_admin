@@ -3,7 +3,7 @@ import {React, useState, useContext} from 'react';
 import './ElectionForm.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
-import Modal from '../modal/Modal';
+
 
 function ElectionForm({setShowModal}){
     const [context, ] = useContext(LanguageContext);
