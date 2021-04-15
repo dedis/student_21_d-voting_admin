@@ -46,7 +46,7 @@ const useChangeStatus = (stat) =>{
                 return <span>
                     <span className='election-status-closed'></span>
                     <span className='election-status-text'>{Translations[context].statusClose}</span>
-                    <button className='election-btn'>{Translations[context].seeResfults}</button>
+                    <button className='election-btn'>{Translations[context].seeResults}</button>
                 </span>;  
             case '3':
                 return <span>

@@ -73,7 +73,7 @@ export const Translations = {
         navBarVote: 'Voter',
         navBarAbout: 'A propos',
         homeTitle: 'Bienvenue sur notre platforme d\'e-voting !',
-        homeText: 'Utilisez la barre de navigation au sommet de la page pour vous déplacer',
+        homeText: 'Utilisez la barre de navigation au sommet de la page pour vous déplacer sur le site.',
         elecName:'Nom de l\'élection',
         namePlaceHolder: 'Tapez le nom',
         addCandidate: 'Ajouter un candidat',

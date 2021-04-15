@@ -18,6 +18,7 @@ const useFetchData = (url) => {
                 setElectionData(data);
                 setLoading(false)
             } else {
+                
                 const response = await fetch(url);
                 /*TODO: define a status with backend to mean that no election exists  */
                 if(!response.ok){
