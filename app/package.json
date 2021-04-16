@@ -41,14 +41,6 @@
   "devDependencies": {
     "eslint-plugin-react-hooks": "^4.2.0"
   },
-  "proxy" : {
-    "/dkg/pubkey" : {
-      "target":"http://localhost:1000",
-      "changeOrigin" : true
-    },
-    "/evoting/login" : {
-      "target":"http://localhost:2000",
-      "changeOrigin" : true
-    }
-  }
+
+  "proxy" : "http://localhost:2000"
 }

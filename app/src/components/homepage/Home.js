@@ -8,10 +8,11 @@ import useFetchData from '../useFetchData';
 
 function Home(){
   const [context, ] = useContext(LanguageContext);
-  const endpointLogin = '/dkg/pubkey';
+  const endpointPubKey = '/dkg/pubkey';
   const endpointSignin = '/evoting/login';
 
-  const {loading,electionRetrieved, electionData} =  useFetchData(endpointLogin, false); 
+  const [loading,electionRetrieved, electionData] =  useFetchData(endpointPubKey, false); 
+  const [loading1,electionRetrieved1, signinData] =  useFetchData(endpointSignin, true);
 
   function toHexString(byteArray) {
     return Array.from(byteArray, function(byte) {
@@ -20,8 +21,7 @@ function Home(){
   }
   const showKey = () => {
     console.log(electionData);
-
-
+    
   }
 
   return(
@@ -29,7 +29,11 @@ function Home(){
       <h1>{Translations[context].homeTitle}</h1>
       {loading? null 
                 :(electionRetrieved? 
-                    (<div>{showKey()}</div>)
+                    (<div>{console.log(electionData)}</div>)
+                    :null)}
+      {loading1? null 
+                :(electionRetrieved1? 
+                    (<div>{console.log(signinData)}</div>)
                     :null)}
       
       <div className='home-txt'>{Translations[context].homeText}</div>

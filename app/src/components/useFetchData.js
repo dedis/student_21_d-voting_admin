@@ -12,7 +12,7 @@ const useFetchData = (url, isJson=true) => {
     /* https://stackoverflow.com/questions/34309988/byte-array-to-hex-string-conversion-in-javascript */
     const toHexString = (byteArray) =>{
         return Array.from(byteArray, function(byte) {
-          return ((byte).toString(16)).slice(-2);
+          return ('0'+(byte).toString(16)).slice(-2);
         }).join('')
       }
 
@@ -36,7 +36,7 @@ const useFetchData = (url, isJson=true) => {
 
                     if(isJson){
                         let data = await response.json();
-                        cache.current[url] = data;
+                        /*cache.current[url] = data;*/
                         setElectionData(data);
                     } else {
                         let data = await response.arrayBuffer();
@@ -54,7 +54,7 @@ const useFetchData = (url, isJson=true) => {
         fetchItems()
 
     },[url]);
-    return {loading, electionRetrieved, electionData};
+    return [loading, electionRetrieved, electionData];
 };
 
 export default useFetchData;
