@@ -22,7 +22,7 @@ function Election() {
     const [context, ] = useContext(LanguageContext);
     
     
-    const {loading,electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1'); 
+    const [loading,electionRetrieved, electionData] =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1'); 
 
 
     

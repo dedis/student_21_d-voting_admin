@@ -20,6 +20,7 @@ const useFetchData = (url, isJson=true) => {
         if (!url) return;
         const fetchItems = async() => {
             setLoading(true);
+
             if(cache.current[url]){
                 const data = cache.current[url];
                 setElectionData(data);

@@ -4,18 +4,20 @@ import './CastBallot.css';
 import useFetchData from '../useFetchData';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
+import Modal from '../modal/Modal';
 
 
 function CastBallot(){
 
 
  
-    const {loading,electionRetrieved, electionData} =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1'); 
+    const [loading,electionRetrieved, electionData] =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1', true); 
     const [context, ] = useContext(LanguageContext);
 
     const [choice, setChoice] = useState('');
     const [errors, setErrors] = useState({});
     const [lastVote, setLastVote] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
 
     useEffect(()=> {
@@ -40,7 +42,7 @@ function CastBallot(){
 
         sessionStorage.setItem('myVote', choice);
 
-        alert(Translations[context].voteSuccess)
+        setShowModal(prev => !prev);
     }
 
     const handleClick = () => {
@@ -60,6 +62,7 @@ function CastBallot(){
     const showBallot = () => {
         return (
             <div>
+                <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
                 {electionRetrieved? 
                 /* TODO: check that the election is open */
                 (<div className='cast-ballot-card'>

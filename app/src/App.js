@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import './App.css';
 import CreateElection from './components/election-creation/CreateElection';
@@ -11,8 +11,13 @@ import Footer from './components/footer/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ElectionDetails from './components/election-status/ElectionDetails';
 import {LanguageContext} from './components/language/LanguageContext';
+import Login from './components/login/Login';
+import useFetchData from './components/useFetchData';
+import useToken from './useToken';
+
 
 function App() {
+  
   const getBrowserLanguage = () => {
     var userLang = navigator.userLanguage || navigator.language; 
     if(userLang.substring(0,2) === 'fr'){
@@ -20,19 +25,26 @@ function App() {
     }
     return 'en';
   }
- const [lanContext, setLanContext] =  useState(getBrowserLanguage());
+
+  const [lanContext, setLanContext] =  useState(getBrowserLanguage());
   
+  
+  const [token, setToken] = useToken();
+
  
   return (
     <div className="App">
+      
      <Router>
         <LanguageContext.Provider value={[lanContext, setLanContext]}>
+        
           <div className='app-nav'>
             <Route path='/:page' component={NavBar} />
           
             <Route exact path='/' component={NavBar}/>
           </div>
-          <div className='app-page'>
+          <div data-testid="content" className='app-page'>
+          {!token? (<div className='login-container'><Login setToken={setToken}/></div>): (<div>
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/create-election" component={CreateElection}/>
@@ -41,7 +53,9 @@ function App() {
               <Route path="/vote" component={CastBallot}/>
               <Route path="/about" component={About}/>
             </Switch>
+            </div>)}
           </div>
+    
           <div className='footer-container'>
             <Footer/>
           </div>
@@ -49,6 +63,7 @@ function App() {
     
 
     </Router>
+
   </div>
   );
 }
