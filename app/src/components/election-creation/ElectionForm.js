@@ -16,19 +16,40 @@ function ElectionForm({setShowModal}){
     const[errors, setErrors] = useState({});
 
     const[isSubmitting, setIsSubmitting] = useState(false);
+
+    const createEndPoint = '/evoting/create';
     
+    /*transform string of type "1,4,5" to an array of number [1,4,5] */
+    function unpack(str) {
+        var bytes = [];
+        var b  =str.split(",");
+        
+        for(var i = 0; i < b.length; i++) {
+            var char = parseInt(b[i]);
+            bytes.push(char);
+        }
+
+        return bytes;
+    }
 
     const saveFormData = async() => {
         const election = {};
-        election['electionName']=electionName;
-        election['candidates'] = candidates;
+        election['Title']=electionName;
+        election['AdminId'] = sessionStorage.getItem('id');
+        election['Candidates'] = candidates;
+        election['Token'] = sessionStorage.getItem('token');
+        election['PublicKey'] = unpack(sessionStorage.getItem('pubKey'));
+        console.log(JSON.stringify(election));
+
         try{
-            const response = await fetch('https://60475e95b801a40017ccbff6.mockapi.io/api/election', {
+            const response = await fetch(createEndPoint, {
                 method: 'POST',
                 body: JSON.stringify(election)
             });
         /* Need to deal with the response : saving id, key,...!!!!!!!*/
             const data = await response.json();
+            console.log(data);
+            console.log("done");
             return;
         } catch(e) {
             return e;
@@ -108,11 +129,11 @@ function ElectionForm({setShowModal}){
 
         setNewCandidate('');
         setErrors({'newCandidate': ''})
-        setCandidates(candidates.concat(newItem));     
+        setCandidates(candidates.concat(newCandidate));     
     }
 
     const handleDelete = choiceId => {
-        const choices = candidates.filter(candi => candi.id !== choiceId);
+        const choices = candidates.filter(candi => candi !== choiceId);
         setCandidates(choices);
     }
 
@@ -167,8 +188,8 @@ function ElectionForm({setShowModal}){
                     {candidates.map(cand => (
                         <div className='ch'>
                         <li key={cand}>
-                                {cand.text}
-                                <button type='button' className='delete-btn' onClick={() => handleDelete(cand.id)} onSubmit={onSubmitPreventDefault}>
+                                {cand}
+                                <button type='button' className='delete-btn' onClick={() => handleDelete(cand)} onSubmit={onSubmitPreventDefault}>
                                 {Translations[context].delete} 
                             </button>
                         </li>

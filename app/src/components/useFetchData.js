@@ -41,9 +41,10 @@ const useFetchData = (url, isJson=true) => {
                         setElectionData(data);
                     } else {
                         let data = await response.arrayBuffer();
+                        console.log(new Uint8Array(data));
                         const view =  toHexString(new Uint8Array(data));
 
-                        setElectionData(view);
+                        setElectionData(new Uint8Array(data));
                         
                     }
                 setLoading(false);

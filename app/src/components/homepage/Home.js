@@ -11,7 +11,7 @@ function Home(){
   const endpointPubKey = '/dkg/pubkey';
 
 
-  const [loading,electionRetrieved, electionData] =  useFetchData(endpointPubKey, false); 
+  const [loading,electionRetrieved, pubKey] =  useFetchData(endpointPubKey, false); 
 
 
   function toHexString(byteArray) {
@@ -20,7 +20,7 @@ function Home(){
     }).join('')
   }
   const showKey = () => {
-    console.log(electionData);
+    console.log(pubKey);
     
   }
 
@@ -29,7 +29,7 @@ function Home(){
       <h1>{Translations[context].homeTitle}</h1>
       {loading? null 
                 :(electionRetrieved? 
-                    (<div>{console.log(electionData)}</div>)
+                    (<div>{sessionStorage.setItem('pubKey', pubKey)}</div>)
                     :null)}
      
       

@@ -12,6 +12,7 @@ function Login({setToken}) {
 
     const handleClick = () => {
         setToken(signinData.Token);
+        sessionStorage.setItem('id', signinData.UserID);
         console.log("jel");
     }
     return (
