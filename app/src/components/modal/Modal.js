@@ -9,8 +9,6 @@ function Modal({showModal, setShowModal, textModal,  buttonRight}){
         setShowModal(false);
     }
 
-
-
     const displayButtons = () => {
         return (
             <div >            

@@ -5,7 +5,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
 
-function ElectionForm({setShowModal}){
+function ElectionForm({setShowModal, setTextModal}){
     const [context, ] = useContext(LanguageContext);
     const [electionName, setElectionName] = useState('');
 
@@ -20,6 +20,12 @@ function ElectionForm({setShowModal}){
     const createEndPoint = '/evoting/create';
     
     /*transform string of type "1,4,5" to an array of number [1,4,5] */
+    const toHexString = (byteArray) =>{
+        return Array.from(byteArray, function(byte) {
+          return ('0'+(byte).toString(16)).slice(-2);
+        }).join('')
+    }
+
     function unpack(str) {
         var bytes = [];
         var b  =str.split(",");
@@ -32,7 +38,23 @@ function ElectionForm({setShowModal}){
         return bytes;
     }
 
-    const saveFormData = async() => {
+    /* Append the id of a created election to others in the localStorage */
+    const storeIdNewElection = (id) => {
+        var idsStored = localStorage.getItem('electionIDs');
+        if(!idsStored){
+            localStorage.setItem('electionIDs', id);
+        } else {
+            if(Array.isArray(idsStored)){
+                localStorage.setItem('electionIDs', idsStored.concat(id));
+            } else {
+                idsStored = [idsStored];
+                localStorage.setItem('electionIDs',idsStored.concat(id));
+            }
+        }
+    }
+
+    const sendFormData = async() => {
+        //create the JSON object
         const election = {};
         election['Title']=electionName;
         election['AdminId'] = sessionStorage.getItem('id');
@@ -40,6 +62,7 @@ function ElectionForm({setShowModal}){
         election['Token'] = sessionStorage.getItem('token');
         election['PublicKey'] = unpack(sessionStorage.getItem('pubKey'));
         console.log(JSON.stringify(election));
+        console.log(toHexString(election['PublicKey']));
 
         try{
             const response = await fetch(createEndPoint, {
@@ -47,11 +70,17 @@ function ElectionForm({setShowModal}){
                 body: JSON.stringify(election)
             });
         /* Need to deal with the response : saving id, key,...!!!!!!!*/
+            if(response.ok){
             const data = await response.json();
             console.log(data);
-            console.log("done");
-            return;
+            return data.ElectionID;
+            } else{
+                return (-1);
+            }
+
+ 
         } catch(e) {
+            
             return e;
         }
    
@@ -78,7 +107,13 @@ function ElectionForm({setShowModal}){
         if(validate()){
             setIsSubmitting(true);
             try{
-                await saveFormData();
+               const response =  await sendFormData();
+               if(response === -1){
+                    setTextModal(Translations[context].electionFail);
+               } else{
+                    setTextModal(Translations[context].electionSuccess);
+                    storeIdNewElection(response);
+               }
                 setShowModal(prev => !prev);
                 setElectionName('');
                 setNewCandidate('');

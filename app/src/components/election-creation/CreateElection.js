@@ -11,14 +11,15 @@ import Modal from '../modal/Modal';
 function CreateElection() {
   const [context, setContext] = useContext(LanguageContext);
   const [showModal, setShowModal] = useState(false);
+  const [textModal, setTextModal] = useState('');
 
   return (
     <div className= 'create-election-wrapper'>
-      <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].electionSuccess} buttonRight={Translations[context].close} />     
+      <Modal showModal={showModal} setShowModal={setShowModal} textModal = {textModal} buttonRight={Translations[context].close} />     
       <h4>{Translations[context].create}</h4>
       
       <div className='election-form'>
-        <ElectionForm setShowModal={setShowModal} />     
+        <ElectionForm setShowModal={setShowModal} setTextModal={setTextModal} />     
         <UploadFile setShowModal={setShowModal}/>
       </div>
     </div>
