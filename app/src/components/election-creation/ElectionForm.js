@@ -62,7 +62,8 @@ function ElectionForm({setShowModal, setTextModal}){
         election['Token'] = sessionStorage.getItem('token');
         election['PublicKey'] = unpack(sessionStorage.getItem('pubKey'));
         console.log(JSON.stringify(election));
-        console.log(toHexString(election['PublicKey']));
+        console.log(typeof JSON.stringify(election));
+
 
         try{
             const response = await fetch(createEndPoint, {

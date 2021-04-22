@@ -20,7 +20,7 @@ function CreateElection() {
       
       <div className='election-form'>
         <ElectionForm setShowModal={setShowModal} setTextModal={setTextModal} />     
-        <UploadFile setShowModal={setShowModal}/>
+        <UploadFile setShowModal={setShowModal} setTextModal={setTextModal}/>
       </div>
     </div>
   );
