@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@dedis/kyber": "^3.4.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
@@ -41,6 +42,17 @@
   "devDependencies": {
     "eslint-plugin-react-hooks": "^4.2.0"
   },
-
-  "proxy" : "http://localhost:2000"
+  "proxy": "http://localhost:2000",
+  "compilerOptions": {
+    "paths": {
+      "@dedis/kyber": [
+        "../cothority/external/js/kyber/src",
+        "node_modules/@dedis/kyber/*"
+      ],
+      "@dedis/kyber/*": [
+        "../cothority/external/js/kyber/src/*",
+        "node_modules/@dedis/kyber/*"
+      ]
+    }
+  }
 }

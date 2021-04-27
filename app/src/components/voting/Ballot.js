@@ -18,7 +18,6 @@ function Ballot(props){
     return (
         <div className='ballot'>
             <div className = 'ballot-wrapper'>
-                {console.log(props.lastVote)}
                 {props.lastVote !== null ?
 
                     (

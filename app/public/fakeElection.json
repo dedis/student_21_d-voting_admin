@@ -1,6 +1,6 @@
 {
   "Title":"election json",
-  "AdminId":"8dd1e65d-eed4-44cb-b67d-aa5030b9427d",
+  "AdminId":"8a7b4bef-03d8-4083-8e75-0dc7351889fc",
   "Candidates":["json1", "json2"],
   "Token":"token",
   "PublicKey":[101,51,62,207,83,227,1,132,34,38,91,68,198,24,218,109,135,158,138,88,211,173,241,0,26,137,147,40,94,189,92,120]

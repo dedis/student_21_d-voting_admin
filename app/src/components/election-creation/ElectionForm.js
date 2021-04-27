@@ -19,13 +19,13 @@ function ElectionForm({setShowModal, setTextModal}){
 
     const createEndPoint = '/evoting/create';
     
-    /*transform string of type "1,4,5" to an array of number [1,4,5] */
+   
     const toHexString = (byteArray) =>{
         return Array.from(byteArray, function(byte) {
           return ('0'+(byte).toString(16)).slice(-2);
         }).join('')
     }
-
+  /*transform string of type "1,4,5" to an array of number [1,4,5] */
     function unpack(str) {
         var bytes = [];
         var b  =str.split(",");
