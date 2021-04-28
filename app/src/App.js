@@ -26,6 +26,7 @@ function App() {
     return 'en';
   }
 
+  //language state
   const [lanContext, setLanContext] =  useState(getBrowserLanguage());
   
   

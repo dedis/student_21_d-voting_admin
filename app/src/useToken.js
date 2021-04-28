@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import useFetchData from './components/useFetchData';
 
 function useToken(){
 

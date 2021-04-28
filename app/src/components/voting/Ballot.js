@@ -3,6 +3,7 @@ import './Ballot.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
+
 function Ballot(props){
     const electionData = props.electionData;
     const choices = electionData.candidates; //array containing the possible candidates

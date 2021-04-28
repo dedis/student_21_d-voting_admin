@@ -6,18 +6,19 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import Modal from '../modal/Modal';
 import kyber from "@dedis/kyber";
+import {encryptVote} from './VoteEncrypt';
 
-
+/*
+Functional component
+*/
 
 function CastBallot(){
 
-    
-    
- 
     const [loading,electionRetrieved, electionData] =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1', true); 
     const [context, ] = useContext(LanguageContext);
 
     const castBallotEndPoint = "/evoting/cast";
+    const edCurve = kyber.curve.newCurve("edwards25519")
 
     const [choice, setChoice] = useState('');
     const [errors, setErrors] = useState({});
@@ -27,11 +28,10 @@ function CastBallot(){
 
     useEffect(()=> {
         fetchItems();
-    }, []); /*!!!! need to check what this empty array means */ 
+    }, []); 
 
 
-    const fetchItems = async() => {
-        
+    const fetchItems = async() => {  
         let choiceCached = sessionStorage.getItem('myVote');
         setChoice(choiceCached);
         setLastVote(choiceCached);
@@ -54,61 +54,27 @@ function CastBallot(){
         return new Uint8Array(bytes);
     }
 
-    /*Encrypt the vote on the EC using the dkg public key */
-    const encryptVote = ()  =>{
-        const edCurve = kyber.curve.newCurve("edwards25519")
-        
-        //embed the vote into a curve point
-        const enc = new TextEncoder();
-        const voteByte = enc.encode(choice); //vote as []byte      
-        const buff = Buffer.from(voteByte.buffer);
-        const M = edCurve.point().embed(buff); 
-
-        //TODO: deal with message bigger than 29 bytes
-        /*
-        const max = edCurve.point().embedLen();
-        if(max > voteByte.length){
-            max = voteByte.length;
-        }
-        const remainder = voteByte.subarray(max,voteByte.length);
-        */
-
-        //dkg public key as a point on the EC 
-        const keyBuff = Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer);
-        const p = edCurve.point();
-        p.unmarshalBinary(keyBuff); //unmarshall dkg public key
-        const pubKeyPoint = p.clone(); //get the point corresponding to the dkg public key
-
-        const k = edCurve.scalar().pick();  //ephemeral private key
-        const K = edCurve.point().mul(k, null); // ephemeral DH public key
-        
-        const S = edCurve.point().mul(k, pubKeyPoint); //ephemeral DH shared secret
-        const C = S.add(S,M); //message blinded with secret
-
-
-        //(K,C) are what we'll send to the backend TODO: add the remainder?
-        return [K,C];
-    }
+   
     
     const sendBallot = async() =>{
-        /*TODO: API call to send ballot to backend */
         const ballot = {};
        
         sessionStorage.setItem('myVote', choice);
 
         setShowModal(prev => !prev);
         
-        const [K,C] = encryptVote();
+        const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
         const KBuff = K.toProto();
         const CBuff = C.toProto();
+        //transform buffer to []number
         const vote = [...Buffer.concat([KBuff,CBuff])].map(x => parseInt(x,10));
 
-        ballot['ElectionID'] = 0;
+        ballot['ElectionID'] = 0; //TODO: how to deal with id?
         ballot['UserId'] = sessionStorage.getItem('id');       
         ballot['Ballot'] = vote;
         ballot['Token'] = sessionStorage.getItem('token');
-
+        console.log(C);
         //sending the ballot to evoting server
         try{
             const response = await fetch(castBallotEndPoint, {
