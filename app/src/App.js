@@ -12,7 +12,6 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ElectionDetails from './components/election-status/ElectionDetails';
 import {LanguageContext} from './components/language/LanguageContext';
 import Login from './components/login/Login';
-import useFetchData from './components/useFetchData';
 import useToken from './useToken';
 
 
