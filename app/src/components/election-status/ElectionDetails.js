@@ -2,34 +2,33 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import './ElectionDetails.css';
-import useFetchData from '../utils/useFetchData';
+import useRetrieveElection from '../utils/useRetrieveElection';
 import StatusSuccess from './StatusSuccess';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
 
-function ElectionDetails(props) {
+function ElectionDetails(props) { //props.location.data = id of the election
 
     const [context, ] = useContext(LanguageContext);
 
     //TODO: later on, props will be an id to then make a custom https request
-    const [loading, electionRetrieved, electionData] =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1');
+    const [loading, electionRetrieved, error, electionData] =  useRetrieveElection(props.location.data, sessionStorage.getItem('token'));
     
     
     
     return (
         <div>
-            
         {!loading?
         (<div>
             <h1>{Translations[context].electionDetails}</h1>
             <div className='election-wrapper'>
-                <div className='election-title'>{electionData.electionName}</div>
+                <div className='election-title'>{electionData.Title}</div>
                 <div className='election-start-date'>{Translations[context].startDate} fakeDate</div>
-                {Translations[context].status} <StatusSuccess stat={electionData.electionStatus} />
+                {Translations[context].status} <StatusSuccess stat={electionData.Status} electionID={props.location.data} />
                 <div className='election-candidates'>
                         {Translations[context].candidates}
-                        {electionData.candidates.map((cand) => 
+                        {electionData.Candidates.map((cand) => 
                         <li key={cand} className='election-candidate'>{cand}</li>)}
                 </div>
                         

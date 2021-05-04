@@ -2,45 +2,67 @@ import {React, useState, useContext, useEffect} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import ConfirmModal from '../modal/ConfirmModal';
+import useCloseElection from '../utils/useCloseElection';
+import useCancelElection from '../utils/useCancelElection';
 
-
-const useChangeStatus = (stat) =>{
+/*Custom hook that display the status of an election and enable changes of status (closing, cancelling,...)*/ 
+const useChangeStatus = (stat, electionID) =>{
 
     const [status, setStatus] = useState(stat);
     const [context, ] = useContext(LanguageContext);
-
+    const [isClosing, setIsClosing] = useState(false);
+    const [isCanceling, setIsCanceling] = useState(false);
+    const {closeElection} = useCloseElection(setIsClosing);
+    const {cancelElection} = useCancelElection(setIsCanceling);
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
-    const [userValidate, setUserValidate] = useState(false);
-    const modalClose =  <ConfirmModal showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidate} />;
-    const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidate} />;
+    const [userValidateClose, setUserValidateClose] = useState(false);
+    const [userValidateCancel, setUserValidateCancel] = useState(false);
+    const modalClose =  <ConfirmModal showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
+    const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
 
     useEffect(() => {
-        if(userValidate === true) {
+        
             /*TODO: API call to close election*/
-
-            setStatus('2');
-        }; 
-        setUserValidate(false);
-    }, [showModalClose])
+            //check if close button was clicked and the user validate the confirmation window
+            if(isClosing && userValidateClose){
+                const closeSuccess = closeElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
+                if(closeSuccess){
+                    setStatus(2);
+                } else {
+                    //TODO : show error message that closing election wasn't successful
+                }
+                setUserValidateClose(false);
+        }
+ 
+    }, [isClosing, showModalClose])
+    
 
     useEffect(() => {
-        if(userValidate === true) {
+        if(isCanceling && userValidateCancel) {
             /*TODO: API call to cancel election*/
+            const cancelSuccess = cancelElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
+            if(cancelSuccess){
+                setStatus(6);
+            } else {
+
+            }
+            setUserValidateCancel(false);
             
-            setStatus('3');
         }; 
-        setUserValidate(false);
-    }, [showModalCancel])
+    }, [isCanceling, showModalCancel])
 
     
 
     const handleClose = () =>{    
+        
         setShowModalClose(prev => !prev);
+        setIsClosing(true);
     }
 
     const handleCancel = () =>{
-        setShowModalCancel(prev => !prev);       
+        setShowModalCancel(prev => !prev);      
+        setIsCanceling(true); 
     }
 
     const handleResult = () => {
@@ -50,9 +72,9 @@ const useChangeStatus = (stat) =>{
     const getStatus = () => {
 
         switch (status){
-            case '-1':
+            case -1:
                 return 'status not retrieved';           
-            case '1':
+            case 1:
                 return <span>
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>{Translations[context].statusOpen}</span>
@@ -60,13 +82,13 @@ const useChangeStatus = (stat) =>{
                     <button className='election-btn' onClick={handleClose}>{Translations[context].close}</button>
                     <button className='election-btn' onClick={handleCancel}>{Translations[context].cancel}</button>
                 </span>;  
-            case '2':
+            case 2:
                 return <span>
                     <span className='election-status-closed'></span>
                     <span className='election-status-text'>{Translations[context].statusClose}</span>
                     <button className='election-btn'>{Translations[context].seeResults}</button>
                 </span>;  
-            case '3':
+            case 6:
                 return <span>
                     <span className='election-status-cancelled'></span>
                     <span className='election-status-text'>{Translations[context].statusCancel}</span>

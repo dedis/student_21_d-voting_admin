@@ -25,11 +25,11 @@ const ElectionTable = (props) => {
 
         return Object.entries(props.value).map(([k, val])=>{
             if(k === 'status')
-            return <td><StatusSuccess stat={props.value.status} /></td>
+            return <td><StatusSuccess stat={props.value.status} electionID={props.electionID} /></td>
             return (
                 <td>
-                    <Link className='election-link' to={{pathname:`/elections/${val}`,
-                data: props}}>{val}</Link>
+                    <Link className='election-link' to={{pathname:`/elections/${props.electionID}`,
+                data: props.electionID}}>{val}</Link>
                 {/*<span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>
                 <span className='tooltiptext'></span>*/}
             </td>)

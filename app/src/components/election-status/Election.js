@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 
 import './Election.css';
 import ElectionTable from './ElectionTable';
-import useFetchData from '../utils/useFetchData';
+import useRetrieveElection from '../utils/useRetrieveElection';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
@@ -20,9 +20,9 @@ function Election() {
 
 
     const [context, ] = useContext(LanguageContext);
+    const electionID = localStorage.getItem('electionIDs');
     
-    
-    const [loading,electionRetrieved, electionData] =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1'); 
+    const [loading,electionRetrieved, error, electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
 
 
     
@@ -36,7 +36,7 @@ function Election() {
                 {electionRetrieved? (<div>
                 {Translations[context].clickElection}
             <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionData.electionName, 'status': electionData.electionStatus}} candidates = {electionData.candidates} />
+            <ElectionTable value={{'name': electionData.Title, 'status': electionData.Status}} electionID={electionID} />
             </div>   
 
         </div>):<div>{Translations[context].noElection}</div>}

@@ -4,11 +4,13 @@ import React, {useState, useEffect} from 'react';
 /*Custom hook that retrieves an election based on the id given and the token
 
 */
-const useRetrieveElection = (electionID, token) => {
+function useRetrieveElection(electionID, token){
     const getElectionInfoEndpoint = "/evoting/info";
     const [loading, setLoading] = useState(true);
     const [electionRetrieved, setElectionRetrieved] = useState(false);
     const [electionData, setElectionData]= useState([]);
+    const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         const request = {
@@ -30,11 +32,12 @@ const useRetrieveElection = (electionID, token) => {
             setLoading(false);
         })
         .catch(error => {
-            console.error('An error occurred!', error);
+            //console.error('An error occurred!', error);
+            setError(error);
         })
     }, [])
 
-    return [loading, electionRetrieved, electionData];
+    return [loading, electionRetrieved, error, electionData];
 }
 
 export default useRetrieveElection;

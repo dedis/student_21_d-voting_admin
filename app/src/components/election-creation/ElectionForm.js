@@ -137,7 +137,7 @@ function ElectionForm({setShowModal, setTextModal}){
         e.preventDefault();
         setNewCandidate(e.target.value);
     }
-
+    //!!!!!!! it actually lets me enter twice the same candidate!!!!!
     const checkUniqueCandidate = (cand) => {
         return candidates.some(item => cand ===item.text);
     }

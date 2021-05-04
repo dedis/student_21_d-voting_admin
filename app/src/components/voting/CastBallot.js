@@ -15,7 +15,7 @@ Functional component
 
 function CastBallot(){
 
-    const [loading,electionRetrieved, electionData] =  useRetrieveElection(localStorage.getItem('electionIDs'), sessionStorage.getItem('token')); 
+    const [loading,electionRetrieved,error,electionData] =  useRetrieveElection(localStorage.getItem('electionIDs'), sessionStorage.getItem('token')); 
     const [context, ] = useContext(LanguageContext);
 
     const castBallotEndPoint = "/evoting/cast";
@@ -119,8 +119,7 @@ function CastBallot(){
             <div>
                 {console.log(electionData)}
                 <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
-                {electionRetrieved? 
-                /* TODO: check that the election is open */
+                {electionRetrieved && electionData.Status == 1? //check that the election was retrieved and that its status is open 
                 (<div className='cast-ballot-card'>
                 <Ballot electionData={electionData} choice={choice} handleCheck = {handleCheck} lastVote={lastVote}></Ballot>
                 <div className='cast-ballot-error'>{errors.noCandidate}</div>
@@ -137,7 +136,7 @@ function CastBallot(){
     return (
         <div className = 'cast-ballot'>
             <div className='ballot-indication'>{Translations[context].voteAllowed}</div>
-            {!loading? showBallot() : <p></p>}
+            {!loading?  showBallot() : <p></p>}
 
             
         </div>
