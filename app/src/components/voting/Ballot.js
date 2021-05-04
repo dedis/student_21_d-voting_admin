@@ -6,7 +6,7 @@ import {LanguageContext} from '../language/LanguageContext';
 
 function Ballot(props){
     const electionData = props.electionData;
-    const choices = electionData.candidates; //array containing the possible candidates
+    const choices = electionData.Candidates; //array containing the possible candidates
     const [context,] = useContext(LanguageContext);
     
 

@@ -1,5 +1,5 @@
 import {React, useContext} from 'react';
-import useFetchData from '../useFetchData';
+import useFetchData from '../utils/useFetchData';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import './Login.css';

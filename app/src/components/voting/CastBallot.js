@@ -1,7 +1,8 @@
 import {React, useState, useEffect, useContext} from 'react';
 import Ballot from './Ballot';
 import './CastBallot.css';
-import useFetchData from '../useFetchData';
+import useFetchData from '../utils/useFetchData';
+import useRetrieveElection from '../utils/useRetrieveElection';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import Modal from '../modal/Modal';
@@ -14,7 +15,7 @@ Functional component
 
 function CastBallot(){
 
-    const [loading,electionRetrieved, electionData] =  useFetchData('https://60475e95b801a40017ccbff6.mockapi.io/api/election/1', true); 
+    const [loading,electionRetrieved, electionData] =  useRetrieveElection(localStorage.getItem('electionIDs'), sessionStorage.getItem('token')); 
     const [context, ] = useContext(LanguageContext);
 
     const castBallotEndPoint = "/evoting/cast";
@@ -70,7 +71,7 @@ function CastBallot(){
         //transform buffer to []number
         const vote = [...Buffer.concat([KBuff,CBuff])].map(x => parseInt(x,10));
 
-        ballot['ElectionID'] = 0; //TODO: how to deal with id?
+        ballot['ElectionID'] = localStorage.getItem('electionIDs'); //TODO: how to deal with id?
         ballot['UserId'] = sessionStorage.getItem('id');       
         ballot['Ballot'] = vote;
         ballot['Token'] = sessionStorage.getItem('token');
@@ -87,7 +88,7 @@ function CastBallot(){
             console.log(data);
             return ;
             } else{
-                console.log("ERROR!")
+                console.log("ERROR WHEN CASTING BALLOT!")
                 return (-1);
             }
 
@@ -116,6 +117,7 @@ function CastBallot(){
     const showBallot = () => {
         return (
             <div>
+                {console.log(electionData)}
                 <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
                 {electionRetrieved? 
                 /* TODO: check that the election is open */

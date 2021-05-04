@@ -1,9 +1,15 @@
+/**
+ * @jest-environment node
+ */
+
 import kyber from "@dedis/kyber";
 
 
 const encrypt = require('../voting/VoteEncrypt');
 
 describe("Encrytion tests", () => {
+
+    
     const edCurve = kyber.curve.newCurve("edwards25519")
     /*Generate random private/public key pair to test the encryption and decryption
     In reality the public dkg key is retrieved by the app but the private key

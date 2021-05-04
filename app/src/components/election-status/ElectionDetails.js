@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import './ElectionDetails.css';
-import useFetchData from '../useFetchData';
+import useFetchData from '../utils/useFetchData';
 import StatusSuccess from './StatusSuccess';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';

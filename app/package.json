@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=node",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -63,11 +63,8 @@
         "node_modules/@dedis/kyber/*"
       ]
     }
-  },
-  "jest": {
-    "//": "other Jest config",
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
   }
+  
   
   
 }
