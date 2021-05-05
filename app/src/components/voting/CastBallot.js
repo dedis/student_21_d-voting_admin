@@ -62,7 +62,7 @@ function CastBallot(){
        
         sessionStorage.setItem('myVote', choice);
 
-        setShowModal(prev => !prev);
+        
         console.log(unpack(sessionStorage.getItem('pubKey')));
         const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
@@ -82,12 +82,14 @@ function CastBallot(){
                 method: 'POST',
                 body: JSON.stringify(ballot)
             });
-        /*TODO:Need to deal with the response */
+        
             if(response.ok){
             const data = await response.json();
+            setShowModal(prev => !prev); 
             console.log(data);
             return ;
             } else{
+                //TODO : maybe show a model for an error
                 console.log("ERROR WHEN CASTING BALLOT!")
                 return (-1);
             }
@@ -119,6 +121,7 @@ function CastBallot(){
             <div>
                 {console.log(electionData)}
                 <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
+                
                 {electionRetrieved && electionData.Status == 1? //check that the election was retrieved and that its status is open 
                 (<div className='cast-ballot-card'>
                 <Ballot electionData={electionData} choice={choice} handleCheck = {handleCheck} lastVote={lastVote}></Ballot>
