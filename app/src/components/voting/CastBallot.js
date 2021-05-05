@@ -63,7 +63,7 @@ function CastBallot(){
         sessionStorage.setItem('myVote', choice);
 
         setShowModal(prev => !prev);
-        
+        console.log(unpack(sessionStorage.getItem('pubKey')));
         const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
         const KBuff = K.toProto();
@@ -75,7 +75,7 @@ function CastBallot(){
         ballot['UserId'] = sessionStorage.getItem('id');       
         ballot['Ballot'] = vote;
         ballot['Token'] = sessionStorage.getItem('token');
-        console.log(C);
+        console.log(ballot);
         //sending the ballot to evoting server
         try{
             const response = await fetch(castBallotEndPoint, {
