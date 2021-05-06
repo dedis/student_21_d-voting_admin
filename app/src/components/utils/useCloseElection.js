@@ -9,14 +9,12 @@ function useCloseElection(setIsClosing){
             method: 'POST',
             body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
         }
-        console.log(request);
 
         const response =  await fetch(closeElectionEndpoint, request)
         let success = false;
         
         if(!response.ok){
-       
-            
+            throw Error(response.statusText);           
         } else {
             success= true;
         }

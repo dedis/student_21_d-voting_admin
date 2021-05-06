@@ -6,6 +6,9 @@ import renderButton from '../election-status/Election';
 import {render} from '@testing-library/react';
 
 it("renders without crashing", ()=> {
-    const div = document.createElement("div");
-    ReactDOM.render(<Election></Election>, div);
+    it('should render the Election Component correctly in English', () => {  
+        const component = renderer.create(<LanguageContext.Provider value = {['en',]}><Election /></LanguageContext.Provider>);
+        let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+    });
 })

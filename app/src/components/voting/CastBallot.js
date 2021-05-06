@@ -1,7 +1,6 @@
 import {React, useState, useEffect, useContext} from 'react';
 import Ballot from './Ballot';
 import './CastBallot.css';
-import useFetchData from '../utils/useFetchData';
 import useRetrieveElection from '../utils/useRetrieveElection';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
@@ -15,7 +14,7 @@ Functional component
 
 function CastBallot(){
 
-    const [loading,electionRetrieved,error,electionData] =  useRetrieveElection(localStorage.getItem('electionIDs'), sessionStorage.getItem('token')); 
+    const [loading,electionRetrieved,,electionData] =  useRetrieveElection(localStorage.getItem('electionIDs'), sessionStorage.getItem('token')); 
     const [context, ] = useContext(LanguageContext);
 
     const castBallotEndPoint = "/evoting/cast";
@@ -43,6 +42,7 @@ function CastBallot(){
             setChoice(choiceSelected);
     }
 
+    /*Transform a string of type "1,2,3" to an array [1,2,3]*/ 
     function unpack(str) {
         var bytes = [];
         var b  =str.split(",");
@@ -62,8 +62,6 @@ function CastBallot(){
        
         sessionStorage.setItem('myVote', choice);
 
-        
-        console.log(unpack(sessionStorage.getItem('pubKey')));
         const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
         const KBuff = K.toProto();
@@ -71,7 +69,7 @@ function CastBallot(){
         //transform buffer to []number
         const vote = [...Buffer.concat([KBuff,CBuff])].map(x => parseInt(x,10));
 
-        ballot['ElectionID'] = localStorage.getItem('electionIDs'); //TODO: how to deal with id?
+        ballot['ElectionID'] = localStorage.getItem('electionIDs'); //TODO: don't store id but api call
         ballot['UserId'] = sessionStorage.getItem('id');       
         ballot['Ballot'] = vote;
         ballot['Token'] = sessionStorage.getItem('token');
@@ -122,7 +120,7 @@ function CastBallot(){
                 {console.log(electionData)}
                 <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
                 
-                {electionRetrieved && electionData.Status == 1? //check that the election was retrieved and that its status is open 
+                {electionRetrieved && electionData.Status === 1? //check that the election was retrieved and that its status is open 
                 (<div className='cast-ballot-card'>
                 <Ballot electionData={electionData} choice={choice} handleCheck = {handleCheck} lastVote={lastVote}></Ballot>
                 <div className='cast-ballot-error'>{errors.noCandidate}</div>

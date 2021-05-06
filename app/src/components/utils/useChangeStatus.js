@@ -4,16 +4,21 @@ import {LanguageContext} from '../language/LanguageContext';
 import ConfirmModal from '../modal/ConfirmModal';
 import useCloseElection from '../utils/useCloseElection';
 import useCancelElection from '../utils/useCancelElection';
+import useShuffle from '../utils/useShuffle';
+import useDecryptBallots from '../utils/useDecryptBallots';
 
-/*Custom hook that display the status of an election and enable changes of status (closing, cancelling,...)*/ 
+/*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
 const useChangeStatus = (stat, electionID) =>{
 
     const [status, setStatus] = useState(stat);
     const [context, ] = useContext(LanguageContext);
     const [isClosing, setIsClosing] = useState(false);
     const [isCanceling, setIsCanceling] = useState(false);
+    const [isShuffling, setIsShuffling] = useState(false);
     const {closeElection} = useCloseElection(setIsClosing);
     const {cancelElection} = useCancelElection(setIsCanceling);
+    const {shuffleElection} = useShuffle(setIsShuffling,setStatus);
+    const {decryptBallots} = useDecryptBallots();
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
@@ -21,10 +26,9 @@ const useChangeStatus = (stat, electionID) =>{
     const modalClose =  <ConfirmModal showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
 
-    useEffect(() => {
+    useEffect(() => {  
         
-            /*TODO: API call to close election*/
-            //check if close button was clicked and the user validate the confirmation window
+            //check if close button was clicked and the user validated the confirmation window
             if(isClosing && userValidateClose){
                 const closeSuccess = closeElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
                 if(closeSuccess){
@@ -40,7 +44,6 @@ const useChangeStatus = (stat, electionID) =>{
 
     useEffect(() => {
         if(isCanceling && userValidateCancel) {
-            /*TODO: API call to cancel election*/
             const cancelSuccess = cancelElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
             if(cancelSuccess){
                 setStatus(6);
@@ -56,13 +59,22 @@ const useChangeStatus = (stat, electionID) =>{
 
     const handleClose = () =>{    
         
-        setShowModalClose(prev => !prev);
+        setShowModalClose(true);
         setIsClosing(true);
     }
 
     const handleCancel = () =>{
-        setShowModalCancel(prev => !prev);      
+        setShowModalCancel(true);      
         setIsCanceling(true); 
+    }
+
+    const handleShuffle = () => {
+        setIsShuffling(true);
+        shuffleElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
+    }
+
+    const handleDecrypt = () => {
+        decryptBallots(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
     }
 
     const handleResult = () => {
@@ -74,7 +86,7 @@ const useChangeStatus = (stat, electionID) =>{
         switch (status){
             case -1:
                 return 'status not retrieved';           
-            case 1:
+            case 1: //on going
                 return <span>
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>{Translations[context].statusOpen}</span>
@@ -82,12 +94,20 @@ const useChangeStatus = (stat, electionID) =>{
                     <button className='election-btn' onClick={handleClose}>{Translations[context].close}</button>
                     <button className='election-btn' onClick={handleCancel}>{Translations[context].cancel}</button>
                 </span>;  
-            case 2:
+            case 2: //closed
                 return <span>
                     <span className='election-status-closed'></span>
                     <span className='election-status-text'>{Translations[context].statusClose}</span>
+                    <button className='election-btn' onClick={handleShuffle}>{Translations[context].shuffle}</button>
+                </span>; 
+            case 3: //ballots have been shuffled
+                return <span>
+                    <button className='election-btn' onClick={handleDecrypt}>{Translations[context].decrypt}</button>
+                </span>;
+            case 5: //result available
+                return <span>
                     <button className='election-btn'>{Translations[context].seeResults}</button>
-                </span>;  
+                </span>;               
             case 6:
                 return <span>
                     <span className='election-status-cancelled'></span>

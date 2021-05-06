@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 
 
 /*Custom hook that retrieves an election based on the id given and the token

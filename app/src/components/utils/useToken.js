@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+/*Custom hook that models a token that the user gets when signin */
 function useToken(){
 
     const getToken = () => {

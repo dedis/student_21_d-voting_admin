@@ -1,15 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import About from '../About';
-import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
 import {LanguageContext} from '../language/LanguageContext'
 import  render from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import {Translations} from '../language/Translations';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
-Enzyme.configure({ adapter: new Adapter() });
+
 
 /*
 test('render', ()=>{

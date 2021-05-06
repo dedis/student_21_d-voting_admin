@@ -1,5 +1,3 @@
-import kyber from "@dedis/kyber";
-import {React, useState, useEffect, useContext} from 'react';
 
 export function encryptVote(vote, dkgKey, edCurve){
     

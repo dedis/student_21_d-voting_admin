@@ -36,11 +36,10 @@ function App() {
     <div className="App">
       
      <Router>
-        <LanguageContext.Provider value={[lanContext, setLanContext]}>
+        <LanguageContext.Provider value={[lanContext, setLanContext]}> 
         
           <div className='app-nav'>
-            <Route path='/:page' component={NavBar} />
-          
+            <Route path='/:page' component={NavBar} />        
             <Route exact path='/' component={NavBar}/>
           </div>
           <div data-testid="content" className='app-page'>

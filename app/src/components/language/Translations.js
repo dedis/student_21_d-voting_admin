@@ -51,6 +51,8 @@ export const Translations = {
         castVote: 'Cast vote',
         noVote: 'There is currently nothing to vote on.',
         voteAllowed: 'You are allowed to vote on the election below.',
+        shuffle: 'Shuffle',
+        decrypt: 'Decrypt',
         yes: 'Yes',
         about: <Fragment>
             This website hosts the interface of an evoting system. This system runs smart contracts, handled by a set of Byzantine fault-tolerant nodes.
@@ -117,6 +119,8 @@ export const Translations = {
         castVote: 'Voter',
         noVote: 'Il n\'y a actullemment aucune votation en cours.',
         voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous.',
+        shuffle: 'Mélanger',
+        decrypt: 'Décrypter',
         yes: 'Oui',
         about: <Fragment>
         Ce site Internet héberge l'interface d'un système de vote électronique. Ce système exécute des contrats intelligents basés sur le problème des généraux byzantins.
