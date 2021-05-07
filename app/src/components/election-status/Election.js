@@ -20,15 +20,10 @@ function Election() {
 
 
     const [context, ] = useContext(LanguageContext);
-    const electionID = localStorage.getItem('electionIDs');
+    const electionID = localStorage.getItem('electionIDs'); //this will not be present in the final version
     
-    const [loading,electionRetrieved, error, electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
-
-
-    
-
-
-         
+    const [loading,electionRetrieved, , electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
+   
     /*Show all the elections retrieved if any */
     const showElection = ()=>{
         return (
@@ -54,7 +49,6 @@ function Election() {
     </div>
   );
 }
-
 
 export default Election;
 

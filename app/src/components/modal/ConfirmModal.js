@@ -26,14 +26,12 @@ function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
         {showModal? (
             <div className='modal-background'>
                 <div className='modal-wrapper'>
-                    <div className='text-container'>{textModal}</div>
-                    
+                    <div className='text-container'>{textModal}</div>                
                     <div className='buttons-container'>
                     {displayButtons()}
                     </div>
                 </div>
-            </div>)
-        
+            </div>)       
         :null}
         </div>
     );

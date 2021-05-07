@@ -2,17 +2,12 @@
 .election-wrapper{
     padding-bottom: 3%;
     padding-left: 3%;
-
 }
-
 
 .election-candidates{
 list-style: none;
 display: flexbox; 
 padding-bottom: 3%;
-}
-.election-details-status{
-
 }
 
 .election-candidate{
@@ -20,18 +15,10 @@ padding-bottom: 3%;
     margin-left: 4%;
 }
 
-.election-start-date{
-    
-}
-
 .election-title{
     font-size: large;
     font-weight: bold;
     padding-bottom: 3%;
-}
-
-.back-btn{
-    
 }
 
 h1{

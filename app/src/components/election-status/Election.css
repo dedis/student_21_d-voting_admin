@@ -4,8 +4,6 @@
     padding-right:3%
   }
 
-
-  
   .election-btn{
     border-radius: 8px;
     margin: 4px 2px;
@@ -48,7 +46,6 @@
     border-radius: 50%;
     display: inline-block;
   }
-
 
   .loading{
     background-color: #9bc0bc;

@@ -8,23 +8,13 @@ import {LanguageContext} from '../language/LanguageContext';
 function ElectionForm({setShowModal, setTextModal}){
     const [context, ] = useContext(LanguageContext);
     const [electionName, setElectionName] = useState('');
-
     const [newCandidate, setNewCandidate] = useState('');
-
     const [candidates, setCandidates] = useState([]);
-
     const[errors, setErrors] = useState({});
-
-    const[isSubmitting, setIsSubmitting] = useState(false);
+    //const[isSubmitting, setIsSubmitting] = useState(false);
 
     const createEndPoint = '/evoting/create';
-    
-   
-    const toHexString = (byteArray) =>{
-        return Array.from(byteArray, function(byte) {
-          return ('0'+(byte).toString(16)).slice(-2);
-        }).join('')
-    }
+
   /*transform string of type "1,4,5" to an array of number [1,4,5] */
     function unpack(str) {
         var bytes = [];
@@ -61,27 +51,20 @@ function ElectionForm({setShowModal, setTextModal}){
         election['Candidates'] = candidates;
         election['Token'] = sessionStorage.getItem('token');
         election['PublicKey'] = unpack(sessionStorage.getItem('pubKey'));
-        console.log(JSON.stringify(election));
-        console.log(typeof JSON.stringify(election));
-
 
         try{
             const response = await fetch(createEndPoint, {
                 method: 'POST',
                 body: JSON.stringify(election)
             });
-        /* Need to deal with the response : saving id, key,...!!!!!!!*/
-            if(response.ok){
-            const data = await response.json();
-            console.log(data);
-            return data.ElectionID;
+            if(!response.ok){
+                throw Error(response.statusText);
             } else{
-                return (-1);
-            }
-
- 
+                const data = await response.json();
+                return data.ElectionID;
+            } 
         } catch(e) {
-            
+            console.log(e);
             return e;
         }
    
@@ -106,7 +89,7 @@ function ElectionForm({setShowModal, setTextModal}){
     const handleSubmit = async(e) =>{
         e.preventDefault();
         if(validate()){
-            setIsSubmitting(true);
+            //setIsSubmitting(true);
             try{
                const response =  await sendFormData();
                if(response === -1){
@@ -137,9 +120,9 @@ function ElectionForm({setShowModal, setTextModal}){
         e.preventDefault();
         setNewCandidate(e.target.value);
     }
-    //!!!!!!! it actually lets me enter twice the same candidate!!!!!
-    const checkUniqueCandidate = (cand) => {
-        return candidates.some(item => cand ===item.text);
+    
+    const isCandidateUnique = (cand) => {
+        return !candidates.some(item => cand ===item);
     }
 
     const handleAdd = e => {
@@ -151,25 +134,19 @@ function ElectionForm({setShowModal, setTextModal}){
             return;
         };
 
-        if(checkUniqueCandidate(newCandidate)){
+        if(!isCandidateUnique(newCandidate)){
             errors['unique'] = 'This candidate has already been added.'
             setErrors(errors);
             return;
         }
-        
-        const newItem = {
-            id: Date.now(),
-            text: newCandidate
-    
-        };
 
         setNewCandidate('');
         setErrors({'newCandidate': ''})
         setCandidates(candidates.concat(newCandidate));     
     }
 
-    const handleDelete = choiceId => {
-        const choices = candidates.filter(candi => candi !== choiceId);
+    const handleDelete = cand => {
+        const choices = candidates.filter(candi => candi !== cand);
         setCandidates(choices);
     }
 
@@ -222,7 +199,7 @@ function ElectionForm({setShowModal, setTextModal}){
                 <div className='form-candidates'>
                     <ul className='choices-saved'>
                     {candidates.map(cand => (
-                        <div className='ch'>
+                        <div>
                         <li key={cand}>
                                 {cand}
                                 <button type='button' className='delete-btn' onClick={() => handleDelete(cand)} onSubmit={onSubmitPreventDefault}>

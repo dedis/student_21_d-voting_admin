@@ -6,13 +6,13 @@ import { act } from "react-dom/test-utils";
 Enzyme.configure({ adapter: new Adapter() });
 
 import useChangeStatus from '../utils/useChangeStatus'; 
-import StatusSuccess  from '../election-status/StatusSuccess';
+import Status  from '../election-status/Status';
 
 describe('ChangeStatus when status intialize with 1 (ongoing)', ()=> {
     
     let wrapper;
     beforeEach(()=>{
-        wrapper = render(<LanguageContext.Provider value = {['en',]}><StatusSuccess stat={1} electionID={1}/></LanguageContext.Provider>)
+        wrapper = render(<LanguageContext.Provider value = {['en',]}><Status stat={1} electionID={1}/></LanguageContext.Provider>)
     })
     it('renders', () =>{
         //console.log(wrapper.debug());
@@ -33,7 +33,7 @@ describe('ChangeStatus when status intialize with 2 (closed)', ()=> {
     
     let wrapper;
     beforeEach(()=>{
-        wrapper = mount(<LanguageContext.Provider value = {['en',]}><StatusSuccess stat={2} electionID={1}/></LanguageContext.Provider>)
+        wrapper = mount(<LanguageContext.Provider value = {['en',]}><Status stat={2} electionID={1}/></LanguageContext.Provider>)
     })
     it('renders', () =>{
         //console.log(wrapper.debug());
@@ -59,7 +59,7 @@ describe('ChangeStatus when status intialize with 5 (result available)', ()=> {
     
     let wrapper;
     beforeEach(()=>{
-        wrapper = mount(<LanguageContext.Provider value = {['en',]}><StatusSuccess stat={5} electionID={1}/></LanguageContext.Provider>)
+        wrapper = mount(<LanguageContext.Provider value = {['en',]}><Status stat={5} electionID={1}/></LanguageContext.Provider>)
     })
     it('renders', () =>{
         //console.log(wrapper.debug());

@@ -31,13 +31,11 @@ function App() {
   
   const [token, setToken] = useToken();
 
- 
   return (
     <div className="App">
       
      <Router>
-        <LanguageContext.Provider value={[lanContext, setLanContext]}> 
-        
+        <LanguageContext.Provider value={[lanContext, setLanContext]}>         
           <div className='app-nav'>
             <Route path='/:page' component={NavBar} />        
             <Route exact path='/' component={NavBar}/>
@@ -54,19 +52,13 @@ function App() {
             </Switch>
             </div>)}
           </div>
-    
           <div className='footer-container'>
             <Footer/>
           </div>
         </LanguageContext.Provider>
-    
-
     </Router>
-
   </div>
   );
 }
-
-
 
 export default App;

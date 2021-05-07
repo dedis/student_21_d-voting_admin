@@ -32,7 +32,6 @@ function useRetrieveElection(electionID, token){
             setLoading(false);
         })
         .catch(error => {
-            //console.error('An error occurred!', error);
             setError(error);
         })
     }, [])

@@ -3,18 +3,12 @@ import {useState, useEffect, useRef} from 'react';
 
 
 /*custom hook to fetch data from the skipchain */
+//Remark : currently the cache doesn't work, will see if time to do it
 const useFetchData = (url, isJson=true) => {
     const cache = useRef({})
     const [loading, setLoading] = useState(true);
     const [electionRetrieved, setElectionRetrieved] = useState(false);
     const [electionData, setElectionData]= useState([]);
-
-    /* https://stackoverflow.com/questions/34309988/byte-array-to-hex-string-conversion-in-javascript */
-    const toHexString = (byteArray) =>{
-        return Array.from(byteArray, function(byte) {
-          return ('0'+(byte).toString(16)).slice(-2);
-        }).join('')
-      }
 
     useEffect(()=>{
         if (!url) return;
@@ -41,8 +35,6 @@ const useFetchData = (url, isJson=true) => {
                         setElectionData(data);
                     } else {
                         let data = await response.arrayBuffer();
-                        //const view =  toHexString(new Uint8Array(data));
-
                         setElectionData(new Uint8Array(data));
                         
                     }

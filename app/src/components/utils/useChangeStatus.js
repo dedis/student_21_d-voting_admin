@@ -57,8 +57,7 @@ const useChangeStatus = (stat, electionID) =>{
 
     
 
-    const handleClose = () =>{    
-        
+    const handleClose = () =>{        
         setShowModalClose(true);
         setIsClosing(true);
     }
@@ -78,7 +77,7 @@ const useChangeStatus = (stat, electionID) =>{
     }
 
     const handleResult = () => {
-        /*TODO: API call to get result OR already got result when retrieved election?*/
+        //TODO
     }
 
     const getStatus = () => {
@@ -115,7 +114,7 @@ const useChangeStatus = (stat, electionID) =>{
                 </span>;  
 
             default :
-                return 'couldnt match status number';
+                return 'couldn\'t match status number';
             };
     } 
 

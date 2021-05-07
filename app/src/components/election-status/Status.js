@@ -1,5 +1,4 @@
 import React from 'react';
-
 import useChangeStatus from '../utils/useChangeStatus';
 
 /*StatusSuccess is a class that acts as a container for the status of an election

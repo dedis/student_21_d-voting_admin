@@ -22,18 +22,15 @@ function Modal({showModal, setShowModal, textModal,  buttonRight}){
         {showModal? (
             <div className='modal-background'>
                 <div className='modal-wrapper'>
-                    <div className='text-container'>{textModal}</div>
-                    
+                    <div className='text-container'>{textModal}</div>          
                     <div className='buttons-container'>
                     {displayButtons()}
                     </div>
                 </div>
-            </div>)
-        
+            </div>)   
         :null}
         </div>
     );
-
 }
 
 export default Modal;

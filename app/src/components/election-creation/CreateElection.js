@@ -9,7 +9,7 @@ import Modal from '../modal/Modal';
 
 
 function CreateElection() {
-  const [context, setContext] = useContext(LanguageContext);
+  const [context, ] = useContext(LanguageContext);
   const [showModal, setShowModal] = useState(false);
   const [textModal, setTextModal] = useState('');
 

@@ -4,8 +4,8 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import './Login.css';
 
+//TODO: this component will be later on replaced by the authentication of react-router library
 function Login({setToken}) {
-
     const endpointSignin = '/evoting/login';
     const [,, signinData] =  useFetchData(endpointSignin, true);
     const [context, ] = useContext(LanguageContext);
@@ -13,7 +13,6 @@ function Login({setToken}) {
     const handleClick = () => {
         setToken(signinData.Token);
         sessionStorage.setItem('id', signinData.UserID);
-        console.log("jel");
     }
     return (
         <div className='login-wrapper'>

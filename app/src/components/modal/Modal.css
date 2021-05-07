@@ -1,5 +1,4 @@
 .modal-background{
-    
     position: fixed;
     top: 0;
     left: 0;
@@ -8,7 +7,6 @@
     background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
-
 
 .modal-wrapper{
     display: flex;
@@ -39,11 +37,6 @@
     padding: 3%;
 }
 
-.btn-left{
-
-}
-
 .btn-right{
   float:right;
-
 }

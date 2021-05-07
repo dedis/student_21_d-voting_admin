@@ -19,14 +19,13 @@ function UploadFile({setShowModal, setTextModal}) {
         
         var data = JSON.parse(file);
         if(data.Title == ""){
-
           return false;
         }
 
         if(!Array.isArray(data.Candidates)){
           return false;
         } else {
-          /*check if the elements of the array are numbers*/
+          /*check if the elements of the array are string*/
           for(var i = 0; i < data.Candidates.length; i++){
             if(typeof data.Candidates[i] !== "string"){
               return false;
@@ -37,25 +36,19 @@ function UploadFile({setShowModal, setTextModal}) {
     }
 
     const sendElection = async(data) => {
-      console.log(JSON.stringify(data));
-      console.log(typeof JSON.stringify(data));
       try{
         const response = await fetch(createEndPoint, {
             method: 'POST',
             body: JSON.stringify(data)
         });
-    /* Need to deal with the response : saving id, key,...!!!!!!!*/
-        if(response.ok){
-        const data = await response.json();
-        console.log(data);
-        return data.ElectionID;
+        if(!response.ok){
+          return -1;
         } else{
-            return (-1);
+          const data = await response.json();
+          return data.ElectionID;
         }
-
-
     } catch(e) {
-        
+        console.log(e);
         return e;
     }
     }
@@ -81,7 +74,9 @@ function UploadFile({setShowModal, setTextModal}) {
         return validateJSONFields();
       }    
     }
-    /* Append the id of a created election to others in the localStorage */
+    /* Append the id of a created election to others in the localStorage
+       note : this won't exist at the end of the project
+    */
     const storeIdNewElection = (id) => {
       var idsStored = localStorage.getItem('electionIDs');
       if(!idsStored){
@@ -120,16 +115,13 @@ function UploadFile({setShowModal, setTextModal}) {
 
     const handleChange = (event) => {
       setFileExt(event.target.files[0]);
-      var file1 = event.target.files[0];
+      var newUpload = event.target.files[0];
       setName(event.target.value);
       var reader = new FileReader();
       reader.onload = function(event) {
-        // The file's text will be printed here
-
         setFile(event.target.result);
       };
-
-     reader.readAsText(file1);
+     reader.readAsText(newUpload);
      
     }
 

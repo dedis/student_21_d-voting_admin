@@ -13,19 +13,6 @@
     padding: 1%;
   }
  
-  
-  /*.form-content-left {
-    background: linear-gradient(
-      90deg,
-      aliceblue 0%,
-      rgb(187, 239, 240) 100%
-    );
-    border-radius: 10px 0 0 10px;
-  
-  }
-  */
-  
-  
   .choices-saved{
     list-style: none;
     display: block;
@@ -38,7 +25,6 @@
   .form-name:focus{
     border-color: #177368;
   }
-  
   
   .form-choice:focus{
     border-color: #177368;
