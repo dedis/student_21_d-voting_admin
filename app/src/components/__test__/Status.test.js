@@ -1,6 +1,7 @@
 import React from 'react';
 import Enzyme,{mount, render, shallow} from 'enzyme';
 import {LanguageContext} from '../language/LanguageContext';
+import ConfirmModal from '../modal/ConfirmModal';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { act } from "react-dom/test-utils";
 Enzyme.configure({ adapter: new Adapter() });
@@ -27,6 +28,25 @@ describe('ChangeStatus when status intialize with 1 (ongoing)', ()=> {
         expect(wrapper.find('button').text()).toContain('Close');
     });
 
+    it('clicks close button, change status and render shuffle button instead', async() =>{
+        
+        let wrap = mount(<LanguageContext.Provider value = {['en',]}><Status stat={1} electionID={1}/></LanguageContext.Provider>)
+        jest.spyOn(global, "fetch").mockImplementation(() => Promise.resolve(new Response()));
+        //jest.spyOn(wrap.instance(), "closeElection").mockReturnValue(true);
+        //jest.spyOn(useChangeStatus, userValidateClose).mock(true)
+        //jest.spyOn(global, "userValidateClose").mockImplementation(()=>true);
+        //console.log(wrap.debug());
+        //jest.spyOn(global, "setUserValidateClose").mockResolvedValue(true);
+        const modalClose = wrap.find('#close-modal').find('#confirm-button').simulate('click');
+        
+        await act(async() =>{
+           wrap.find('#close-button').simulate('click');
+           
+        });
+        wrap.update();
+        expect(wrap.find('#close-button').text()).toContain('Shuffle');
+    });
+
 })
 
 describe('ChangeStatus when status intialize with 2 (closed)', ()=> {
@@ -46,7 +66,7 @@ describe('ChangeStatus when status intialize with 2 (closed)', ()=> {
 
     it('clicks shuffle button, change status and render encrypt button instead', async() =>{
         
-        jest.spyOn(global, "fetch").mockImplementation(() =>    Promise.resolve(new Response()));
+        jest.spyOn(global, "fetch").mockImplementation(() => Promise.resolve(new Response()));
         await act(async() =>{
            wrapper.find('button').simulate('click');
         });
@@ -65,7 +85,7 @@ describe('ChangeStatus when status intialize with 5 (result available)', ()=> {
         //console.log(wrapper.debug());
         expect(wrapper).not.toBeNull();
     });
-    it('shows button to shuffle election', () =>{
+    it('shows results button', () =>{
         expect(wrapper.find('button').text()).toContain('See results');
     });
 

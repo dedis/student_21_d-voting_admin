@@ -23,11 +23,11 @@ const useChangeStatus = (stat, electionID) =>{
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
     const [userValidateCancel, setUserValidateCancel] = useState(false);
-    const modalClose =  <ConfirmModal showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
+    const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
 
     useEffect(() => {  
-        
+           
             //check if close button was clicked and the user validated the confirmation window
             if(isClosing && userValidateClose){
                 const closeSuccess = closeElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
@@ -57,9 +57,12 @@ const useChangeStatus = (stat, electionID) =>{
 
     
 
-    const handleClose = () =>{        
+    const handleClose = () =>{     
         setShowModalClose(true);
         setIsClosing(true);
+        console.log('hello');
+        console.log(userValidateClose);
+        
     }
 
     const handleCancel = () =>{
@@ -90,7 +93,7 @@ const useChangeStatus = (stat, electionID) =>{
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>{Translations[context].statusOpen}</span>
                     
-                    <button className='election-btn' onClick={handleClose}>{Translations[context].close}</button>
+                    <button id='close-button' className='election-btn' onClick={handleClose}>{Translations[context].close}</button>
                     <button className='election-btn' onClick={handleCancel}>{Translations[context].cancel}</button>
                 </span>;  
             case 2: //closed

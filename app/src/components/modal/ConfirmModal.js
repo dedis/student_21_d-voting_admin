@@ -15,7 +15,7 @@ function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
         return (
             <div >
                 <button className='btn-left' onClick={closeModal}>No</button>
-                <button className='btn-right' onClick={validateChoice}>Yes</button>
+                <button id='confirm-button' className='btn-right' onClick={validateChoice}>Yes</button>
                 
             </div>
         )

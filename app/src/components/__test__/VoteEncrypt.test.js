@@ -20,9 +20,13 @@ describe("Encrytion tests", () => {
     const vote = 'Tom';
 
     const decryptVote = (ephemeralKey, encryptedVote, privateKey) => {
-            const S = edCurve.point().mul(privateKey, ephemeralKey);
-            const M = edCurve.point().sub(encryptedVote,S);
-            return M.data().toString();
+        const ephKeyUnmarsh = edCurve.point();
+        ephKeyUnmarsh.unmarshalBinary(ephemeralKey)
+        const encryptedVoteUnmarsh = edCurve.point();
+        encryptedVoteUnmarsh.unmarshalBinary(encryptedVote);
+        const S = edCurve.point().mul(privateKey, ephKeyUnmarsh);
+        const M = edCurve.point().sub(encryptedVoteUnmarsh,S);
+        return M.data().toString();
     }
     
 
@@ -37,6 +41,8 @@ describe("Encrytion tests", () => {
         const voteBuff = Buffer.from(voteByte.buffer);
         const M = edCurve.point().embed(voteBuff); 
         const [ephemeralKey, encryptedVote] = encrypt.encryptVote(vote, publicKey, edCurve);
-        expect(M.equals(encryptedVote)).toBe(false);
+        const encryptedVoteUnmarsh = edCurve.point();
+        encryptedVoteUnmarsh.unmarshalBinary(encryptedVote);
+        expect(M.equals(encryptedVoteUnmarsh)).toBe(false);
     })
 })

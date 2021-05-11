@@ -55,6 +55,8 @@ function CastBallot(){
         return new Uint8Array(bytes);
     }
 
+ 
+
    
     
     const sendBallot = async() =>{
@@ -63,18 +65,20 @@ function CastBallot(){
         sessionStorage.setItem('myVote', choice);
 
         const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
-
-        const KBuff = K.toProto();
-        const CBuff = C.toProto();
+        console.log(K);
+        //const KBuff = K.toProto();
+        //const CBuff = C.toProto();
         //transform buffer to []number
-        const vote = [...Buffer.concat([KBuff,CBuff])].map(x => parseInt(x,10));
+        const vote = [...Buffer.concat([K,C])];
+        const vote1 = JSON.stringify({'K': Array.from(K), 'C':Array.from(C)});
 
         ballot['ElectionID'] = localStorage.getItem('electionIDs'); //TODO: don't store id but api call
         ballot['UserId'] = sessionStorage.getItem('id');       
-        ballot['Ballot'] = vote;
+        ballot['Ballot'] = [...Buffer.from(vote1)];
         ballot['Token'] = sessionStorage.getItem('token');
         console.log(ballot);
         //sending the ballot to evoting server
+        console.log(JSON.stringify(ballot));
         try{
             const response = await fetch(castBallotEndPoint, {
                 method: 'POST',

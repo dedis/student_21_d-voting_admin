@@ -28,9 +28,9 @@ export function encryptVote(vote, dkgKey, edCurve){
     
     const S = edCurve.point().mul(k, pubKeyPoint); //ephemeral DH shared secret
     const C = S.add(S,M); //message blinded with secret
-
+    
 
     //(K,C) are what we'll send to the backend TODO: add the remainder?
     //TODO if time : symmetric key sent with encrypted vote or vote limitation
-    return [K,C];
+    return [K.marshalBinary(),C.marshalBinary()];
 }
