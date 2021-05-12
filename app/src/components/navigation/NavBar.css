@@ -1,0 +1,56 @@
+
+img{
+  height:50px;
+  width:auto; 
+}
+
+.nav-links ul{
+  width:100%;
+}
+
+.nav-links{
+  display: flex;
+
+  width:100%;
+  border-bottom: 1px solid rgb(230, 225, 225);
+
+ 
+}
+
+.nodeco{
+  text-decoration: none;
+}
+
+.nav-links li{
+  display: inline-flex;
+  padding: 15px;
+  color:#177368;
+ 
+}
+.nodeco:hover{
+  font-weight: bold;
+  background-color: white;
+}
+
+.nodeco:active{
+  color: aliceblue;
+}
+
+.nav-links li.last:last-child{
+  float:right;
+  padding-right: 5%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

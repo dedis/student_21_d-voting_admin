@@ -1,0 +1,26 @@
+
+.election-wrapper{
+    padding-bottom: 3%;
+    padding-left: 3%;
+}
+
+.election-candidates{
+list-style: none;
+display: flexbox; 
+padding-bottom: 3%;
+}
+
+.election-candidate{
+    list-style: disc;
+    margin-left: 4%;
+}
+
+.election-title{
+    font-size: large;
+    font-weight: bold;
+    padding-bottom: 3%;
+}
+
+h1{
+    text-align: left;
+}

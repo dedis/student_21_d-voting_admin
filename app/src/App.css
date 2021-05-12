@@ -1,10 +1,19 @@
+
+
 .App {
-  text-align: center;
-  color: rgb(24, 37, 49);
+  font-family: sans-serif;
+  color: rgb(71, 71, 71);
+  min-height: 90vh;
+  background-color: white;
+  position:relative;
+  scroll-behavior: smooth;
+  overflow: scroll;
+  padding-bottom:50px;
+  
+
 }
 
-
-
+/*
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -15,38 +24,56 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+*/
 
-nav{
-  color: #61fb75;
-  text-align: left;
-  display: inline;
-  width:200px;
+.login-container{
+  min-width: 58ch;
+  display: flex;
+  text-align:center;
+  flex-direction: column;
+  padding-top: 2%;
+  padding-left: 20%;
+  padding-right:20%;
+  justify-content: center;
+  background-color: whitesmoke;
+  padding-bottom: 200px;
+  
+}
+
+.app-nav{
+  display: flex;
+  height: 100%;
+  background-color:whitesmoke;
+  margin-bottom: 2%;
+}
+ 
+.app-page{
+  min-width: 58ch;
+  display: flex;
+  text-align:left;
+  flex-direction: column;
+  padding-top: 2%;
+  padding-left: 20%;
+  padding-right:20%;
+  justify-content: center;
+  background-color: white;
+ 
+}
+
+.footer-container{
+
+  background: linear-gradient(   
+    rgb(27, 35, 43) 0%,
+    rgb(19, 25, 31) 100%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right:0;
 
 }
 
-
-.nav-links{
-  display: block;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  /*text-align: match-parent;*/
-  background-color: aliceblue;
-
-}
-
-.nav-links li{
-  float: left;
-  color: rgb(172, 31, 31);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  background-color: aliceblue;
-}
-
-/*Style for ElectionForm  */
-
+/*
 .form {
   position: absolute;
   top: 50%;
@@ -59,33 +86,13 @@ nav{
   justify-content: center;
   align-items: center;
 }
+*/
 
-.form-content-left {
-  background: linear-gradient(
-    90deg,
-    aliceblue 0%,
-    rgb(187, 239, 240) 100%
-  );
-  border-radius: 10px 0 0 10px;
 
-}
-.choices-saved{
-  list-style: none;
-  display: inline;
-}
 
-.form-inputs {
-  margin-bottom: 0.5rem;
-  width: 80%;
-}
 
-.ch{
-  display: inline-block;
-}
 
-.remove-btn {
-  
-}
+
 
 
 
