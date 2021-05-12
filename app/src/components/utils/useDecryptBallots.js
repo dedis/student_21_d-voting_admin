@@ -2,7 +2,7 @@
 function useDecryptBallots(){
     const decryptBallotsEndpoint = "/evoting/decrypt";
 
-    async function decryptBallots(electionID, userID, token){
+    async function decryptBallots(electionID, userID, token, setStatus){
         const request = {
             method: 'POST',
             body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
@@ -13,12 +13,13 @@ function useDecryptBallots(){
             if(!response.ok){
                 throw Error(response.statusTest);
             }
+            setStatus(5);
         } catch(error){
             console.log(error);
         }
         
     }
-    return decryptBallots;
+    return {decryptBallots};
 }
 
 export default useDecryptBallots;

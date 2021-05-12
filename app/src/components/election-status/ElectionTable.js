@@ -20,7 +20,7 @@ const ElectionTable = (props) => {
 
         return Object.entries(props.value).map(([k, val])=>{
             if(k === 'status')
-            return <td><Status stat={props.value.status} electionID={props.electionID} /></td>
+            return <td><Status stat={props.value.status} electionID={props.electionID} candidates={props.candidates} /></td>
             return (
                 <td>
                     <Link className='election-link' to={{pathname:`/elections/${props.electionID}`,

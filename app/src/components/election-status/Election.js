@@ -4,6 +4,7 @@ import React, {useContext} from 'react';
 import './Election.css';
 import ElectionTable from './ElectionTable';
 import useRetrieveElection from '../utils/useRetrieveElection';
+import useRetrieveAllElections from '../utils/useRetrieveAllElections';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
@@ -22,6 +23,7 @@ function Election() {
     const [context, ] = useContext(LanguageContext);
     const electionID = localStorage.getItem('electionIDs'); //this will not be present in the final version
     
+    //const [loading,electionRetrieved, , electionData] =  useRetrieveAllElections(sessionStorage.getItem('token'));
     const [loading,electionRetrieved, , electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
    
     /*Show all the elections retrieved if any */
@@ -31,7 +33,7 @@ function Election() {
                 {electionRetrieved? (<div>
                 {Translations[context].clickElection}
             <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionData.Title, 'status': electionData.Status}} electionID={electionID} />
+            <ElectionTable value={{'name': electionData.Title, 'status': electionData.Status}} electionID={electionID} candidates={electionData.Candidates} />
             </div>   
 
         </div>):<div>{Translations[context].noElection}</div>}
