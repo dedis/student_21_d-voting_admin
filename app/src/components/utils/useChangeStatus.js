@@ -30,7 +30,7 @@ const useChangeStatus = (stat, electionID, candidates) =>{
     const [userValidateCancel, setUserValidateCancel] = useState(false);
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
-    const [text, setText] = useState("hello");
+    const [text, setText] = useState("");
     const modalResult =  <Modal showModal={showModalResult} setShowModal={setShowModalResult} textModal = {text} buttonRight="close" />;
     
     useEffect(() => {  
@@ -136,7 +136,8 @@ const useChangeStatus = (stat, electionID, candidates) =>{
                 </span>;
             case 5: //result available
                 return <span>
-                    <button className='election-btn' onClick={handleResult}>{Translations[context].seeResults}</button>
+                    <span className='election-status-closed'></span>
+                    <span className='election-btn'>{Translations[context].resultsAvailable}</span>
                 </span>;               
             case 6: //election has been canceled
                 return <span>

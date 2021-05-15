@@ -13,6 +13,9 @@ function ElectionDetails(props) { //props.location.data = id of the election
     const [context, ] = useContext(LanguageContext);
     const [loading, electionRetrieved, error, electionData] =  useRetrieveElection(props.location.data, sessionStorage.getItem('token'));
     
+    const resultAvailable = () => {
+
+    }
     return (
         <div>
         {!loading?

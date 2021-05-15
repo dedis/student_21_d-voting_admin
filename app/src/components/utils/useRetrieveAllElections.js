@@ -27,7 +27,7 @@ function useRetrieveAllElections(token){
                 return Promise.reject(error);
             }
 
-            setElectionData(data);
+            setElectionData(data.AllElectionsInfo);
             setElectionRetrieved(true);
             setLoading(false);
         })

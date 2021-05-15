@@ -23,8 +23,8 @@ function Election() {
     const [context, ] = useContext(LanguageContext);
     const electionID = localStorage.getItem('electionIDs'); //this will not be present in the final version
     
-    //const [loading,electionRetrieved, , electionData] =  useRetrieveAllElections(sessionStorage.getItem('token'));
-    const [loading,electionRetrieved, , electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
+    const [loading,electionRetrieved, , electionData] =  useRetrieveAllElections(sessionStorage.getItem('token'));
+    //const [loading,electionRetrieved, , electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
    
     /*Show all the elections retrieved if any */
     const showElection = ()=>{
@@ -32,8 +32,9 @@ function Election() {
             <div>
                 {electionRetrieved? (<div>
                 {Translations[context].clickElection}
+                {console.log(electionData)}
             <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={{'name': electionData.Title, 'status': electionData.Status}} electionID={electionID} candidates={electionData.Candidates} />
+            <ElectionTable value={electionData} electionID={electionData.electionID} candidates={electionData.Candidates} />
             </div>   
 
         </div>):<div>{Translations[context].noElection}</div>}

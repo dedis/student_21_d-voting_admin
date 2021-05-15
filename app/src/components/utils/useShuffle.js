@@ -4,11 +4,11 @@ function useShuffle(setIsShuffling, setStatus){
 
     const shuffleBallotsEndpoint = "/evoting/shuffle";
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'V6/l+6g41TOV+Cz7qYkBMArc4LFWGu/ujkWSTz2qseY=';
+    const PK1 = '0jnEzhVqqHORdZrynCse8ns9sP7VBTJI1w5Uab6w6+w=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = 'n8DZlxK9bsJq0csxEgul2xdslPZn0lhxdOnXeVP3RZY=';
+    const PK2 = 'R+RL1V8xrPkrAo43voUSNtXE/9hIF1+zSy5fFFFIfE8=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'V+bEaoJRfmjv735RCFy+NSwj8KZoVPoXmTbSPh4aic0=';
+    const PK3 = 'rpn1PO8DtP8nT68esyeJMrac3BMTkxqfvmB4cWF54tg=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
 
     async function shuffleElection(electionID, userID, token){
