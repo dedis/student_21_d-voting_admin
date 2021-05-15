@@ -14,7 +14,8 @@ function useGetResults(){
                 throw Error(response.statusTest);
             } else {
                 let data = await response.json();
-                setResult(data.Result);
+                //setResult(data.Result);
+                console.log(data.Result);
             }
         } catch(error){
             console.log(error);

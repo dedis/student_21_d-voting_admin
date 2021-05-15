@@ -3,7 +3,12 @@ import './ElectionTable.css';
 import {Link} from 'react-router-dom';
 import Status from './Status';
 
-const ElectionTable = (props) => {
+/**
+ * 
+ * @param {*} props : array of Elections
+ * @returns a table where each line corresponds to an election with its name and status
+ */
+const ElectionTable = (props) => { 
 
     const renderTableHeader = () => {
         return Object.keys(props.value[0]).map((key,index) => {
@@ -20,11 +25,11 @@ const ElectionTable = (props) => {
     const renderLine = (obj) => {
         return Object.entries(obj).map(([k, val])=>{
                 if(k === 'Status'){
-                    return <td><Status stat={val} electionID={obj.ElectionID} candidates={obj.Candidates} /></td>}
+                    console.log(obj.ElectionID);
+                    return <td><Status status={val} electionID={obj.ElectionID} candidates={obj.Candidates} /></td>}
                 if(k=== 'Title')
                 return (
                     <td>
-                        {console.log(obj.ElectionID)}
                         <Link className='election-link' to={{pathname:`/elections/${obj.ElectionID}`,
                     data: obj.ElectionID}}>{val}</Link>
                     {/*<span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>

@@ -10,7 +10,7 @@ import useDecryptBallots from '../utils/useDecryptBallots';
 import useGetResults from '../utils/useGetResults';
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
-const useChangeStatus = (stat, electionID, candidates) =>{
+const useChangeStatus = (stat, electionID, candidates, setResult) =>{
 
     const [status, setStatus] = useState(stat);
     const [context, ] = useContext(LanguageContext);
@@ -19,19 +19,19 @@ const useChangeStatus = (stat, electionID, candidates) =>{
     const [isShuffling, setIsShuffling] = useState(false);
     const {closeElection} = useCloseElection(setIsClosing);
     const {cancelElection} = useCancelElection(setIsCanceling);
-    const {shuffleElection} = useShuffle(setIsShuffling,setStatus);
+    const {shuffleElection} = useShuffle(setIsShuffling);
     const {decryptBallots} = useDecryptBallots();
     const {getResults} = useGetResults();
-    const [result, setResult] = useState(null);
+    //const [result, ] = useState(null);
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
-    const [showModalResult, setShowModalResult] = useState(false);
+    //const [showModalResult, setShowModalResult] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
     const [userValidateCancel, setUserValidateCancel] = useState(false);
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
     const [text, setText] = useState("");
-    const modalResult =  <Modal showModal={showModalResult} setShowModal={setShowModalResult} textModal = {text} buttonRight="close" />;
+    //const modalResult =  <Modal showModal={showModalResult} setShowModal={setShowModalResult} textModal = {text} buttonRight="close" />;
     
     useEffect(() => {  
            
@@ -62,12 +62,15 @@ const useChangeStatus = (stat, electionID, candidates) =>{
         }; 
     }, [isCanceling, showModalCancel])
 
+
+    /*
     useEffect(()=> {
         if(result){
            setText(countBallots(result));
            
         }
     }, [result])
+    */
 
     const handleClose = () =>{     
         setShowModalClose(true);
@@ -83,15 +86,17 @@ const useChangeStatus = (stat, electionID, candidates) =>{
     const handleShuffle = () => {
         setIsShuffling(true);
         shuffleElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
+        setStatus(3);
     }
 
     const handleDecrypt = () => {
+        console.log(electionID);
         decryptBallots(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'), setStatus);
     }
 
     const handleResult = async() => {
         getResults(electionID, sessionStorage.getItem('token'), setResult);               
-        setShowModalResult(true);
+        //setShowModalResult(true);
         
     }
 
@@ -137,7 +142,7 @@ const useChangeStatus = (stat, electionID, candidates) =>{
             case 5: //result available
                 return <span>
                     <span className='election-status-closed'></span>
-                    <span className='election-btn'>{Translations[context].resultsAvailable}</span>
+                    <span className='election-btn' onClick={handleResult}>{Translations[context].resultsAvailable}</span>
                 </span>;               
             case 6: //election has been canceled
                 return <span>
@@ -150,7 +155,7 @@ const useChangeStatus = (stat, electionID, candidates) =>{
             };
     } 
 
-    return {getStatus, modalClose, modalCancel, modalResult};
+    return {getStatus, modalClose, modalCancel};
 };
 
 export default useChangeStatus;

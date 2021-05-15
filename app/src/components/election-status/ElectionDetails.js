@@ -2,31 +2,31 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import './ElectionDetails.css';
-import useRetrieveElection from '../utils/useRetrieveElection';
 import Status from './Status';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
+import useElection from '../utils/useElection';
 
 
 function ElectionDetails(props) { //props.location.data = id of the election
 
     const [context, ] = useContext(LanguageContext);
-    const [loading, electionRetrieved, error, electionData] =  useRetrieveElection(props.location.data, sessionStorage.getItem('token'));
-    
-    const resultAvailable = () => {
+    //const [loading, electionRetrieved, error, electionData] =  useRetrieveElection(props.location.data, sessionStorage.getItem('token'));
+    const {loading,title,candidates,id,status,pubKey,result, setResult, setStatus} = useElection(props.location.data,sessionStorage.getItem('token'));
 
-    }
+    
     return (
         <div>
         {!loading?
         (<div>
             <h1>{Translations[context].electionDetails}</h1>
+            {console.log(result)}
             <div className='election-wrapper'>
-                <div className='election-title'>{electionData.Title}</div>
-                {Translations[context].status} <Status stat={electionData.Status} electionID={props.location.data} />
+                <div className='election-title'>{title}</div>
+                {Translations[context].status} <Status status={status} electionID={id} setResult={setResult} />
                 <div className='election-candidates'>
                         {Translations[context].candidates}
-                        {electionData.Candidates.map((cand) => 
+                        {candidates.map((cand) => 
                         <li key={cand} className='election-candidate'>{cand}</li>)}
                 </div>                 
                 <Link to='/elections'>

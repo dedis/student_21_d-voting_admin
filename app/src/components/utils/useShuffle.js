@@ -1,14 +1,14 @@
  /*Custom hook that sends a shuffle call to the backend when the shuffle button is clicked */
 
-function useShuffle(setIsShuffling, setStatus){
+function useShuffle(setIsShuffling){
 
     const shuffleBallotsEndpoint = "/evoting/shuffle";
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = '0jnEzhVqqHORdZrynCse8ns9sP7VBTJI1w5Uab6w6+w=';
+    const PK1 = 'DfOtXGZns8IubF5wh+IDEIwjYlBx5ofbm88z1vRQk4s=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = 'R+RL1V8xrPkrAo43voUSNtXE/9hIF1+zSy5fFFFIfE8=';
+    const PK2 = 'lepJT83zWVI/4kibC1o1euJ0VufJ1LBb/15Jn0egKw4=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'rpn1PO8DtP8nT68esyeJMrac3BMTkxqfvmB4cWF54tg=';
+    const PK3 = 'il9GfZ7kfKQUmZg5d0/LdhmKVknbKb+2wNgVhQ2Ina4=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
 
     async function shuffleElection(electionID, userID, token){
@@ -26,7 +26,6 @@ function useShuffle(setIsShuffling, setStatus){
             console.log(error);
         }
         setIsShuffling(false);
-        setStatus(3);
     }
     return {shuffleElection};
 

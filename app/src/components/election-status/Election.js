@@ -3,11 +3,9 @@ import React, {useContext} from 'react';
 
 import './Election.css';
 import ElectionTable from './ElectionTable';
-import useRetrieveElection from '../utils/useRetrieveElection';
-import useRetrieveAllElections from '../utils/useRetrieveAllElections';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
-
+import useFetchCall from '../utils/useFetchCall';
 
 /*Assumption : for now an election is simply a json file with the following field
     - electionName: string
@@ -21,20 +19,26 @@ function Election() {
 
 
     const [context, ] = useContext(LanguageContext);
-    const electionID = localStorage.getItem('electionIDs'); //this will not be present in the final version
+    //const electionID = localStorage.getItem('electionIDs'); //this will not be present in the final version
     
-    const [loading,electionRetrieved, , electionData] =  useRetrieveAllElections(sessionStorage.getItem('token'));
+    //const [loading,electionRetrieved, , electionData] =  useRetrieveAllElections(sessionStorage.getItem('token'));
     //const [loading,electionRetrieved, , electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
-   
+    const token = sessionStorage.getItem('token');
+    const request = {
+        method: 'POST',
+        body: JSON.stringify({'Token': token})
+    }
+    const endpoint = "/evoting/all";
+    const [data, loading, error] = useFetchCall(endpoint, request);
+
     /*Show all the elections retrieved if any */
     const showElection = ()=>{
         return (
             <div>
-                {electionRetrieved? (<div>
+                {data.AllElectionsInfo.length > 0 ? (<div>
                 {Translations[context].clickElection}
-                {console.log(electionData)}
             <div classeName = 'election-table-wrapper'>
-            <ElectionTable value={electionData} electionID={electionData.electionID} candidates={electionData.Candidates} />
+            <ElectionTable value={data.AllElectionsInfo} />
             </div>   
 
         </div>):<div>{Translations[context].noElection}</div>}

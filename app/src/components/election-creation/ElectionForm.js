@@ -28,7 +28,8 @@ function ElectionForm({setShowModal, setTextModal}){
         return bytes;
     }
 
-    /* Append the id of a created election to others in the localStorage */
+    /*
+    // Append the id of a created election to others in the localStorage
     const storeIdNewElection = (id) => {
         var idsStored = localStorage.getItem('electionIDs');
         if(!idsStored){
@@ -42,6 +43,7 @@ function ElectionForm({setShowModal, setTextModal}){
             }
         }
     }
+    */
 
     const sendFormData = async() => {
         //create the JSON object
@@ -96,7 +98,7 @@ function ElectionForm({setShowModal, setTextModal}){
                     setTextModal(Translations[context].electionFail);
                } else{
                     setTextModal(Translations[context].electionSuccess);
-                    storeIdNewElection(response);
+                    //storeIdNewElection(response);
                }
                 setShowModal(prev => !prev);
                 setElectionName('');
