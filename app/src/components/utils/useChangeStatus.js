@@ -102,22 +102,6 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         }
     }
 
-    const countBallots = (result) => {
-        const resultMap = {};
-        for(var i = 0; i< candidates.length;i++){
-            resultMap[candidates[i]] = 0;
-        }
-        for(var i = 0; i< result.length;i++){
-           resultMap[result[i]['Vote']]  = resultMap[result[i]['Vote']] +1;
-        }
-        console.log(resultMap);
-        return Object.entries(resultMap).map(([k, val])=>{
-            return <div>{k}:{val}</div>
-        })
-       
-        
-    }
-
     const getStatus = () => {
 
         switch (status){

@@ -48,22 +48,23 @@ function ElectionDetails(props) { //props.location.data = id of the election
 
     
     return (
-        <div>
+        <div className = 'election-details-box'>
         {!loading?
         (<div>
-            <h1>{Translations[context].electionDetails}</h1>
-            <div className='election-wrapper'>
-                <div className='election-title'>{title}</div>
-                {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} />
-                <div className='election-candidates'>
-                        {Translations[context].candidates}
-                        {candidates.map((cand) => 
-                        <li key={cand} className='election-candidate'>{cand}</li>)}
-                </div>                 
-                <Link to='/elections'>
-                    <button className='back-btn'>{Translations[context].back}</button>
-                </Link>
-                {isResultSet || isResultAvailable? <div className='result-wrapper'><Result resultData={result}/></div>:null}
+            <h1>{title}</h1>
+            <div className='election-details-wrapper'>
+                <div className = 'election-wrapper-child'>
+                    {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} />
+                    <div className='election-candidates'>
+                            {Translations[context].candidates}
+                            {candidates.map((cand) => 
+                            <li key={cand} className='election-candidate'>{cand}</li>)}
+                    </div>                 
+                    <Link to='/elections'>
+                        <button className='back-btn'>{Translations[context].back}</button>
+                    </Link>
+                </div>
+                {isResultSet || isResultAvailable? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>:null}
             </div> 
             
             
