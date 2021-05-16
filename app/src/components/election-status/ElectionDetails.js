@@ -6,6 +6,7 @@ import Status from './Status';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
+import Result from './Result';
 
 
 
@@ -15,14 +16,14 @@ function ElectionDetails(props) { //props.location.data = id of the election
     const [context, ] = useContext(LanguageContext);
     const getElectionResultEndpoint = "/evoting/result";
     
-    const {loading,title,candidates,electionID,status,pubKey,result, setResult, setStatus} = useElection(props.location.data,token);
+    const {loading,title,candidates,electionID,status,pubKey,result, setResult, setStatus, isResultSet} = useElection(props.location.data,token);
     const [loadingResult, setLoadingResult] = useState(false);
     const [error, setError] = useState(null);  
-    const [resultAvailable, setResultAvailable] = useState(false); 
-   
+    const [isResultAvailable, setIsResultAvailable] = useState(false); 
+
     
     useEffect(async() => {
-        if(status===5 && resultAvailable){
+        if(status===5 && isResultAvailable){
             setLoadingResult(true);
             const resultRequest = {
                 method: 'POST',
@@ -43,7 +44,9 @@ function ElectionDetails(props) { //props.location.data = id of the election
                 console.log(error);
             }
         }
-    }, [status, resultAvailable])
+    }, [status, isResultAvailable])
+
+    
     return (
         <div>
         {!loading?
@@ -51,7 +54,7 @@ function ElectionDetails(props) { //props.location.data = id of the election
             <h1>{Translations[context].electionDetails}</h1>
             <div className='election-wrapper'>
                 <div className='election-title'>{title}</div>
-                {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setResultAvailable} />
+                {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} />
                 <div className='election-candidates'>
                         {Translations[context].candidates}
                         {candidates.map((cand) => 
@@ -60,7 +63,10 @@ function ElectionDetails(props) { //props.location.data = id of the election
                 <Link to='/elections'>
                     <button className='back-btn'>{Translations[context].back}</button>
                 </Link>
+                {isResultSet || isResultAvailable? <div className='result-wrapper'><Result resultData={result}/></div>:null}
             </div> 
+            
+            
         </div>):<p></p>
     }
     </div>

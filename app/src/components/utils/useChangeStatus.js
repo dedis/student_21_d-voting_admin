@@ -139,6 +139,8 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                 </span>; 
             case 3: //ballots have been shuffled
                 return <span>
+                    <span className='election-status-closed'></span>
+                    <span className='election-status-text'>{Translations[context].statusClose}</span>
                     <button className='election-btn' onClick={handleDecrypt}>{Translations[context].decrypt}</button>
                 </span>;
             case 5: //result available

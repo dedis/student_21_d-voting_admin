@@ -11,9 +11,9 @@ function useElection(electionID, token){
     }
     const endpoint = "/evoting/info";
     const [data, loading, error] = useFetchCall(endpoint, request);
-    const {title,candidates,id,status,pubKey,result, setStatus} = useFillElectionFields(data);
+    const {title,candidates,id,status,pubKey,result, setStatus, isResultSet} = useFillElectionFields(data);
     //useResult(status, setResult)
-    return {loading, title, candidates,electionID,status,pubKey,result, setStatus}
+    return {loading, title, candidates,electionID,status,pubKey,result, setStatus, isResultSet}
 }
 
 export default useElection;

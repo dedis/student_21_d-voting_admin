@@ -14,7 +14,7 @@ const ElectionTable = (props) => {
     const renderTableHeader = () => {
         return Object.keys(props.value[0]).map((key,index) => {
             if(key === 'Title' || key=== 'Status'){
-                return <th key={index}>{key.toUpperCase()}</th>
+                return <th className = 'col' key={index}>{key.toUpperCase()}</th>
             }
         })
     }
@@ -25,11 +25,17 @@ const ElectionTable = (props) => {
 
     const renderLine = (obj) => {
         let {title,candidates,id,status,pubKey,result, setStatus} = ElectionFields(obj);
-        return (<span>
-                <td><Link className='election-link' to={{pathname:`/elections/${id}`,
-                    data: id}}>{title}</Link></td>
-                <td><Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/></td>
-            </span> )
+        //making sure each td stays in its column
+        return [0,1].map((val)=>{
+            if(val === 0){
+                return <td className = 'first-col'><div className='first-cont'><Link className='election-link' to={{pathname:`/elections/${id}`,
+                data: id}}>{title}</Link></div></td>
+            }
+            if(val ==1){
+                return <td className = 'second-col'><div className='second-cont'><Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/></div></td>
+            }
+        })
+
     }
 
     const renderTableData = () =>{
