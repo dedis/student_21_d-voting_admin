@@ -19,11 +19,17 @@ function Ballot(props){
     const edCurve = kyber.curve.newCurve("edwards25519");
     const castBallotEndPoint = "/evoting/cast";
     const [postRequest, setPostRequest] = useState(null);
-    const {postData} = usePostCall(castBallotEndPoint, postRequest, props.setShowModal);
+    const {postData} = usePostCall();
 
     useEffect(()=> {
         fetchItems();
     }, []); 
+
+    useEffect(()=>{
+        if(postRequest !== null){
+            postData(castBallotEndPoint, postRequest, props.setShowModal)
+        }
+    }, [postRequest])
 
 
     const fetchItems = async() => {  

@@ -2,42 +2,52 @@ import {React, useState, useContext, useEffect} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import ConfirmModal from '../modal/ConfirmModal';
-import Modal from '../modal/Modal';
-import useCloseElection from '../utils/useCloseElection';
-import useCancelElection from '../utils/useCancelElection';
-import useShuffle from '../utils/useShuffle';
-import useDecryptBallots from '../utils/useDecryptBallots';
 import useGetResults from '../utils/useGetResults';
+import usePostCall from '../utils/usePostCall';
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
 const useChangeStatus = (stat, electionID, candidates, setResult) =>{
 
     const [status, setStatus] = useState(stat);
+    const userID = sessionStorage.getItem('id');
+    const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);
     const [isClosing, setIsClosing] = useState(false);
     const [isCanceling, setIsCanceling] = useState(false);
     const [isShuffling, setIsShuffling] = useState(false);
-    const {closeElection} = useCloseElection(setIsClosing);
-    const {cancelElection} = useCancelElection(setIsCanceling);
-    const {shuffleElection} = useShuffle(setIsShuffling);
-    const {decryptBallots} = useDecryptBallots();
+    const [isDecrypting, setIsDecrypting] = useState(false);
     const {getResults} = useGetResults();
-    //const [result, ] = useState(null);
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
-    //const [showModalResult, setShowModalResult] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
     const [userValidateCancel, setUserValidateCancel] = useState(false);
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
-    const [text, setText] = useState("");
-    //const modalResult =  <Modal showModal={showModalResult} setShowModal={setShowModalResult} textModal = {text} buttonRight="close" />;
-    
-    useEffect(() => {  
-           
+    const {postData} = usePostCall();
+    const simplePostRequest = {
+        method: 'POST',
+        body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
+    }
+    const closeElectionEndpoint = "/evoting/close";
+    const cancelElectionEndpoint = "/evoting/cancel";
+    const decryptBallotsEndpoint = "/evoting/decrypt";
+    const shuffleBallotsEndpoint = "/evoting/shuffle";
+    const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
+    const PK1 = 'SL7hPJNRMMg3/y/R841mEZ9qTEyZyCYGCJETekKNicY=';
+    const address2 = 'RjEyNy4wLjAuMToyMDAy';
+    const PK2 = '0NHeGTYbqyLbZPEAKpdxhkpyn3HufrJ8PSbBVN1h0vc=';
+    const address3 = 'RjEyNy4wLjAuMToyMDAz';
+    const PK3 = '4u6e5gRizxTk1c8OqfKV8Cx41cqt43iJqNZXCETSsrs=';
+    const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
+    const shuffleRequest = {
+        method: 'POST',
+        body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token, 'Members': CollectiveAuthorityMembers})
+    }
+
+    useEffect(() => {        
             //check if close button was clicked and the user validated the confirmation window
             if(isClosing && userValidateClose){
-                const closeSuccess = closeElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
+                const closeSuccess = postData(closeElectionEndpoint, simplePostRequest, setIsClosing);            
                 if(closeSuccess){
                     setStatus(2);
                 } else {
@@ -45,37 +55,24 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
                 }
                 setUserValidateClose(false);
         }
- 
     }, [isClosing, showModalClose])
     
 
     useEffect(() => {
         if(isCanceling && userValidateCancel) {
-            const cancelSuccess = cancelElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
+            const cancelSuccess = postData(cancelElectionEndpoint, simplePostRequest, setIsCanceling);
             if(cancelSuccess){
                 setStatus(6);
             } else {
 
             }
-            setUserValidateCancel(false);
-            
+            setUserValidateCancel(false);           
         }; 
     }, [isCanceling, showModalCancel])
 
-
-    /*
-    useEffect(()=> {
-        if(result){
-           setText(countBallots(result));
-           
-        }
-    }, [result])
-    */
-
     const handleClose = () =>{     
         setShowModalClose(true);
-        setIsClosing(true);
-       
+        setIsClosing(true);       
     }
 
     const handleCancel = () =>{
@@ -85,13 +82,14 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
 
     const handleShuffle = () => {
         setIsShuffling(true);
-        shuffleElection(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'));
-        setStatus(3);
+        const shuffleSuccess = postData(shuffleBallotsEndpoint,shuffleRequest,setIsShuffling);
+        if(shuffleSuccess){
+            setStatus(3);
+        }
     }
 
     const handleDecrypt = () => {
-        console.log(electionID);
-        decryptBallots(electionID, sessionStorage.getItem('id'), sessionStorage.getItem('token'), setStatus);
+        const decryptSucess = postData(decryptBallotsEndpoint, simplePostRequest, setIsDecrypting)
     }
 
     const handleResult = async() => {
