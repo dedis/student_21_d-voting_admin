@@ -33,7 +33,7 @@ function Ballot(props){
 
 
     const fetchItems = async() => {  
-        let choiceCached = sessionStorage.getItem('myVote');
+        let choiceCached = sessionStorage.getItem(id);
         setChoice(choiceCached);
         setLastVote(choiceCached);
     } 
@@ -69,7 +69,7 @@ function Ballot(props){
     }
 
     const sendBallot = async() =>{
-        sessionStorage.setItem('myVote', choice);
+        sessionStorage.setItem(id, choice);
         console.log(choice);
         const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
@@ -99,7 +99,7 @@ function Ballot(props){
 
     return (
         
-        <div className='ballot'>
+        
         <div className = 'ballot-wrapper'>
             {lastVote !== null ?
                 (
@@ -129,7 +129,7 @@ function Ballot(props){
             {candidates !== null? <div><div className='cast-ballot-error'>{errors.noCandidate}</div>
                 <button className='cast-ballot-btn' onClick={handleClick}>{Translations[context].castVote}</button></div> : null}
         </div>
-    </div>
+    
     )
 }
 

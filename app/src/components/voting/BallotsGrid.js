@@ -16,13 +16,13 @@ function BallotsGrid(){
         method: 'POST',
         body: JSON.stringify({'Token': token})
     }
-    const endpoint = "/evoting/all";
-    const [data, loading, error] = useFetchCall(endpoint, fetchRequest);
+    const getAllElectionsEndpoint = "/evoting/all";
+    const [data, loading, error] = useFetchCall(getAllElectionsEndpoint, fetchRequest);
 
-    const displayBallot = (election) =>{
-        return <div className='cast-ballot-card'>
-                    <Ballot electionData={election} setShowModal={setShowModal}></Ballot>
-                </div>
+    const displayBallot = (election) =>{   
+            return <div className='cast-ballot-card'>
+                        <Ballot electionData={election} setShowModal={setShowModal}></Ballot>
+                    </div>
     }
     
    
@@ -31,7 +31,9 @@ function BallotsGrid(){
             <div>
                 <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
                 {elections.map((elec) => {
-                    return displayBallot(elec);
+                    if(elec.Status === 1){
+                        return <div className='ballot'>{displayBallot(elec)}</div>;
+                    }
                 })}
             </div>
         )}
@@ -42,9 +44,6 @@ function BallotsGrid(){
             {!loading && data.AllElectionsInfo.length > 0?  showBallots(data.AllElectionsInfo) : <p></p>}       
         </div>
     )
-
-    
-
 }
 
 export default BallotsGrid;

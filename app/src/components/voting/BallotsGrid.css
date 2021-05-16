@@ -1,10 +1,9 @@
-.cast-ballot{
-
- 
+.ballot{
+    padding-bottom: 2%;
 }
 
 .ballot-indication{
-    margin-bottom: 2%;
+    padding-bottom:2%;
 }
 
 .cast-ballot-error{
