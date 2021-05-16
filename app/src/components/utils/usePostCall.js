@@ -10,7 +10,7 @@ import {useEffect, useState} from 'react';
 function usePostCall(){
     const [error, setError] = useState(null);
 
-    const postData = async(endpoint, request, setSomething) => {
+    const postData = async(endpoint, request, setIsPosting) => {
         try{
             const response = await fetch(endpoint,request);
 
@@ -18,7 +18,7 @@ function usePostCall(){
                 throw Error(response.statusText);
             } else {
                 //const data = await response.json();
-                setSomething(prev => !prev);
+                setIsPosting(prev => !prev);
                 return true;
             }
         } catch(error){

@@ -2,6 +2,7 @@ import React from 'react';
 import './ElectionTable.css';
 import {Link} from 'react-router-dom';
 import Status from './Status';
+import ElectionFields from '../utils/ElectionFields';
 
 /**
  * 
@@ -23,19 +24,12 @@ const ElectionTable = (props) => {
     }
 
     const renderLine = (obj) => {
-        return Object.entries(obj).map(([k, val])=>{
-                if(k === 'Status'){
-                    console.log(obj.ElectionID);
-                    return <td><Status status={val} electionID={obj.ElectionID} candidates={obj.Candidates} /></td>}
-                if(k=== 'Title')
-                return (
-                    <td>
-                        <Link className='election-link' to={{pathname:`/elections/${obj.ElectionID}`,
-                    data: obj.ElectionID}}>{val}</Link>
-                    {/*<span className='election-name-pointer' data-toggle='tooltip' title = 'Show details' onClick={()=> props.handleClick()}>{val}</span>
-                    <span className='tooltiptext'></span>*/}
-                </td>)
-            }) 
+        let {title,candidates,id,status,pubKey,result, setStatus} = ElectionFields(obj);
+        return (<span>
+                <td><Link className='election-link' to={{pathname:`/elections/${id}`,
+                    data: id}}>{title}</Link></td>
+                <td><Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/></td>
+            </span> )
     }
 
     const renderTableData = () =>{

@@ -6,26 +6,25 @@ function useFetchCall(endpoint, request){
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
+    const fetchData = async () =>{
+        try{
+            const response = await fetch(endpoint,request);
 
-        const fetchData = async () =>{
-            try{
-                const response = await fetch(endpoint,request);
-    
-                if(!response.ok){
-                    throw Error(response.statusText);
-                } else {
-                    let dataReceived = await response.json();
-                    setData(dataReceived);
-                    setLoading(false);
-                }
-            } catch(error){
-                setError(error);
-                console.log(error);
+            if(!response.ok){
+                throw Error(response.statusText);
+            } else {
+                let dataReceived = await response.json();
+                setData(dataReceived);
+                setLoading(false);
             }
+        } catch(error){
+            setError(error);
+            console.log(error);
         }
-        fetchData();
-        
+    }
+  
+    useEffect(() => {
+        fetchData();       
     }, [])
 
     return [data, loading, error]

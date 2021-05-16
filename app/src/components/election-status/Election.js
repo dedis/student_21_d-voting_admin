@@ -3,6 +3,7 @@ import React, {useContext} from 'react';
 
 import './Election.css';
 import ElectionTable from './ElectionTable';
+
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useFetchCall from '../utils/useFetchCall';

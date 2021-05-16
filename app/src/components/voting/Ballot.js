@@ -2,7 +2,7 @@ import {React,useContext, useState, useEffect} from 'react';
 import './Ballot.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
-import useElectionFields from '../utils/useElectionFields';
+import useFillElectionFields from '../utils/useFillElectionFields';
 import usePostCall from '../utils/usePostCall';
 import {encryptVote} from './VoteEncrypt';
 import kyber from "@dedis/kyber";
@@ -12,7 +12,7 @@ function Ballot(props){
     const electionData = props.electionData;
     
     const [context,] = useContext(LanguageContext);
-    const {title,candidates,id,status,pubKey,result, setResult, setStatus} = useElectionFields(electionData)
+    const {title,candidates,id,status,pubKey,result, setResult, setStatus} = useFillElectionFields(electionData)
     const [choice, setChoice] = useState('');
     const [errors, setErrors] = useState({});
     const [lastVote, setLastVote] = useState('');

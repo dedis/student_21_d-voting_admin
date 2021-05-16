@@ -2,13 +2,12 @@ import {React, useState, useContext, useEffect} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import ConfirmModal from '../modal/ConfirmModal';
-import useGetResults from '../utils/useGetResults';
 import usePostCall from '../utils/usePostCall';
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
-const useChangeStatus = (stat, electionID, candidates, setResult) =>{
+const useChangeStatus = (status, electionID, candidates, setStatus, setResultAvailable=null) =>{
 
-    const [status, setStatus] = useState(stat);
+    //const [status, setStatus] = useState(stat);
     const userID = sessionStorage.getItem('id');
     const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);
@@ -16,7 +15,6 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
     const [isCanceling, setIsCanceling] = useState(false);
     const [isShuffling, setIsShuffling] = useState(false);
     const [isDecrypting, setIsDecrypting] = useState(false);
-    const {getResults} = useGetResults();
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
@@ -24,6 +22,8 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
     const {postData} = usePostCall();
+    
+    
     const simplePostRequest = {
         method: 'POST',
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
@@ -32,6 +32,9 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
     const cancelElectionEndpoint = "/evoting/cancel";
     const decryptBallotsEndpoint = "/evoting/decrypt";
     const shuffleBallotsEndpoint = "/evoting/shuffle";
+   
+   
+
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
     const PK1 = 'SL7hPJNRMMg3/y/R841mEZ9qTEyZyCYGCJETekKNicY=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
@@ -70,6 +73,7 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
         }; 
     }, [isCanceling, showModalCancel])
 
+
     const handleClose = () =>{     
         setShowModalClose(true);
         setIsClosing(true);       
@@ -88,14 +92,14 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
         }
     }
 
-    const handleDecrypt = () => {
-        const decryptSucess = postData(decryptBallotsEndpoint, simplePostRequest, setIsDecrypting)
-    }
-
-    const handleResult = async() => {
-        getResults(electionID, sessionStorage.getItem('token'), setResult);               
-        //setShowModalResult(true);
-        
+    const handleDecrypt = async() => {
+        const decryptSucess = await postData(decryptBallotsEndpoint, simplePostRequest, setIsDecrypting);
+        if(decryptSucess){
+            if(setResultAvailable !== null){
+                setResultAvailable(true);
+            }        
+            setStatus(5);
+        }
     }
 
     const countBallots = (result) => {
@@ -140,7 +144,7 @@ const useChangeStatus = (stat, electionID, candidates, setResult) =>{
             case 5: //result available
                 return <span>
                     <span className='election-status-closed'></span>
-                    <span className='election-btn' onClick={handleResult}>{Translations[context].resultsAvailable}</span>
+                    <span className='election-btn'>{Translations[context].resultsAvailable }</span>
                 </span>;               
             case 6: //election has been canceled
                 return <span>
