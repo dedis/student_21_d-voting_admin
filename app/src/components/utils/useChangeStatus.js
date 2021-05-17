@@ -36,11 +36,11 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
    
 
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'SL7hPJNRMMg3/y/R841mEZ9qTEyZyCYGCJETekKNicY=';
+    const PK1 = 'cXG8EezAHH9VFEeki/53lUex/OQsdj3VY1VZly9o7/k=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = '0NHeGTYbqyLbZPEAKpdxhkpyn3HufrJ8PSbBVN1h0vc=';
+    const PK2 = 'HUotaaZW2awQvo+1fxNvZA+luI2d6LoKkt63RA40t+0=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = '4u6e5gRizxTk1c8OqfKV8Cx41cqt43iJqNZXCETSsrs=';
+    const PK3 = 'xJ8enZODvj3Z2hDCK3BtM47MfkmQP9MvvZRtJsk/m9w=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
     const shuffleRequest = {
         method: 'POST',

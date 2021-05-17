@@ -22,9 +22,9 @@ function useFillElectionFields(electionData){
             }
         }
 
-    }, electionData)
+    }, [electionData])
 
-    return {title,candidates,id,status,pubKey,result, setStatus, isResultSet};
+    return {title,candidates,id,status,pubKey,result, setResult, setStatus, isResultSet, setIsResultSet};
 }
 
 export default useFillElectionFields;

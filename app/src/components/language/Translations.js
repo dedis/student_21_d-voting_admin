@@ -50,7 +50,7 @@ export const Translations = {
         noCandidate: 'You need to select a candidate.',
         castVote: 'Cast vote',
         noVote: 'There is currently nothing to vote on.',
-        voteAllowed: 'You are allowed to vote on the election below.',
+        voteAllowed: 'You are allowed to vote on the election(s) below.',
         shuffle: 'Shuffle',
         decrypt: 'Decrypt',
         yes: 'Yes',

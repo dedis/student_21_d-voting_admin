@@ -1,3 +1,5 @@
+import './Result.css';
+
 function Result(props){
     const candidates = props.candidates;
     const resultData = props.resultData;
@@ -9,21 +11,21 @@ function Result(props){
         for(var i = 0; i< result.length;i++){
            resultMap[result[i]['Vote']]  = resultMap[result[i]['Vote']] +1;
         }
-        console.log(resultMap)
         return resultMap;
     }
 
     const displayPercentage = (result) => {
         let resultMap = countBallots(result);
-        return Object.entries(resultMap).map(([k, val])=>{
-            return <div>{k}: {(val/candidates.length * 100).toFixed(2)}%</div>;
-        });
+        const sortedResultMap =Object.fromEntries(Object.entries(resultMap).sort(function([,a],[,b]){return b-a}));
+        return <ol>{Object.entries(sortedResultMap).map(([k, val])=>{
+            return <li className='percentage' key={k}>{k}: {(val/result.length * 100).toFixed(2)}%</li>;
+        })}</ol>;
     }
     return(
         <span>
-            <div>Result of the election:</div>
-            {displayPercentage(resultData)}
-            <div>Total number of votes : {candidates.length}</div>
+            <div className='result-title'>Result of the election:</div>
+            {displayPercentage(props.resultData)}
+            <div className = 'number-votes'>Total number of votes : {resultData.length}</div>
         </span>
     )
 }

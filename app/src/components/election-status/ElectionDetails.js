@@ -16,12 +16,12 @@ function ElectionDetails(props) { //props.location.data = id of the election
     const [context, ] = useContext(LanguageContext);
     const getElectionResultEndpoint = "/evoting/result";
     
-    const {loading,title,candidates,electionID,status,pubKey,result, setResult, setStatus, isResultSet} = useElection(props.location.data,token);
+    const {loading,title,candidates,electionID,status,pubKey,result, setResult, setStatus, isResultSet, setIsResultSet} = useElection(props.location.data,token);
     const [loadingResult, setLoadingResult] = useState(false);
     const [error, setError] = useState(null);  
     const [isResultAvailable, setIsResultAvailable] = useState(false); 
 
-    
+    // fetch result when available
     useEffect(async() => {
         if(status===5 && isResultAvailable){
             setLoadingResult(true);
@@ -36,8 +36,9 @@ function ElectionDetails(props) { //props.location.data = id of the election
                     throw Error(response.statusText);
                 } else {
                     let dataReceived = await response.json();
-                    setResult(dataReceived);
+                    setResult(dataReceived.Result);
                     setLoadingResult(false);
+                    setIsResultSet(true);
                 }
             } catch(error){
                 setError(error);
@@ -64,7 +65,7 @@ function ElectionDetails(props) { //props.location.data = id of the election
                         <button className='back-btn'>{Translations[context].back}</button>
                     </Link>
                 </div>
-                {isResultSet || isResultAvailable? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>:null}
+                {isResultSet? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>:null}
             </div> 
             
             
