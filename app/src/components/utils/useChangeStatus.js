@@ -36,11 +36,11 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
    
 
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'cXG8EezAHH9VFEeki/53lUex/OQsdj3VY1VZly9o7/k=';
+    const PK1 = 'ub7HROYaiPiU1RIIqxJd8lcpZjg6eIXv1n0UgXRbT9A=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = 'HUotaaZW2awQvo+1fxNvZA+luI2d6LoKkt63RA40t+0=';
+    const PK2 = 'FEIe/+H0dncHqm+sqHtA64U/jiUben/m+3uCmnZLR48=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'xJ8enZODvj3Z2hDCK3BtM47MfkmQP9MvvZRtJsk/m9w=';
+    const PK3 = 'GpVc2e85gOLj1FD06WqtSIne99ajDfDdopGtmSl3l4s=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
     const shuffleRequest = {
         method: 'POST',
@@ -130,7 +130,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             case 5: //result available
                 return <span>
                     <span className='election-status-closed'></span>
-                    <span className='election-btn'>{Translations[context].resultsAvailable }</span>
+                    <span>{Translations[context].resultsAvailable }</span>
                 </span>;               
             case 6: //election has been canceled
                 return <span>
