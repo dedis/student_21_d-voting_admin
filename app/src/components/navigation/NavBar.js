@@ -21,9 +21,11 @@ function NavBar() {
     
     <div className='nav-links'>
         <ul>
-            <li className='nav-logo'>
-                <img src={logo} alt='small logo'></img>
-            </li>
+            <NavLink exact to='/'>
+                <li className='nav-logo'>
+                    <img src={logo} alt='small logo'></img>
+                </li>
+            </NavLink>
             
             <NavLink className='nodeco' exact to='/'  activeStyle={activeStyle}>
                 <li>{Translations[lanContext].navBarHome}</li>

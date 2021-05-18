@@ -139,7 +139,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                 </span>;  
 
             default :
-                return 'couldn\'t match status number';
+                return 'couldn\'t match status number'; //TODO
             };
     } 
 

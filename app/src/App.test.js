@@ -1,16 +1,25 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+
+import {screen } from '@testing-library/react';
+import Enzyme, {mount, render, shallow} from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+Enzyme.configure({ adapter: new Adapter() });
 import App from './App';
+import React from 'react'
 
 import renderer from 'react-test-renderer';
 
 
+describe('shallow render of App', ()=> {
+    
+  let wrapper;
+  beforeEach(()=>{
+      wrapper = shallow(<App />);
+  })
 
-
-test('renders learn react link', () => {
-  //const mock = jest.fn();
-  //let result = mock('en');
-  //render(<App />);
-  const component = renderer.create(<App />);
-
+  
+  it('renders App', () =>{
+    console.log(wrapper.debug());
+    expect(wrapper).not.toBeNull();
 });
+
+})
