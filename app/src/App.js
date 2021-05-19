@@ -29,7 +29,7 @@ function App() {
   const [lanContext, setLanContext] =  useState(getBrowserLanguage());
   
   
-  const [token, setToken] = useToken();
+  const {token, saveToken} = useToken();
 
   return (
     <div className="App">
@@ -41,7 +41,7 @@ function App() {
             <Route exact path='/' component={NavBar}/>
           </div>
           <div data-testid="content" className='app-page'>
-          {!token? (<div className='login-container'><Login setToken={setToken}/></div>): (<div>
+          {!token? (<div className='login-container'><Login id='login-id' setToken={saveToken}/></div>): (<div>
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/create-election" component={CreateElection}/>

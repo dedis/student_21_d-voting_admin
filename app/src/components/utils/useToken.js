@@ -18,7 +18,7 @@ function useToken(){
         setToken(token);
     }
 
-    return [token, saveToken];
+    return {token, saveToken};
 }
 
 export default useToken;

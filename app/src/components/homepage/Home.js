@@ -12,7 +12,7 @@ function Home(){
   const [loading,electionRetrieved, pubKey] =  useFetchData(endpointPubKey, false); 
 
   return(
-    <div classeName='home'>
+    <div className='home'>
       <h1>{Translations[context].homeTitle}</h1>
       {loading? null 
                 :(electionRetrieved? 

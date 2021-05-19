@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Enzyme,{mount, render, shallow} from 'enzyme';
 import {LanguageContext} from '../language/LanguageContext';
-import ConfirmModal from '../modal/ConfirmModal';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { act } from "react-dom/test-utils";
 Enzyme.configure({ adapter: new Adapter() });
-
-import useChangeStatus from '../utils/useChangeStatus'; 
 import Status  from '../election-status/Status';
 
 

@@ -22,6 +22,7 @@ const useFetchData = (url, isJson=true) => {
             } else {
                 
                 const response = await fetch(url);
+                console.log(response);
                 /*TODO: define a status with backend to mean that no election exists  */
                 if(!response.ok){
                     setLoading(false);
