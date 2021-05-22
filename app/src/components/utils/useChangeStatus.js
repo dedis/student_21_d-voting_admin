@@ -2,6 +2,7 @@ import {React, useState, useContext, useEffect} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import ConfirmModal from '../modal/ConfirmModal';
+import Modal from '../modal/Modal';
 import usePostCall from '../utils/usePostCall';
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
@@ -17,10 +18,12 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
     const [isDecrypting, setIsDecrypting] = useState(false);
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
+    const [showModalError, setShowModalError] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
     const [userValidateCancel, setUserValidateCancel] = useState(false);
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
+    const modalError = <Modal showModal={showModalError} setShowModal={setShowModalError} textModal = {Translations[context].operationFailure} buttonRight={Translations[context].close} />;
     const [postError, setPostError] = useState(null);
     const {postData} = usePostCall(setPostError);
     
@@ -48,29 +51,38 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token, 'Members': CollectiveAuthorityMembers})
     }
 
-    useEffect(() => {        
+    useEffect(()=> {
+        if(!showModalError){
+            setPostError(null);
+        }
+    }, showModalError)
+
+    useEffect(async() => {        
             //check if close button was clicked and the user validated the confirmation window
             if(isClosing && userValidateClose){
-                const closeSuccess = postData(closeElectionEndpoint, simplePostRequest, setIsClosing);            
-                if(closeSuccess){
+                const closeSuccess = await postData(closeElectionEndpoint, simplePostRequest, setIsClosing);            
+                if(closeSuccess && postError === null){
                     setStatus(2);
                 } else {
                     //TODO : show error message that closing election wasn't successful
+                    setShowModalError(true);
                 }
                 setUserValidateClose(false);
+                setPostError(null);
         }
     }, [isClosing, showModalClose])
     
 
-    useEffect(() => {
+    useEffect(async() => {
         if(isCanceling && userValidateCancel) {
-            const cancelSuccess = postData(cancelElectionEndpoint, simplePostRequest, setIsCanceling);
-            if(cancelSuccess){
+            const cancelSuccess = await postData(cancelElectionEndpoint, simplePostRequest, setIsCanceling);
+            if(cancelSuccess && postError === null){
                 setStatus(6);
             } else {
-
+                setShowModalError(true);
             }
-            setUserValidateCancel(false);           
+            setUserValidateCancel(false);   
+            setPostError(null);        
         }; 
     }, [isCanceling, showModalCancel])
 
@@ -85,22 +97,28 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         setIsCanceling(true); 
     }
 
-    const handleShuffle = () => {
+    const handleShuffle = async() => {
         setIsShuffling(true);
-        const shuffleSuccess = postData(shuffleBallotsEndpoint,shuffleRequest,setIsShuffling);
-        if(shuffleSuccess){
+        const shuffleSuccess = await postData(shuffleBallotsEndpoint,shuffleRequest,setIsShuffling);
+        if(shuffleSuccess && postError === null){
             setStatus(3);
+        } else{
+            setShowModalError(true);
         }
+        setPostError(null);
     }
 
     const handleDecrypt = async() => {
         const decryptSucess = await postData(decryptBallotsEndpoint, simplePostRequest, setIsDecrypting);
-        if(decryptSucess){
+        if(decryptSucess && postError === null){
             if(setResultAvailable !== null){
                 setResultAvailable(true);
             }        
             setStatus(5);
+        } else {
+            setShowModalError(true);
         }
+        setPostError(null);
     }
 
     const getStatus = () => {
@@ -144,7 +162,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             };
     } 
 
-    return {getStatus, modalClose, modalCancel};
+    return {getStatus, modalClose, modalCancel, modalError};
 };
 
 export default useChangeStatus;

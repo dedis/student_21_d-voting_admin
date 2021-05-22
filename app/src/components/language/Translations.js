@@ -54,6 +54,8 @@ export const Translations = {
         voteAllowed: 'You are allowed to vote on the election(s) below.',
         shuffle: 'Shuffle',
         decrypt: 'Decrypt',
+        operationFailure: 'The operation failed. Try refreshing the page.',
+        shuffleFail : 'The shuffle operation failed.',
         yes: 'Yes',
         about: <Fragment>
             This website hosts the interface of an evoting system. This system runs smart contracts, handled by a set of Byzantine fault-tolerant nodes.
@@ -123,6 +125,8 @@ export const Translations = {
         voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous.',
         shuffle: 'Mélanger',
         decrypt: 'Décrypter',
+        operationFailure: 'L\'opération a échoué. Essayez de rafraîchir la page.',
+        shuffleFail: 'L\'opération ???????',
         yes: 'Oui',
         about: <Fragment>
         Ce site Internet héberge l'interface d'un système de vote électronique. Ce système exécute des contrats intelligents basés sur le problème des généraux byzantins.
