@@ -38,7 +38,7 @@ function Election() {
             <div>
                 {data.AllElectionsInfo.length > 0 ? (<div>
                 {Translations[context].clickElection}
-            <div classeName = 'election-table-wrapper'>
+            <div className = 'election-table-wrapper'>
             <ElectionTable value={data.AllElectionsInfo} />
             </div>   
 

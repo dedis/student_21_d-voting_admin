@@ -14,22 +14,32 @@ function Ballot(props){
     const [context,] = useContext(LanguageContext);
     const {title,candidates,id,status,pubKey,result, setResult, setStatus} = useFillElectionFields(electionData)
     const [choice, setChoice] = useState('');
-    const [errors, setErrors] = useState({});
+    const [userErrors, setUserErrors] = useState({});
     const [lastVote, setLastVote] = useState('');
     const edCurve = kyber.curve.newCurve("edwards25519");
     const castBallotEndPoint = "/evoting/cast";
     const [postRequest, setPostRequest] = useState(null);
-    const {postData} = usePostCall();
+    const [postError, setPostError] = useState(null);
+    const {postData} = usePostCall(setPostError);
+    
 
-    useEffect(()=> {
-        fetchItems();
-    }, []); 
+   
 
     useEffect(()=>{
         if(postRequest !== null){
-            postData(castBallotEndPoint, postRequest, props.setShowModal)
+            setPostError(null);
+            postData(castBallotEndPoint, postRequest, props.setShowModal);
         }
     }, [postRequest])
+
+    useEffect(()=> {
+        if(postError !== null){
+            props.setModalText(Translations[context].voteFailure);
+        } else {
+            props.setModalText(Translations[context].voteSuccess);
+            //fetchItems();
+        }
+    }, [postError])
 
 
     const fetchItems = async() => {  
@@ -88,25 +98,26 @@ function Ballot(props){
         let errors = {};
         if(choice === ''){
             errors['noCandidate'] = Translations[context].noCandidate
-            setErrors(errors);
+            setUserErrors(errors);
             return;
         }
         setLastVote(choice);
         sendBallot();
         //setChoice('');
-        setErrors({});
+        setUserErrors({});
     }
 
     return (
         
         
         <div className = 'ballot-wrapper'>
-            {lastVote !== null ?
+
+            {/*lastVote !== null ?
                 (
                 <div className='past-vote'>{Translations[context].alreadyVoted} <b>{lastVote}</b> {Translations[context].alreadyVoted2}
                 <br />
                 {Translations[context].changeVote}</div>): (<span></span>)
-            }
+                */}
 
             <h3 className = 'ballot-title'>{title}</h3>
             <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
@@ -126,7 +137,7 @@ function Ballot(props){
                     </label>
                 </div>
             ) ) : <p>Default</p>}
-            {candidates !== null? <div><div className='cast-ballot-error'>{errors.noCandidate}</div>
+            {candidates !== null? <div><div className='cast-ballot-error'>{userErrors.noCandidate}</div>
                 <button className='cast-ballot-btn' onClick={handleClick}>{Translations[context].castVote}</button></div> : null}
         </div>
     

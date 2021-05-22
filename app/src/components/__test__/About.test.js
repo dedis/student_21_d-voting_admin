@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import About from '../About';
 
-import {LanguageContext} from '../language/LanguageContext'
+import {LanguageContext} from '../language/LanguageContext';
 import  render from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import {Translations} from '../language/Translations';

@@ -36,6 +36,7 @@ const useFetchData = (url, isJson=true) => {
                         setElectionData(data);
                     } else {
                         let data = await response.arrayBuffer();
+                        console.log(data);
                         setElectionData(new Uint8Array(data));
                         
                     }

@@ -7,8 +7,7 @@ import {useEffect, useState} from 'react';
  * @param {*} setIsPosting 
  * @returns 
  */
-function usePostCall(){
-    const [error, setError] = useState(null);
+function usePostCall(setError){
 
     const postData = async(endpoint, request, setIsPosting) => {
         try{
@@ -22,7 +21,10 @@ function usePostCall(){
                 return true;
             }
         } catch(error){
+            console.log("it caught an error");
+            
             setError(error);
+            setIsPosting(prev => !prev);
             console.log(error);
         }
     }

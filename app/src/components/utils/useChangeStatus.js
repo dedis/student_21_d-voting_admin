@@ -21,7 +21,8 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
     const [userValidateCancel, setUserValidateCancel] = useState(false);
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
-    const {postData} = usePostCall();
+    const [postError, setPostError] = useState(null);
+    const {postData} = usePostCall(setPostError);
     
     
     const simplePostRequest = {
@@ -36,11 +37,11 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
    
 
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = '2Pem1f0oVMD83PALK9Gi1Gm8mve8SD+FZIGkJkTmTZU=';
+    const PK1 = 'RrUUNNpyjU/PfT8DbUgdu44UMwLqfEh0P1ncXEQr0sE=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = '8M5bPCDQ2LucZDa1zwRJUej/h043DIBR2tA4pScHgmY=';
+    const PK2 = 'HLc27XBEGK0rMospURH470yhm7Nt/npYUvgaJTOJq5A=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = '/7CAuBiPFpm3E/984TCgV3ErYeesxbjHrD7NQika9r4=';
+    const PK3 = 'Rs0AF5sfEP3DhPISs/77UlCU80JY+mX/rxiAql/8vmQ=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
     const shuffleRequest = {
         method: 'POST',

@@ -16,7 +16,10 @@ function Home(){
       <h1>{Translations[context].homeTitle}</h1>
       {loading? null 
                 :(electionRetrieved? 
-                    (<div>{sessionStorage.setItem('pubKey', pubKey)}</div>)
+                    (<div>
+                      {console.log(pubKey, " ", pubKey.length)}
+                      {sessionStorage.setItem('pubKey', pubKey)}
+                    </div>)
                     :null)}   
       <div className='home-txt'>{Translations[context].homeText}</div>
     </div>

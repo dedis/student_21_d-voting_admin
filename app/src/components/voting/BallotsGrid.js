@@ -10,7 +10,8 @@ import './BallotsGrid.css';
 function BallotsGrid(){
     const [context, ] = useContext(LanguageContext);
     const [showModal, setShowModal] = useState(false);
-    const [noOpenElections, setNoOpenElections] = useState(true);
+    const [modalText, setModalText] = useState(Translations[context].voteSuccess);
+    const [openBallot, setOpenBallot] = useState(false);
 
     const token = sessionStorage.getItem('token');
     const fetchRequest = {
@@ -22,7 +23,7 @@ function BallotsGrid(){
 
     const displayBallot = (election) =>{   
             return <div className='cast-ballot-card'>
-                        <Ballot electionData={election} setShowModal={setShowModal}></Ballot>
+                        <Ballot electionData={election} setShowModal={setShowModal} setModalText={setModalText}></Ballot>
                     </div>
     }
     
@@ -30,21 +31,24 @@ function BallotsGrid(){
     const showBallots = (elections) => {
         return (
             <div>
-                {noOpenElections? <p>{Translations[context].noVote}</p> : <div className='ballot-indication'>{Translations[context].voteAllowed}</div>}
-                <Modal showModal={showModal} setShowModal={setShowModal} textModal = {Translations[context].voteSuccess} buttonRight={Translations[context].close} />
+                <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRight={Translations[context].close} />
                 {elections.map((elec) => {
                     if(elec.Status === 1){
-                        setNoOpenElections(false);
+                        if(openBallot === false){
+                            setOpenBallot(true);
+                        }
                         return <div className='ballot'>{displayBallot(elec)}</div>;
                     }
                 })}
-
+                {!openBallot? <div>{Translations[context].noVote}</div> :null}
             </div>
         )}
 
     return (
         <div className = 'cast-ballot'>
-            {!loading && data.AllElectionsInfo.length > 0?  showBallots(data.AllElectionsInfo) : <p></p>}       
+            {openBallot?<div className='ballot-indication'>{Translations[context].voteAllowed}</div>:null}
+            {loading? <p className='loading'>{Translations[context].loading}</p>:<p></p>}
+            {!loading && data.AllElectionsInfo.length > 0?  showBallots(data.AllElectionsInfo) : <p>{Translations[context].noVote}</p>}       
         </div>
     )
 }
