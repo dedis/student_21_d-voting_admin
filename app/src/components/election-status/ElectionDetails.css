@@ -18,11 +18,13 @@ padding-bottom: 3%;
 }
 
 .election-details-wrapper{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-}
 
+}
+.back-btn{
+    margin-top: 3%;
+}
 h1{
     padding-top: 2%;
     text-align: left;
+    color: #177368;
 }

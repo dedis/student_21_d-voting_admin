@@ -54,18 +54,17 @@ function ElectionDetails(props) { //props.location.data = id of the election
         (<div>
             <h1>{title}</h1>
             <div className='election-details-wrapper'>
-                <div className = 'election-wrapper-child'>
-                    {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} />
+            {isResultSet? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>
+                :<div className='election-wrapper-child'> {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} />
                     <div className='election-candidates'>
                             {Translations[context].candidates}
                             {candidates.map((cand) => 
                             <li key={cand} className='election-candidate'>{cand}</li>)}
-                    </div>                 
+                    </div>      
+                </div>}                           
                     <Link to='/elections'>
                         <button className='back-btn'>{Translations[context].back}</button>
-                    </Link>
-                </div>
-                {isResultSet? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>:null}
+                    </Link>               
             </div> 
             
             

@@ -123,7 +123,7 @@ export const Translations = {
         noCandidate: 'Veuillez sélectionner un candidat.',
         castVote: 'Voter',
         noVote: 'Il n\'y a actuellement aucune votation en cours.',
-        voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous. Cliquez sur le nom pour accéder au scrutin',
+        voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous. Cliquez sur le nom pour accéder au scrutin.',
         shuffle: 'Mélanger',
         decrypt: 'Décrypter',
         operationFailure: 'L\'opération a échoué. Essayez de rafraîchir la page.',
