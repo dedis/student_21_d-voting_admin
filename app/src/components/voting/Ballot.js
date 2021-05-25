@@ -2,17 +2,19 @@ import {React,useContext, useState, useEffect} from 'react';
 import './Ballot.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
-import useFillElectionFields from '../utils/useFillElectionFields';
+import useElection from '../utils/useElection';
 import usePostCall from '../utils/usePostCall';
 import {encryptVote} from './VoteEncrypt';
+import Modal from '../modal/Modal';
+import {Link} from 'react-router-dom';
 import kyber from "@dedis/kyber";
 
 
 function Ballot(props){
-    const electionData = props.electionData;
     
     const [context,] = useContext(LanguageContext);
-    const {title,candidates,id,status,pubKey,result, setResult, setStatus} = useFillElectionFields(electionData)
+    const token = sessionStorage.getItem('token');
+    const {loading, title,candidates,electionID,status,pubKey,result, setResult, setStatus} = useElection(props.location.data, token)
     const [choice, setChoice] = useState('');
     const [userErrors, setUserErrors] = useState({});
     const [lastVote, setLastVote] = useState('');
@@ -21,6 +23,8 @@ function Ballot(props){
     const [postRequest, setPostRequest] = useState(null);
     const [postError, setPostError] = useState(null);
     const {postData} = usePostCall(setPostError);
+    const [showModal, setShowModal] = useState(false);
+    const [modalText, setModalText] = useState(Translations[context].voteSuccess);
     
 
    
@@ -28,22 +32,22 @@ function Ballot(props){
     useEffect(()=>{
         if(postRequest !== null){
             setPostError(null);
-            postData(castBallotEndPoint, postRequest, props.setShowModal);
+            postData(castBallotEndPoint, postRequest, setShowModal);
         }
     }, [postRequest])
 
     useEffect(()=> {
         if(postError !== null){
-            props.setModalText(Translations[context].voteFailure);
+            setModalText(Translations[context].voteFailure);
         } else {
-            props.setModalText(Translations[context].voteSuccess);
+            setModalText(Translations[context].voteSuccess);
             //fetchItems();
         }
     }, [postError])
 
 
     const fetchItems = async() => {  
-        let choiceCached = sessionStorage.getItem(id);
+        let choiceCached = sessionStorage.getItem(electionID);
         setChoice(choiceCached);
         setLastVote(choiceCached);
     } 
@@ -71,15 +75,15 @@ function Ballot(props){
         let ballot = {};
         let vote = JSON.stringify({'K': Array.from(K), 'C':Array.from(C)});
 
-        ballot['ElectionID'] = id; 
+        ballot['ElectionID'] = electionID; 
         ballot['UserId'] = sessionStorage.getItem('id');       
         ballot['Ballot'] = [...Buffer.from(vote)];
-        ballot['Token'] = sessionStorage.getItem('token');
+        ballot['Token'] = token;
         return ballot;
     }
 
     const sendBallot = async() =>{
-        sessionStorage.setItem(id, choice);
+        sessionStorage.setItem(electionID, choice);
         console.log(choice);
         const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
@@ -107,19 +111,13 @@ function Ballot(props){
         setUserErrors({});
     }
 
-    return (
-        
-        
-        <div className = 'ballot-wrapper'>
+    const electionClosedDisplay = () =>{
+        return <div> {Translations[context].voteImpossible}</div>
+    }
 
-            {/*lastVote !== null ?
-                (
-                <div className='past-vote'>{Translations[context].alreadyVoted} <b>{lastVote}</b> {Translations[context].alreadyVoted2}
-                <br />
-                {Translations[context].changeVote}</div>): (<span></span>)
-                */}
-
-            <h3 className = 'ballot-title'>{title}</h3>
+    const ballotDisplay = () => {
+        return (
+            <div><h3 className = 'ballot-title'>{title}</h3>
             <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
             {candidates !== null && candidates.length !== 0 ?
             candidates.map(candidate => (
@@ -138,7 +136,29 @@ function Ballot(props){
                 </div>
             ) ) : <p>Default</p>}
             {candidates !== null? <div><div className='cast-ballot-error'>{userErrors.noCandidate}</div>
-                <button className='cast-ballot-btn' onClick={handleClick}>{Translations[context].castVote}</button></div> : null}
+                <button className='cast-ballot-btn' onClick={handleClick}>{Translations[context].castVote}</button></div> : null}</div>
+        )
+    }
+
+    return (
+        
+        
+        <div className = 'ballot-wrapper'>
+
+            {/*lastVote !== null ?
+                (
+                <div className='past-vote'>{Translations[context].alreadyVoted} <b>{lastVote}</b> {Translations[context].alreadyVoted2}
+                <br />
+                {Translations[context].changeVote}</div>): (<span></span>)
+                */}
+            <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRight={Translations[context].close} />
+            {console.log(candidates)}
+            {loading? (<p className='loading'>{Translations[context].loading}</p>)
+                :(<div> {status === 1? ballotDisplay():electionClosedDisplay()}
+                    <Link to='/vote'>
+                        <button className='back-btn'>{Translations[context].back}</button>
+                    </Link>
+                </div>)}
         </div>
     
     )

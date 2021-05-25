@@ -51,11 +51,12 @@ export const Translations = {
         noCandidate: 'You need to select a candidate.',
         castVote: 'Cast vote',
         noVote: 'There is currently nothing to vote on.',
-        voteAllowed: 'You are allowed to vote on the election(s) below.',
+        voteAllowed: 'You are allowed to vote on the election(s) below. Click on the name to display the ballot.',
         shuffle: 'Shuffle',
         decrypt: 'Decrypt',
         operationFailure: 'The operation failed. Try refreshing the page.',
         shuffleFail : 'The shuffle operation failed.',
+        voteImpossible: 'The election is not open anymore.',
         yes: 'Yes',
         about: <Fragment>
             This website hosts the interface of an evoting system. This system runs smart contracts, handled by a set of Byzantine fault-tolerant nodes.
@@ -122,11 +123,12 @@ export const Translations = {
         noCandidate: 'Veuillez sélectionner un candidat.',
         castVote: 'Voter',
         noVote: 'Il n\'y a actuellement aucune votation en cours.',
-        voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous.',
+        voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous. Cliquez sur le nom pour accéder au scrutin',
         shuffle: 'Mélanger',
         decrypt: 'Décrypter',
         operationFailure: 'L\'opération a échoué. Essayez de rafraîchir la page.',
         shuffleFail: 'L\'opération ???????',
+        voteImpossible: 'Il n\'est plus possible de voter pour l\'élection.',
         yes: 'Oui',
         about: <Fragment>
         Ce site Internet héberge l'interface d'un système de vote électronique. Ce système exécute des contrats intelligents basés sur le problème des généraux byzantins.

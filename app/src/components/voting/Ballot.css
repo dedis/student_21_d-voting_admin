@@ -9,6 +9,15 @@
 .checkbox-full{
    padding-bottom: 1%;
 }
+.cast-ballot-btn{
+    margin-bottom: 5%;
+}
+
+.back-btn {
+    border-radius: 8px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 .checkbox-text{
     padding-bottom: 1%;
