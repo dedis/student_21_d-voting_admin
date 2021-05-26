@@ -8,15 +8,6 @@ export function encryptVote(vote, dkgKey, edCurve){
     const voteBuff = Buffer.from(voteByte.buffer);
     const M = edCurve.point().embed(voteBuff); 
 
-    //TODO: deal with message bigger than 29 bytes
-    /*
-    const max = edCurve.point().embedLen();
-    if(max > voteByte.length){
-        max = voteByte.length;
-    }
-    const remainder = voteByte.subarray(max,voteByte.length);
-    */
-
     //dkg public key as a point on the EC 
     const keyBuff = dkgKey;//Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer);
     const p = edCurve.point();

@@ -35,7 +35,6 @@ const ElectionTable = (props) => {
                 return <td className = 'second-col'><div className='second-cont'><Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/></div></td>
             }
         })
-
     }
 
     const renderTableData = () =>{

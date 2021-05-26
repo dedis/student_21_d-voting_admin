@@ -7,15 +7,14 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
 import Result from './Result';
+import {GET_RESULT_ENDPOINT} from '../utils/Endpoints';
 
 
 
 
 function ElectionDetails(props) { //props.location.data = id of the election
     const token = sessionStorage.getItem('token');
-    const [context, ] = useContext(LanguageContext);
-    const getElectionResultEndpoint = "/evoting/result";
-    
+    const [context, ] = useContext(LanguageContext);   
     const {loading,title,candidates,electionID,status,pubKey,result, setResult, setStatus, isResultSet, setIsResultSet} = useElection(props.location.data,token);
     const [loadingResult, setLoadingResult] = useState(false);
     const [error, setError] = useState(null);  
@@ -30,7 +29,7 @@ function ElectionDetails(props) { //props.location.data = id of the election
                 body: JSON.stringify({'ElectionID':electionID,'Token': token})
             }
             try{
-                const response = await fetch(getElectionResultEndpoint,resultRequest);
+                const response = await fetch(GET_RESULT_ENDPOINT,resultRequest);
     
                 if(!response.ok){
                     throw Error(response.statusText);
@@ -65,19 +64,11 @@ function ElectionDetails(props) { //props.location.data = id of the election
                     <Link to='/elections'>
                         <button className='back-btn'>{Translations[context].back}</button>
                     </Link>               
-            </div> 
-            
-            
-        </div>):<p></p>
+            </div>   
+        </div>):<p className='loading'>{Translations[context].loading}</p>
     }
     </div>
-
     );
-
-
 }
-
-
-
 
 export default ElectionDetails;

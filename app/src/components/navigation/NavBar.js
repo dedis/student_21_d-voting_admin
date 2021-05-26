@@ -4,11 +4,7 @@ import './NavBar.css';
 import logo from '../../assets/logoWithoutText.png';
 import {LanguageContext} from '../language/LanguageContext';
 import {Translations} from '../language/Translations';
-
-
 import {NavLink} from 'react-router-dom';
-
-
 
 function NavBar() {
 
@@ -17,8 +13,7 @@ function NavBar() {
         fontWeight: "bold",
     };
 
-  return (
-    
+  return ( 
     <div className='nav-links'>
         <ul>
             <NavLink exact to='/'>
@@ -42,8 +37,7 @@ function NavBar() {
             <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
                 <li>{Translations[lanContext].navBarAbout}</li>
             </NavLink>
-            
-            
+                      
             <li className='last'>
             <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
                     <option value='en'>en</option>

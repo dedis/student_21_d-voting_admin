@@ -4,35 +4,31 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
 import usePostCall from '../utils/usePostCall';
+import {CAST_BALLOT_ENDPOINT} from '../utils/Endpoints';
 import {encryptVote} from './VoteEncrypt';
 import Modal from '../modal/Modal';
 import {Link} from 'react-router-dom';
 import kyber from "@dedis/kyber";
 
 
-function Ballot(props){
+const Ballot = (props) => {//props.location.data = id of the election
     
     const [context,] = useContext(LanguageContext);
     const token = sessionStorage.getItem('token');
     const {loading, title,candidates,electionID,status,pubKey,result, setResult, setStatus} = useElection(props.location.data, token)
     const [choice, setChoice] = useState('');
     const [userErrors, setUserErrors] = useState({});
-    const [lastVote, setLastVote] = useState('');
     const edCurve = kyber.curve.newCurve("edwards25519");
-    const castBallotEndPoint = "/evoting/cast";
     const [postRequest, setPostRequest] = useState(null);
     const [postError, setPostError] = useState(null);
     const {postData} = usePostCall(setPostError);
     const [showModal, setShowModal] = useState(false);
     const [modalText, setModalText] = useState(Translations[context].voteSuccess);
-    
-
-   
 
     useEffect(()=>{
         if(postRequest !== null){
             setPostError(null);
-            postData(castBallotEndPoint, postRequest, setShowModal);
+            postData(CAST_BALLOT_ENDPOINT, postRequest, setShowModal);
         }
     }, [postRequest])
 
@@ -41,16 +37,9 @@ function Ballot(props){
             setModalText(Translations[context].voteFailure);
         } else {
             setModalText(Translations[context].voteSuccess);
-            //fetchItems();
         }
     }, [postError])
 
-
-    const fetchItems = async() => {  
-        let choiceCached = sessionStorage.getItem(electionID);
-        setChoice(choiceCached);
-        setLastVote(choiceCached);
-    } 
 
     /*Transform a string of type "1,2,3" to an array [1,2,3]*/ 
     function unpack(str) {
@@ -105,9 +94,7 @@ function Ballot(props){
             setUserErrors(errors);
             return;
         }
-        setLastVote(choice);
         sendBallot();
-        //setChoice('');
         setUserErrors({});
     }
 
@@ -115,26 +102,29 @@ function Ballot(props){
         return <div> {Translations[context].voteImpossible}</div>
     }
 
-    const ballotDisplay = () => {
+    const possibleChoice = (candidate) => {
         return (
-            <div><h3 className = 'ballot-title'>{title}</h3>
-            <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
-            {candidates !== null && candidates.length !== 0 ?
-            candidates.map(candidate => (
                 <div className='checkbox-full'>
                     <input 
                     type='checkbox'
                     key={candidate}
-                    className = 'checkbox-choice'
+                    className = 'checkbox-candidate'
                     value = {candidate}
-                    checked = {(choice === candidate)? true:false} //only one checkbox can be selected
+                    checked = {(choice === candidate)} //only one checkbox can be selected
                     onChange = {handleCheck}
                     />
                     <label className='checkbox-label'>
                         {candidate}
                     </label>
                 </div>
-            ) ) : <p>Default</p>}
+        )}
+
+    const ballotDisplay = () => {
+        return (
+            <div><h3 className = 'ballot-title'>{title}</h3>
+            <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
+            {candidates !== null && candidates.length !== 0 ?
+            candidates.map(candidate => (possibleChoice(candidate))) : <p>Default</p>}
             {candidates !== null? <div><div className='cast-ballot-error'>{userErrors.noCandidate}</div>
                 <button className='cast-ballot-btn' onClick={handleClick}>{Translations[context].castVote}</button></div> : null}</div>
         )

@@ -7,7 +7,7 @@ import kyber from "@dedis/kyber";
 
 const encrypt = require('../voting/VoteEncrypt');
 
-describe("Encrytion tests", () => {
+describe("Encryption tests", () => {
 
     
     const edCurve = kyber.curve.newCurve("edwards25519")

@@ -7,6 +7,7 @@ import ElectionTable from './ElectionTable';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useFetchCall from '../utils/useFetchCall';
+import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints';
 
 /*Assumption : for now an election is simply a json file with the following field
     - electionName: string
@@ -29,8 +30,8 @@ function Election() {
         method: 'POST',
         body: JSON.stringify({'Token': token})
     }
-    const endpoint = "/evoting/all";
-    const [data, loading, error] = useFetchCall(endpoint, request);
+    const [data, loading, error] = useFetchCall(GET_ALL_ELECTIONS_ENDPOINT, request);
+
 
     /*Show all the elections retrieved if any */
     const showElection = ()=>{
@@ -38,11 +39,10 @@ function Election() {
             <div>
                 {data.AllElectionsInfo.length > 0 ? (<div>
                 {Translations[context].clickElection}
-            <div className = 'election-table-wrapper'>
-            <ElectionTable value={data.AllElectionsInfo} />
-            </div>   
-
-        </div>):<div>{Translations[context].noElection}</div>}
+                    <div className = 'election-table-wrapper'>
+                        <ElectionTable value={data.AllElectionsInfo} />
+                    </div>   
+                </div>):<div>{Translations[context].noElection}</div>}
             </div>
         )
     }
@@ -51,9 +51,9 @@ function Election() {
     <div className='election-wrapper'>
         {Translations[context].listElection}
     {!loading?
-        (   
-            showElection() )   
-    : <p className='loading'>{Translations[context].loading}</p>}
+        (showElection() )   
+        : 
+        (error===null?<p className='loading'>{Translations[context].loading}</p>:<div className='error-retrieving'>{Translations[context].errorRetrievingElection}</div>)}
     </div>
   );
 }

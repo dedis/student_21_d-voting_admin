@@ -3,17 +3,15 @@ import useFetchCall from '../utils/useFetchCall';
 import useFetchData from '../utils/useFetchData';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
+import {SIGNIN_ENDPOINT, PUBKEY_ENDPOINT} from '../utils/Endpoints';
 import './Login.css';
 
 
 function Login({setToken}) {
-    const endpointSignin = '/evoting/login';
     const request = null;
-    //const [,, signinData] =  useFetchData(endpointSignin, true);
-    const [signinData,,] = useFetchCall(endpointSignin,request);
+    const [signinData,,] = useFetchCall(SIGNIN_ENDPOINT,request);
     const [context, ] = useContext(LanguageContext);
-    const endpointPubKey = '/dkg/pubkey';
-    const [loading,electionRetrieved, pubKey] =  useFetchData(endpointPubKey, false); 
+    const [loading,electionRetrieved, pubKey] =  useFetchData(PUBKEY_ENDPOINT, false); 
 
     const handleClick = () => {
         setToken(signinData.Token);

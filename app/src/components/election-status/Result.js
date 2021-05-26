@@ -1,9 +1,7 @@
 import './Result.css';
 import {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import DownloadResult from './DownloadResult';
 
 function Result(props){
@@ -21,19 +19,9 @@ function Result(props){
         }
         return resultMap;
     }
-/*
-    const displayPercentage = (result) => {
-        let resultMap = countBallots(result);
-        const sortedResultMap =Object.fromEntries(Object.entries(resultMap).sort(function([,a],[,b]){return b-a}));
-        return <ol>{Object.entries(sortedResultMap).map(([k, val])=>{
-            return <li className='percentage' key={k}>{k}: {(val/result.length * 100).toFixed(2)}%</li>;
-        })}</ol>;
-    }
-*/
 
     const displayPercentage = (result) => {
         let resultMap = countBallots(result);
-
         const sortedResultMap =Object.fromEntries(Object.entries(resultMap).sort(function([,a],[,b]){return b-a}));    
         if(dataToDownload === null){
             setDataToDownload(sortedResultMap);
@@ -52,7 +40,6 @@ function Result(props){
                             </span>
                         </div>
                     </div>)
-            //return <li className='percentage' key={k}>{k}: {(val/result.length * 100).toFixed(2)}%</li>;
         })
     }
 

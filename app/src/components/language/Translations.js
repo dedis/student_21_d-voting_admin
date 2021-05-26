@@ -18,11 +18,12 @@ export const Translations = {
         delete: 'Delete',
         createElec: 'Create election',
         upload: 'Choose a json file from your computer:',
-        notJson: 'The file is not a json file.',
+        notJson: 'The file needs to have the .json extension.',
         noFile: 'No file found',
         create: 'Create a new election by filling out the information below or by uploading a json file',
         errorCandidates: 'You must add at least one candidate!',
         errorNewCandidate: 'Are you sure you don\'t want to add the candidate?',
+        errorRetrievingElection : 'An error seems to have occured while retrieving all the elections from our server. Try refreshing the webpage.',
         electionSuccess:'Your election was successfully submitted!',
         electionFail: 'Election creation failed!',
         clickElection: 'Click on the election name to display additional details.',
@@ -91,15 +92,16 @@ export const Translations = {
         delete:'Supprimer',
         createElec: 'Créer l\'élection',
         upload: 'Sélectionnez un fichier depuis votre ordinateur:',
-        notJson: 'Le fichier n\'est pas un fichier json.',
+        notJson: 'Le fichier n\'a pas l\'extension .json.',
         noFile : 'Aucun fichier trouvé.',
         create: 'Créez une nouvelle élection en remplissant le formulaire ci-dessous ou en téléchargeant un fichier json',
         errorCandidates: 'Au minimum un candidat est requis',
         errorNewCandidate: 'Etes-vous sûr(e) de ne pas vouloir ajouter le candidat?',
+        errorRetrievingElection : 'Une erreur semble être survenue lors de la récupération des élections sur notre serveur. Essayer de rafraîchir la page. ',
         electionSuccess: 'L\'élection a été créée avec succès!',
         electionFail: 'La création de l\'élection a échoué!',
         clickElection: 'Cliquez sur le nom de l\'élection pour afficher ses détails.',
-        noElection:'Aucun élection n\'a été trouvée!',
+        noElection:'Aucune élection n\'a été trouvée!',
         listElection: 'Cette page affiche toutes les élections créées.',
         loading: 'En chargement...',
         electionDetails: 'Détails de l\'élection',
@@ -126,7 +128,7 @@ export const Translations = {
         noVote: 'Il n\'y a actuellement aucune votation en cours.',
         voteAllowed: 'Vous pouvez participer au(x) élection(s) ci-dessous. Cliquez sur le nom pour accéder au scrutin.',
         shuffle: 'Mélanger',
-        decrypt: 'Décrypter',
+        decrypt: 'Déchiffrer',
         operationFailure: 'L\'opération a échoué. Essayez de rafraîchir la page.',
         shuffleFail: 'L\'opération ???????',
         voteImpossible: 'Il n\'est plus possible de voter pour l\'élection.',
@@ -139,7 +141,7 @@ export const Translations = {
     Lorsqu'un administrateur crée une élection, les paramètres de l'élection ainsi que toutes les transactions futures (terminer/annuler une élection, voter,...) sont sauvegardés sur une blockchain. 
     <br/>
     <br/>
-    Une clé distribuée est générée lors de la création d'une élection. Quand un utilisateur vote, son vote est encrypté avec cette clé ce qui garantit l'anonymat du vote. Il est important de noter que le système de ne garantit cependant pas l'anonymat de la personne qui vote.
+    Une clé distribuée est générée lors de la création d'une élection. Quand un utilisateur vote, son vote est chiffré avec cette clé ce qui garantit l'anonymat du vote. Il est important de noter que le système de ne garantit cependant pas l'anonymat de la personne qui vote.
     <br/>
     <br/>
     Lorsqu'une élection est terminée, les noeuds mélangent les scrutins et contrôlent que tout s'est passé correctemenet avant de décrypter et publier le résultat de l'élection sur un contrat intelligent.

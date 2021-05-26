@@ -3,15 +3,18 @@ import {React, useState, useContext} from 'react';
 import './UploadFile.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
+import {CREATE_ENDPOINT} from '../utils/Endpoints';
+import usePostCall from '../utils/usePostCall';
 
 function UploadFile({setShowModal, setTextModal}) {
     const [context, ] = useContext(LanguageContext);
-    const createEndPoint = '/evoting/create';
-
     const [file, setFile] = useState(null);
     const [fileExt, setFileExt] = useState(null);
     const [errors, setErrors] = useState({});
     const [name, setName] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [postError, setPostError] = useState(null);
+    const {postData} = usePostCall(setPostError);
     
 
     /*TODO: add fields AdminID, Token and PublicKey from sessionStorage */
@@ -36,21 +39,12 @@ function UploadFile({setShowModal, setTextModal}) {
     }
 
     const sendElection = async(data) => {
-      try{
-        const response = await fetch(createEndPoint, {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-        if(!response.ok){
-          return -1;
-        } else{
-          const data = await response.json();
-          return data.ElectionID;
-        }
-    } catch(e) {
-        console.log(e);
-        return e;
+      let postRequest = {
+        method: 'POST',
+        body: JSON.stringify(data)
     }
+    setPostError(null);
+    postData(CREATE_ENDPOINT, postRequest, setIsSubmitting);
     }
 
 
@@ -74,23 +68,6 @@ function UploadFile({setShowModal, setTextModal}) {
         return validateJSONFields();
       }    
     }
-    /* Append the id of a created election to others in the localStorage
-       note : this won't exist at the end of the project
-    */
-    const storeIdNewElection = (id) => {
-      var idsStored = localStorage.getItem('electionIDs');
-      if(!idsStored){
-          localStorage.setItem('electionIDs', id);
-      } else {
-          if(Array.isArray(idsStored)){
-              localStorage.setItem('electionIDs', idsStored.concat(id));
-          } else {
-              idsStored = [idsStored];
-              localStorage.setItem('electionIDs',idsStored.concat(id));
-          }
-      }
-  }
-
 
     const uploadJSON = async() => {
         console.log(fileExt);
@@ -102,7 +79,6 @@ function UploadFile({setShowModal, setTextModal}) {
                  setTextModal(Translations[context].electionFail);
             } else{
                  setTextModal(Translations[context].electionSuccess);
-                 storeIdNewElection(response);
                  setName('');
             }
             setShowModal(true);

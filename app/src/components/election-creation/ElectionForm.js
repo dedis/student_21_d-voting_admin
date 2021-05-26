@@ -3,6 +3,8 @@ import {React, useState, useContext} from 'react';
 import './ElectionForm.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
+import {CREATE_ENDPOINT} from '../utils/Endpoints';
+import usePostCall from '../utils/usePostCall';
 
 
 function ElectionForm({setShowModal, setTextModal}){
@@ -11,12 +13,13 @@ function ElectionForm({setShowModal, setTextModal}){
     const [newCandidate, setNewCandidate] = useState('');
     const [candidates, setCandidates] = useState([]);
     const[errors, setErrors] = useState({});
-    //const[isSubmitting, setIsSubmitting] = useState(false);
-
-    const createEndPoint = '/evoting/create';
+    const [postError, setPostError] = useState(null);
+    const {postData} = usePostCall(setPostError);
+    const[isSubmitting, setIsSubmitting] = useState(false);
 
   /*transform string of type "1,4,5" to an array of number [1,4,5] */
-    function unpack(str) {
+    //TODO: throw error if problem
+  function unpack(str) {
         var bytes = [];
         var b  =str.split(",");
         
@@ -28,23 +31,6 @@ function ElectionForm({setShowModal, setTextModal}){
         return bytes;
     }
 
-    /*
-    // Append the id of a created election to others in the localStorage
-    const storeIdNewElection = (id) => {
-        var idsStored = localStorage.getItem('electionIDs');
-        if(!idsStored){
-            localStorage.setItem('electionIDs', id);
-        } else {
-            if(Array.isArray(idsStored)){
-                localStorage.setItem('electionIDs', idsStored.concat(id));
-            } else {
-                idsStored = [idsStored];
-                localStorage.setItem('electionIDs',idsStored.concat(id));
-            }
-        }
-    }
-    */
-
     const sendFormData = async() => {
         //create the JSON object
         const election = {};
@@ -54,21 +40,13 @@ function ElectionForm({setShowModal, setTextModal}){
         election['Token'] = sessionStorage.getItem('token');
         election['PublicKey'] = unpack(sessionStorage.getItem('pubKey'));
 
-        try{
-            const response = await fetch(createEndPoint, {
-                method: 'POST',
-                body: JSON.stringify(election)
-            });
-            if(!response.ok){
-                throw Error(response.statusText);
-            } else{
-                const data = await response.json();
-                return data.ElectionID;
-            } 
-        } catch(e) {
-            console.log(e);
-            return e;
+        let postRequest = {
+            method: 'POST',
+            body: JSON.stringify(election)
         }
+        setPostError(null);
+        postData(CREATE_ENDPOINT, postRequest, setIsSubmitting);
+        
    
     }
 
@@ -92,9 +70,8 @@ function ElectionForm({setShowModal, setTextModal}){
         e.preventDefault();
         if(validate()){
             //setIsSubmitting(true);
-            try{
-               const response =  await sendFormData();
-               if(response === -1){
+               await sendFormData();
+               if(postError !== null){
                     setTextModal(Translations[context].electionFail);
                } else{
                     setTextModal(Translations[context].electionSuccess);
@@ -104,9 +81,8 @@ function ElectionForm({setShowModal, setTextModal}){
                 setElectionName('');
                 setNewCandidate('');
                 setCandidates([]);
-            } catch (e){
-                alert(Translations[context].electionFail);
-            }
+                setPostError(null);
+       
         }
     };
 
@@ -172,13 +148,11 @@ function ElectionForm({setShowModal, setTextModal}){
                     />
                 </div>
 
-                <div>
-                    
+                <div>                 
                     <label htmlFor="new-choice"
                     className='form-label'>
                         {Translations[context].addCandidate} *:
-                    </label>
-                    
+                    </label>                    
                     <input
                         id='new-choice'
                         type = 'text'
@@ -213,7 +187,6 @@ function ElectionForm({setShowModal, setTextModal}){
                     </ul>
                 </div>
 
-
                 <div>
                     <button type='submit' className='submit-form-btn' onSubmit={handleSubmit}>
                     {Translations[context].createElec} 
@@ -221,11 +194,8 @@ function ElectionForm({setShowModal, setTextModal}){
                 </div>
             </form>
         </div>
-
-
-</div>
+    </div>
     );
 }
-
 
 export default ElectionForm;
