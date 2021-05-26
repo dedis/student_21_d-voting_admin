@@ -16,6 +16,7 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-adapter-react-17-updated": "^1.0.2",
     "enzyme-to-json": "^3.6.2",
+    "file-saver": "^2.0.5",
     "formik": "^2.2.6",
     "react": "^17.0.1",
     "react-router-dom": "^5.2.0",

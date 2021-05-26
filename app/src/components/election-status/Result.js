@@ -1,12 +1,16 @@
 import './Result.css';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import DownloadResult from './DownloadResult';
 
 function Result(props){
     const candidates = props.candidates;
     const resultData = props.resultData;
+    const [dataToDownload, setDataToDownload] = useState(null);
+
     const countBallots = (result) => {
         let resultMap = {};
         for(var i = 0; i< candidates.length;i++){
@@ -29,7 +33,11 @@ function Result(props){
 
     const displayPercentage = (result) => {
         let resultMap = countBallots(result);
-        const sortedResultMap =Object.fromEntries(Object.entries(resultMap).sort(function([,a],[,b]){return b-a}));
+
+        const sortedResultMap =Object.fromEntries(Object.entries(resultMap).sort(function([,a],[,b]){return b-a}));    
+        if(dataToDownload === null){
+            setDataToDownload(sortedResultMap);
+        }
         return Object.entries(sortedResultMap).map(([k, val])=>{
             let percentage = (val/result.length * 100);
             return (<div key = {k}>
@@ -53,6 +61,7 @@ function Result(props){
             <div className='result-title'>Result of the election:</div>
             {displayPercentage(props.resultData)}
             <div className = 'number-votes'>Total number of votes : {resultData.length}</div>
+            <DownloadResult resultData={dataToDownload}></DownloadResult>
         </span>
     )
 }
