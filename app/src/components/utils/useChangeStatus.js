@@ -7,7 +7,7 @@ import usePostCall from '../utils/usePostCall';
 import {CLOSE_ENDPOINT, CANCEL_ENDPOINT, DECRYPT_ENDPOINT, SHUFFLE_ENDPOINT} from '../utils/Endpoints';
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
-const useChangeStatus = (status, electionID, candidates, setStatus, setResultAvailable=null) =>{
+const useChangeStatus = (status, electionID, candidates, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) =>{
 
     //const [status, setStatus] = useState(stat);
     const userID = sessionStorage.getItem('id');
@@ -19,13 +19,13 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
     const [isDecrypting, setIsDecrypting] = useState(false);
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
-    const [showModalError, setShowModalError] = useState(false);
     const [userValidateClose, setUserValidateClose] = useState(false);
     const [userValidateCancel, setUserValidateCancel] = useState(false);
     const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
     const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
-    const modalError = <Modal showModal={showModalError} setShowModal={setShowModalError} textModal = {Translations[context].operationFailure} buttonRight={Translations[context].close} />;
-    const [postError, setPostError] = useState(null);
+   //const [textModalError, setTextModalError] = useState(Translations[context].operationFailure);
+    //const modalError = <Modal showModal={showModalError} setShowModal={setShowModalError} textModal = {textModalError} buttonRight={Translations[context].close} />;
+    const [postError, setPostError] = useState(Translations[context].operationFailure);
     const {postData} = usePostCall(setPostError); 
     const simplePostRequest = {
         method: 'POST',
@@ -43,23 +43,32 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token, 'Members': CollectiveAuthorityMembers})
     }
 
-    useEffect(()=> {
-        if(!showModalError){
-            setPostError(null);
-        }
-    }, showModalError)
+
+
+    useEffect(()=>{
+        if(postError !== null){
+            
+                setTextModalError(postError);
+            
+    }
+        
+    }, [postError])
 
     useEffect(async() => {        
             //check if close button was clicked and the user validated the confirmation window
             if(isClosing && userValidateClose){
                 const closeSuccess = await postData(CLOSE_ENDPOINT, simplePostRequest, setIsClosing);            
-                if(closeSuccess && postError === null){
+                if(closeSuccess){
                     setStatus(2);
                 } else {
+                    
+                    //setTextModalError(postError);                   
                     setShowModalError(true);
+
                 }
                 setUserValidateClose(false);
-                setPostError(null);
+                console.log(postError);
+                //setPostError(null);
         }
     }, [isClosing, showModalClose])
     
@@ -67,7 +76,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
     useEffect(async() => {
         if(isCanceling && userValidateCancel) {
             const cancelSuccess = await postData(CANCEL_ENDPOINT, simplePostRequest, setIsCanceling);
-            if(cancelSuccess && postError === null){
+            if(cancelSuccess){
                 setStatus(6);
             } else {
                 setShowModalError(true);
@@ -153,7 +162,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             };
     } 
 
-    return {getStatus, modalClose, modalCancel, modalError};
+    return {getStatus, modalClose, modalCancel};
 };
 
 export default useChangeStatus;

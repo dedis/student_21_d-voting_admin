@@ -7,25 +7,30 @@ import {useEffect, useState} from 'react';
  * @param {*} setIsPosting 
  * @returns 
  */
-function usePostCall(setError){
+const usePostCall = (setError) => {
 
     const postData = async(endpoint, request, setIsPosting) => {
         try{
+            
             const response = await fetch(endpoint,request);
-
             if(!response.ok){
-                throw Error(response.statusText);
+                //console.log(await response.text());
+                let err = await response.text()
+                
+                throw Error(err);
+                return false;
             } else {
                 //const data = await response.json();
+                setError(null);
                 setIsPosting(prev => !prev);
                 return true;
             }
         } catch(error){
-            console.log("it caught an error");
-            
-            setError(error);
+            //console.log(error.message);
+            setError(error.message);
             setIsPosting(prev => !prev);
-            console.log(error);
+            console.log(error.message);
+            return false;
         }
     }
 
