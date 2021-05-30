@@ -1,6 +1,6 @@
 import {React, useContext} from 'react';
 import useFetchCall from '../utils/useFetchCall';
-import useFetchData from '../utils/useFetchData';
+import useFetchKey from '../utils/useFetchKey';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import {SIGNIN_ENDPOINT, PUBKEY_ENDPOINT} from '../utils/Endpoints';
@@ -11,19 +11,20 @@ function Login({setToken}) {
     const request = null;
     const [signinData,,] = useFetchCall(SIGNIN_ENDPOINT,request);
     const [context, ] = useContext(LanguageContext);
-    const [loading,electionRetrieved, pubKey] =  useFetchData(PUBKEY_ENDPOINT, false); 
+    //const [loading,electionRetrieved, pubKey] =  useFetchData(PUBKEY_ENDPOINT, false); 
+    const [pubKey, loading, error] = useFetchKey(PUBKEY_ENDPOINT);
 
     const handleClick = () => {
         setToken(signinData.Token);
         sessionStorage.setItem('id', signinData.UserID);
         return (<div>
             {loading? null 
-                :(electionRetrieved? 
+                :(error === null? 
                     (<div>
                       {console.log(pubKey, " ", pubKey.length)}
                       {sessionStorage.setItem('pubKey', pubKey)}
                     </div>)
-                    :null)}  
+                    :<div>{Translations[context].errorRetrievingKey}</div>)}  
         </div>)
     }
 

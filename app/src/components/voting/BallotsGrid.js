@@ -30,12 +30,6 @@ function BallotsGrid(){
     }
     const getAllElectionsEndpoint = "/evoting/all";
     const [data, loading, error] = useFetchCall(getAllElectionsEndpoint, fetchRequest);
-
-    const displayBallot = (election) =>{   
-            return <div className='cast-ballot-card'>
-                        <Ballot electionData={election} setShowModal={setShowModal} setModalText={setModalText}></Ballot>
-                    </div>
-    }
     
    const ballotsToDisplay = (elections) => {
        let dataToDisplay = [];

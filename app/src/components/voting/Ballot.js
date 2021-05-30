@@ -45,11 +45,14 @@ const Ballot = (props) => {//props.location.data = id of the election
     function unpack(str) {
         var bytes = [];
         var b  =str.split(",");
+
+        
         
         for(var i = 0; i < b.length; i++) {
             var char = parseInt(b[i]);
             bytes.push(char);
         }
+        
 
         return new Uint8Array(bytes);
     }
@@ -78,7 +81,6 @@ const Ballot = (props) => {//props.location.data = id of the election
 
         //sending the ballot to evoting server
         let ballot = createBallot(K,C);
-        console.log(ballot);
         let newRequest = {
             method: 'POST',
             body: JSON.stringify(ballot)
@@ -122,6 +124,7 @@ const Ballot = (props) => {//props.location.data = id of the election
     const ballotDisplay = () => {
         return (
             <div><h3 className = 'ballot-title'>{title}</h3>
+            {console.log(props)}
             <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
             {candidates !== null && candidates.length !== 0 ?
             candidates.map(candidate => (possibleChoice(candidate))) : <p>Default</p>}
