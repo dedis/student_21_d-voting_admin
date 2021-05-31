@@ -1,3 +1,4 @@
+import React from 'react';
 import './Result.css';
 import {useState} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -8,14 +9,13 @@ function Result(props){
     const candidates = props.candidates;
     const resultData = props.resultData;
     const [dataToDownload, setDataToDownload] = useState(null);
-
     const countBallots = (result) => {
         let resultMap = {};
         for(var i = 0; i< candidates.length;i++){
             resultMap[candidates[i]] = 0;
         }
-        for(var i = 0; i< result.length;i++){
-           resultMap[result[i]['Vote']]  = resultMap[result[i]['Vote']] +1;
+        for(var j = 0; j< result.length;j++){
+           resultMap[result[j]['Vote']]  = resultMap[result[j]['Vote']] +1;
         }
         return resultMap;
     }

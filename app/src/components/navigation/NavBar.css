@@ -10,11 +10,8 @@ img{
 
 .nav-links{
   display: flex;
-
   width:100%;
   border-bottom: 1px solid rgb(230, 225, 225);
-
- 
 }
 
 .nodeco{
@@ -25,10 +22,12 @@ img{
   display: inline-flex;
   padding: 15px;
   color:#177368;
- 
 }
+
+
 .nodeco:hover{
-  font-weight: bold;
+  
+  text-shadow: 0 0.015em #177368,0 -0.015em #177368,0.01em 0 #177368,-0.01em 0 #177368;
   background-color: white;
 }
 

@@ -47,11 +47,8 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
 
     useEffect(()=>{
         if(postError !== null){
-            
-                setTextModalError(postError);
-            
-    }
-        
+                setTextModalError(postError);          
+        }       
     }, [postError])
 
     useEffect(async() => {        
@@ -83,7 +80,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             }
             setUserValidateCancel(false);   
             setPostError(null);        
-        }; 
+        } 
     }, [isCanceling, showModalCancel])
 
 
@@ -159,7 +156,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
 
             default :
                 return 'couldn\'t match status number'; //TODO
-            };
+            }
     } 
 
     return {getStatus, modalClose, modalCancel};

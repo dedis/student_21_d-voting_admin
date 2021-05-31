@@ -110,7 +110,7 @@ function ElectionForm({setShowModal, setTextModal}){
             errors['empty'] = 'There is nothing to add.';
             setErrors(errors);
             return;
-        };
+        }
 
         if(!isCandidateUnique(newCandidate)){
             errors['unique'] = 'This candidate has already been added.'

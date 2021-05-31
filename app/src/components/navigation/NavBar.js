@@ -10,7 +10,8 @@ function NavBar() {
 
     const [lanContext, setLanContext] = useContext(LanguageContext);
     const activeStyle = {
-        fontWeight: "bold",
+        
+        textShadow:'0 0.015em #177368,0 -0.015em #177368,0.01em 0 #177368,-0.01em 0 #177368',
     };
 
   return ( 
@@ -22,20 +23,20 @@ function NavBar() {
                 </li>
             </NavLink>
             
-            <NavLink className='nodeco' exact to='/'  activeStyle={activeStyle}>
-                <li>{Translations[lanContext].navBarHome}</li>
+            <NavLink  className='nodeco' exact to='/'  activeStyle={activeStyle}>
+                <li title={Translations[lanContext].navBarHome}>{Translations[lanContext].navBarHome}</li>
             </NavLink>
-            <NavLink className='nodeco' to='/create-election'   activeStyle={activeStyle}>
-                <li>{Translations[lanContext].navBarCreate}</li>
+            <NavLink title={Translations[lanContext].navBarCreate} className='nodeco' to='/create-election'   activeStyle={activeStyle}>
+                <li title={Translations[lanContext].navBarCreate}>{Translations[lanContext].navBarCreate}</li>
             </NavLink>
-            <NavLink className='nodeco' to='/elections'  activeStyle={activeStyle}>
-                <li>{Translations[lanContext].navBarStatus}</li>
+            <NavLink title={Translations[lanContext].navBarCreate} className='nodeco' to='/elections'  activeStyle={activeStyle}>
+                <li title={Translations[lanContext].navBarStatus}>{Translations[lanContext].navBarStatus}</li>
             </NavLink>
             <NavLink className='nodeco' to='/vote'  activeStyle={activeStyle}>
-                <li>{Translations[lanContext].navBarVote}</li>
+                <li title={Translations[lanContext].navBarVote}>{Translations[lanContext].navBarVote}</li>
             </NavLink>
             <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
-                <li>{Translations[lanContext].navBarAbout}</li>
+                <li title={Translations[lanContext].navBarAbout}>{Translations[lanContext].navBarAbout}</li>
             </NavLink>
                       
             <li className='last'>
