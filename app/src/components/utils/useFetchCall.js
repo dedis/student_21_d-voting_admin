@@ -8,8 +8,7 @@ function useFetchCall(endpoint, request){
 
     const fetchData = async () =>{
         try{
-            const response = await fetch(endpoint,request);
-            
+            const response = await fetch(endpoint,request);        
             if(!response.ok){
                 throw Error(response.statusText);
             } else {
@@ -25,7 +24,6 @@ function useFetchCall(endpoint, request){
     }
   
     useEffect(() => {
-        console.log("fetch call");
         fetchData();       
     }, [])
 

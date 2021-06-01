@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import { withStyles} from '@material-ui/core/styles';
 
 /**
  * 
@@ -29,6 +30,14 @@ const ElectionTable = ({elections}) => {
         {id: 'status', label : Translations[context].status, minWidth: 170, align: 'left'},
     ]
 
+    const StyledTableRow = withStyles((theme) => ({
+        root: {
+          '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+          },
+        },
+      }))(TableRow);
+
     const createData = (title, status, key) => {
         return {title, status, key};
     }
@@ -43,18 +52,7 @@ const ElectionTable = ({elections}) => {
         })
         return rows;
     }
-
     const rows = constructRows();
-
-    /*
-    const renderTableHeader = () => {
-        return Object.keys(props.value[0]).map((key,index) => {
-            if(key === 'Title' || key=== 'Status'){
-                return <th className = 'col' key={index}>{key.toUpperCase()}</th>
-            }
-        })
-    }
-    */
 
     const renderTH = () => {
         return (
@@ -68,31 +66,6 @@ const ElectionTable = ({elections}) => {
             </TableRow>)
     }
 
-/*
-    const renderTitle = () => {    
-        return <th colSpan='2'>ELECTIONS ({props.value.length})</th>
-    }
-
-    const renderLine = (obj) => {
-        let {title,candidates,id,status,pubKey,result, setStatus} = ElectionFields(obj);
-        //making sure each td stays in its column
-        return [0,1].map((val)=>{
-            if(val === 0){
-                return <td className = 'first-col'><div className='first-cont'><Link className='election-link' to={{pathname:`/elections/${id}`,
-                data: id}}>{title}</Link></div></td>
-            }
-            if(val ==1){
-                return <td className = 'second-col'><div className='second-cont'><Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/></div></td>
-            }
-        })
-    }
-
-    const renderTableData = () =>{
-        return props.value.map((obj) => {
-            return <tr>{renderLine(obj)}</tr>;
-        })
-    };
-    */
    const handleChangePage = (event, newPage) => {
     setPage(newPage);
    }
@@ -113,7 +86,7 @@ const ElectionTable = ({elections}) => {
                         <TableBody>
                             {rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row) => {
                                 return (
-                                    <TableRow key={row.id}>
+                                    <StyledTableRow key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
@@ -122,7 +95,7 @@ const ElectionTable = ({elections}) => {
                                                 </TableCell>
                                             )
                                         })}
-                                    </TableRow>
+                                    </StyledTableRow>
                                 )
                             })}
                         </TableBody>

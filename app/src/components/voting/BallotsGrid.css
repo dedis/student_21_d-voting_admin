@@ -1,7 +1,12 @@
 .vote-allowed{
     padding-bottom: 3%;
 }
-
+.cast-ballot{
+    padding-top:3%;
+    background-color: #f6f6fa;
+    padding-right:3%;
+    padding-left:3%;
+}
 .ballot{
     padding-bottom: 2%;
 }

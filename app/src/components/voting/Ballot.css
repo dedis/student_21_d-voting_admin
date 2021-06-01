@@ -1,5 +1,10 @@
 
-
+.ballot-wrapper{
+        padding-top:3%;
+        background-color: #f6f6fa;
+        padding-right:3%;
+        padding-left:3%;
+}
 .ballot-title{
     font-weight: bold;
     color: #177368;

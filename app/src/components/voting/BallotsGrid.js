@@ -11,22 +11,28 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { withStyles} from '@material-ui/core/styles';
 
 import './BallotsGrid.css';
 
 function BallotsGrid(){
     const [context, ] = useContext(LanguageContext);
-    //const [openBallot, setOpenBallot] = useState(false);
-
     const token = sessionStorage.getItem('token');
     const fetchRequest = {
         method: 'POST',
         body: JSON.stringify({'Token': token})
     }
     const getAllElectionsEndpoint = "/evoting/all";
-    const [data, loading, ] = useFetchCall(getAllElectionsEndpoint, fetchRequest);
+    const [data, loading, error] = useFetchCall(getAllElectionsEndpoint, fetchRequest);
+    const StyledTableRow = withStyles((theme) => ({
+        root: {
+          '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+          },
+        },
+      }))(TableRow);
     
-   const ballotsToDisplay = (elections) => {
+    const ballotsToDisplay = (elections) => {
        let dataToDisplay = [];
        elections.map((elec) => {
            if(elec.Status === OPEN){
@@ -36,7 +42,7 @@ function BallotsGrid(){
        return dataToDisplay;
    }
 
-   const displayBallotTable = (data) => {
+    const displayBallotTable = (data) => {
         if(data.length > 0){
             return (
                 <div>
@@ -54,12 +60,12 @@ function BallotsGrid(){
                             <TableBody>
                                 {data.map((row) => {
                                     return(
-                                        <TableRow key={row}>
+                                        <StyledTableRow key={row}>
                                             <TableCell key = {row[1]}>
                                                 <Link className='election-link' to={{pathname:`/vote/${row[1]}`,
                                                 data: row[1]}}>{row[0]}</Link>
                                             </TableCell>
-                                        </TableRow>
+                                        </StyledTableRow>
                                     )
                                 })}
                             </TableBody>
@@ -70,31 +76,17 @@ function BallotsGrid(){
         } else {
             return <div>{Translations[context].noVote}</div>;
         }
-   }
+    }
     const showBallots = (elections) => {
         return (
             displayBallotTable(ballotsToDisplay(elections))
-            /*
-            <div>
-                <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRight={Translations[context].close} />
-                {elections.map((elec) => {
-                    if(elec.Status === 1){
-                        if(openBallot === false){
-                            setOpenBallot(true);
-                        }
-                        return <div className='ballot'>{displayBallot(elec)}</div>;
-                    }
-                })}
-                {!openBallot? <div>{Translations[context].noVote}</div> :null}
-            </div>
-            */
         )}
 
     return (
         <div className = 'cast-ballot'>
-            {/*openBallot?<div className='ballot-indication'>{Translations[context].voteAllowed}</div>:null*/}
-            {loading? <p className='loading'>{Translations[context].loading}</p>:<p></p>}
-            {!loading && data.AllElectionsInfo.length > 0?  showBallots(data.AllElectionsInfo) : <p>{Translations[context].noVote}</p>}       
+            {!loading? showBallots(data.AllElectionsInfo):
+                (error === null?<p className='loading'>{Translations[context].loading}</p>:<div className='error-retrieving'>{Translations[context].errorRetrievingElection}</div>)          
+            }    
         </div>
     )
 }
