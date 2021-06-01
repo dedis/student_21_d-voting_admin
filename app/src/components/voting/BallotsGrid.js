@@ -2,6 +2,7 @@ import {React, useContext} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useFetchCall from '../utils/useFetchCall';
+import {OPEN} from '../utils/StatusNumber';
 import {Link} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -28,7 +29,7 @@ function BallotsGrid(){
    const ballotsToDisplay = (elections) => {
        let dataToDisplay = [];
        elections.map((elec) => {
-           if(elec.Status === 1){
+           if(elec.Status === OPEN){
                dataToDisplay.push([elec.Title, elec.ElectionID]);
            }
        })

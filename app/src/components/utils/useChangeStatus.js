@@ -2,10 +2,9 @@ import {React, useState, useContext, useEffect} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import ConfirmModal from '../modal/ConfirmModal';
-import Modal from '../modal/Modal';
 import usePostCall from '../utils/usePostCall';
 import {CLOSE_ENDPOINT, CANCEL_ENDPOINT, DECRYPT_ENDPOINT, SHUFFLE_ENDPOINT} from '../utils/Endpoints';
-
+import {OPEN, CLOSED, SHUFFLED_BALLOT, RESULT_AVAILABLE, CANCELED} from '../utils/StatusNumber';
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
 const useChangeStatus = (status, electionID, candidates, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) =>{
 
@@ -56,7 +55,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             if(isClosing && userValidateClose){
                 const closeSuccess = await postData(CLOSE_ENDPOINT, simplePostRequest, setIsClosing);            
                 if(closeSuccess){
-                    setStatus(2);
+                    setStatus(CLOSED);
                 } else {
                     
                     //setTextModalError(postError);                   
@@ -74,7 +73,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         if(isCanceling && userValidateCancel) {
             const cancelSuccess = await postData(CANCEL_ENDPOINT, simplePostRequest, setIsCanceling);
             if(cancelSuccess){
-                setStatus(6);
+                setStatus(CANCELED);
             } else {
                 setShowModalError(true);
             }
@@ -98,7 +97,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         setIsShuffling(true);
         const shuffleSuccess = await postData(SHUFFLE_ENDPOINT,shuffleRequest,setIsShuffling);
         if(shuffleSuccess && postError === null){
-            setStatus(3);
+            setStatus(SHUFFLED_BALLOT);
         } else{
             setShowModalError(true);
         }
@@ -111,7 +110,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             if(setResultAvailable !== null){
                 setResultAvailable(true);
             }        
-            setStatus(5);
+            setStatus(RESULT_AVAILABLE);
         } else {
             setShowModalError(true);
         }
@@ -120,10 +119,8 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
 
     const getStatus = () => {
 
-        switch (status){
-            case -1:
-                return 'status not retrieved';           
-            case 1: //on going
+        switch (status){         
+            case OPEN: 
                 return <span>
                     <span className='election-status-on'></span>
                     <span className='election-status-text'>{Translations[context].statusOpen}</span>
@@ -131,24 +128,24 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                     <button id='close-button' className='election-btn' onClick={handleClose}>{Translations[context].close}</button>
                     <button className='election-btn' onClick={handleCancel}>{Translations[context].cancel}</button>
                 </span>;  
-            case 2: //closed
+            case CLOSED: 
                 return <span>
                     <span className='election-status-closed'></span>
                     <span className='election-status-text'>{Translations[context].statusClose}</span>
                     <button className='election-btn' onClick={handleShuffle}>{Translations[context].shuffle}</button>
                 </span>; 
-            case 3: //ballots have been shuffled
+            case SHUFFLED_BALLOT: 
                 return <span>
                     <span className='election-status-closed'></span>
                     <span className='election-status-text'>{Translations[context].statusClose}</span>
                     <button className='election-btn' onClick={handleDecrypt}>{Translations[context].decrypt}</button>
                 </span>;
-            case 5: //result available
+            case RESULT_AVAILABLE: 
                 return <span>
                     <span className='election-status-closed'></span>
                     <span>{Translations[context].resultsAvailable }</span>
                 </span>;               
-            case 6: //election has been canceled
+            case CANCELED: 
                 return <span>
                     <span className='election-status-cancelled'></span>
                     <span className='election-status-text'>{Translations[context].statusCancel}</span>

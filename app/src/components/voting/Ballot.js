@@ -7,6 +7,7 @@ import usePostCall from '../utils/usePostCall';
 import {CAST_BALLOT_ENDPOINT} from '../utils/Endpoints';
 import {encryptVote} from './VoteEncrypt';
 import Modal from '../modal/Modal';
+import {OPEN} from '../utils/StatusNumber';
 import {Link} from 'react-router-dom';
 import kyber from "@dedis/kyber";
 
@@ -147,7 +148,7 @@ const Ballot = (props) => {//props.location.data = id of the election
             <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRight={Translations[context].close} />
             {console.log(candidates)}
             {loading? (<p className='loading'>{Translations[context].loading}</p>)
-                :(<div> {status === 1? ballotDisplay():electionClosedDisplay()}
+                :(<div> {status === OPEN? ballotDisplay():electionClosedDisplay()}
                     <Link to='/vote'>
                         <button className='back-btn'>{Translations[context].back}</button>
                     </Link>
