@@ -119,7 +119,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
 
     const getStatus = () => {
 
-        switch (status){         
+        switch (status){     
             case OPEN: 
                 return <span>
                     <span className='election-status-on'></span>
@@ -152,7 +152,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                 </span>;  
 
             default :
-                return 'couldn\'t match status number'; //TODO
+                return null //TODO
             }
     } 
 
