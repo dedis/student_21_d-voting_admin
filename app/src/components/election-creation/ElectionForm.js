@@ -1,5 +1,5 @@
 
-import {React, useState, useContext} from 'react';
+import {React, useState, useContext, useEffect} from 'react';
 import './ElectionForm.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
@@ -17,6 +17,18 @@ function ElectionForm({setShowModal, setTextModal}){
     const {postData} = usePostCall(setPostError);
     const[isSubmitting, setIsSubmitting] = useState(false);
 
+
+    useEffect(()=>{
+        if(postError ===null){
+            setTextModal(Translations[context].electionSuccess);
+        } else {
+            if(postError.includes('ECONNREFUSED')){
+                setTextModal(Translations[context].errorServerDown);
+            } else {
+                setTextModal(Translations[context].electionFail);}      
+        }    
+    }, [postError])
+
   /*transform string of type "1,4,5" to an array of number [1,4,5] */
     //TODO: throw error if problem
   function unpack(str) {
@@ -27,7 +39,6 @@ function ElectionForm({setShowModal, setTextModal}){
             var char = parseInt(b[i]);
             bytes.push(char);
         }
-
         return bytes;
     }
 
@@ -46,8 +57,6 @@ function ElectionForm({setShowModal, setTextModal}){
         }
         setPostError(null);
         postData(CREATE_ENDPOINT, postRequest, setIsSubmitting);
-        
-   
     }
 
     const validate = () => {
@@ -69,20 +78,12 @@ function ElectionForm({setShowModal, setTextModal}){
     const handleSubmit = async(e) =>{
         e.preventDefault();
         if(validate()){
-            //setIsSubmitting(true);
                await sendFormData();
-               if(postError !== null){
-                    setTextModal(Translations[context].electionFail);
-               } else{
-                    setTextModal(Translations[context].electionSuccess);
-                    //storeIdNewElection(response);
-               }
                 setShowModal(prev => !prev);
                 setElectionName('');
                 setNewCandidate('');
                 setCandidates([]);
                 setPostError(null);
-       
         }
     };
 

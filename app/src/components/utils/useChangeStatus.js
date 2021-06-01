@@ -56,15 +56,10 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                 const closeSuccess = await postData(CLOSE_ENDPOINT, simplePostRequest, setIsClosing);            
                 if(closeSuccess){
                     setStatus(CLOSED);
-                } else {
-                    
-                    //setTextModalError(postError);                   
+                } else {                                
                     setShowModalError(true);
-
                 }
                 setUserValidateClose(false);
-                console.log(postError);
-                //setPostError(null);
         }
     }, [isClosing, showModalClose])
     

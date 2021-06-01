@@ -15,6 +15,7 @@ const usePostCall = (setError) => {
             const response = await fetch(endpoint,request);
             if(!response.ok){
                 //console.log(await response.text());
+                //console.log(response.status)
                 let err = await response.text()             
                 throw Error(err);
             } else {

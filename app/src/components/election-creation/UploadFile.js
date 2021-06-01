@@ -1,4 +1,4 @@
-import {React, useState, useContext} from 'react';
+import {React, useState, useContext, useEffect} from 'react';
 
 import './UploadFile.css';
 import {Translations} from '../language/Translations';
@@ -16,6 +16,16 @@ function UploadFile({setShowModal, setTextModal}) {
     const [postError, setPostError] = useState(null);
     const {postData} = usePostCall(setPostError);
     
+    useEffect(()=>{
+      if(postError ===null){
+          setTextModal(Translations[context].electionSuccess);
+      } else {
+          if(postError.includes('ECONNREFUSED')){
+              setTextModal(Translations[context].errorServerDown);
+          } else {
+              setTextModal(Translations[context].electionFail);}      
+      }    
+  }, [postError])
 
     /*TODO: add fields AdminID, Token and PublicKey from sessionStorage */
     const validateJSONFields = () => {
