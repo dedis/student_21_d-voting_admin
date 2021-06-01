@@ -1,4 +1,4 @@
-import React, {cloneElement, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import './ElectionTable.css';
 import {Link} from 'react-router-dom';
 import Status from './Status';
@@ -12,7 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles } from '@material-ui/core/styles';
+import TablePagination from '@material-ui/core/TablePagination';
 
 /**
  * 
@@ -21,9 +21,11 @@ import { makeStyles } from '@material-ui/core/styles';
  */
 const ElectionTable = ({elections}) => { 
     const [context, ] = useContext(LanguageContext);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const columns = [
-        {id: 'title', label : Translations[context].title, minWidth: 170, align: 'center'},
+        {id: 'title', label : Translations[context].title, minWidth: 170, align: 'left'},
         {id: 'status', label : Translations[context].status, minWidth: 170, align: 'left'},
     ]
 
@@ -56,18 +58,14 @@ const ElectionTable = ({elections}) => {
 
     const renderTH = () => {
         return (
-        <TableHead className = 'table-header'>
-            <TableRow align = 'center'>
-                <TableCell align='center' colSpan={columns.length}>ELECTIONS</TableCell>
-            </TableRow>
+              
             <TableRow className='row-head'>
                 {columns.map((col) => {
-                   return(<TableCell key = {col.id} align={col.align} style={{mindWidth:col.minWidth}}>
+                   return(<TableCell style={{ width: 800 }} key = {col.id} align={col.align}>
                         {col.label}
                     </TableCell>)
                 })}               
-            </TableRow>
-        </TableHead>)
+            </TableRow>)
     }
 
 /*
@@ -95,16 +93,27 @@ const ElectionTable = ({elections}) => {
         })
     };
     */
+   const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+   }
+
+   const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+   }
     
     return(
         <div>
             <Paper>
                 <TableContainer>
-                    <Table stickyHeader aria-label = "sticky table">
+                    <Table>
+                        <TableHead className = 'table-header'>    
                             {renderTH()}
-                            {rows.map((row) => {
+                        </TableHead>
+                        <TableBody>
+                            {rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row) => {
                                 return (
-                                    <TableRow hover key={row.id}>
+                                    <TableRow key={row.id}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
@@ -116,8 +125,18 @@ const ElectionTable = ({elections}) => {
                                     </TableRow>
                                 )
                             })}
+                        </TableBody>
                     </Table>
                 </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
         </Paper>
         </div>
     );

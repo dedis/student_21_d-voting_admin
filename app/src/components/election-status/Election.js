@@ -37,8 +37,8 @@ function Election() {
     const showElection = ()=>{
         return (
             <div>
-                {data.AllElectionsInfo.length > 0 ? (<div>
-                {Translations[context].clickElection}
+                {data.AllElectionsInfo.length > 0 ? (<div className='election-box'>
+                <div className='click-info'>{Translations[context].clickElection}</div>
                     <div className = 'election-table-wrapper'>
                         <ElectionTable elections={data.AllElectionsInfo} />
                     </div>   

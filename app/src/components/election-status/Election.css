@@ -5,6 +5,12 @@
     padding-left:3%;
   }
 
+  .election-box{
+    padding-bottom: 5%;
+  }
+  .click-info{
+    padding-bottom: 3%;
+  }
   .election-btn{
     border-radius: 8px;
     margin: 4px 2px;

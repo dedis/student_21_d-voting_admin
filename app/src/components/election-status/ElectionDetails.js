@@ -8,6 +8,7 @@ import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
 import Result from './Result';
 import {GET_RESULT_ENDPOINT} from '../utils/Endpoints';
+import {RESULT_AVAILABLE} from '../utils/StatusNumber';
 
 
 
@@ -22,7 +23,7 @@ function ElectionDetails(props) { //props.location.data = id of the election
 
     // fetch result when available
     useEffect(async() => {
-        if(status===5 && isResultAvailable){
+        if(status===RESULT_AVAILABLE && isResultAvailable){
             setLoadingResult(true);
             const resultRequest = {
                 method: 'POST',
@@ -54,7 +55,7 @@ function ElectionDetails(props) { //props.location.data = id of the election
             <h1>{title}</h1>
             <div className='election-details-wrapper'>
             {isResultSet? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>
-                :<div className='election-wrapper-child'> {Translations[context].status} <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} />
+                :<div className='election-wrapper-child'> {Translations[context].status}: <Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} /> 
                     <div className='election-candidates'>
                             {Translations[context].candidates}
                             {candidates.map((cand) => 
