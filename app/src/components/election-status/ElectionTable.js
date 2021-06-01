@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import './ElectionTable.css';
 import {Link} from 'react-router-dom';
 import Status from './Status';
@@ -14,6 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles} from '@material-ui/core/styles';
+import {frFR, enUS} from '@material-ui/core/locale';
 
 /**
  * 
@@ -25,6 +26,7 @@ const ElectionTable = ({elections}) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
+    
     const columns = [
         {id: 'title', label : Translations[context].title, minWidth: 170, align: 'left'},
         {id: 'status', label : Translations[context].status, minWidth: 170, align: 'left'},
@@ -109,6 +111,12 @@ const ElectionTable = ({elections}) => {
                     page={page}
                     onChangePage={handleChangePage}
                     onChangeRowsPerPage={handleChangeRowsPerPage}
+                     labelDisplayedRows={
+                        ({ from, to, count }) => {
+                        return '' + from + '-' + to + Translations[context].of + count
+                        }
+                    }
+                    labelRowsPerPage = {Translations[context].rowsPerPage}
                 />
         </Paper>
         </div>

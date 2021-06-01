@@ -64,6 +64,8 @@ export const Translations = {
         voteImpossible: 'The election is not open anymore.',
         yes: 'Yes',
         download: 'Download',
+        rowsPerPage : 'Rows per page',
+        of: ' of ',
         about: <Fragment>
             This website hosts the interface of an evoting system. This system runs smart contracts, handled by a set of Byzantine fault-tolerant nodes.
         <br/>
@@ -142,6 +144,8 @@ export const Translations = {
         voteImpossible: 'Il n\'est plus possible de voter pour l\'élection.',
         yes: 'Oui',
         download: 'Télécharger',
+        rowsPerPage : 'Lignes par page',
+        of: ' sur ',
         about: <Fragment>
         Ce site Internet héberge l'interface d'un système de vote électronique. Ce système exécute des contrats intelligents basés sur le problème des généraux byzantins.
     <br/>
