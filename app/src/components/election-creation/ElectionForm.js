@@ -27,7 +27,7 @@ function ElectionForm({setShowModal, setTextModal}){
             } else {
                 setTextModal(Translations[context].electionFail);}      
         }    
-    }, [postError])
+    }, [isSubmitting])
 
   /*transform string of type "1,4,5" to an array of number [1,4,5] */
     //TODO: throw error if problem
@@ -129,6 +129,19 @@ function ElectionForm({setShowModal, setTextModal}){
         setCandidates(choices);
     }
 
+    const handleKeyPress = (e) => {
+            if(e.key === "Enter"){
+                e.preventDefault();
+                handleAdd(e);
+            }  
+    }
+
+    const handleKeyPressTitle = (e) =>{
+        if(e.key === 'Enter'){
+            e.preventDefault()
+        }    
+    }
+
     return(
     <div className='form-wrapper'>
         <div className="form-content-left">
@@ -143,7 +156,8 @@ function ElectionForm({setShowModal, setTextModal}){
                         id='new-name'
                         type='text' required
                         value={electionName}  
-                        onChange={handleChangeName}    
+                        onChange={handleChangeName}  
+                        onKeyPress = {handleKeyPressTitle}  
                         className = 'form-name'  
                         placeholder = {Translations[context].namePlaceHolder}          
                     />
@@ -159,8 +173,10 @@ function ElectionForm({setShowModal, setTextModal}){
                         type = 'text'
                         name = 'newCandidate'
                         value={newCandidate} 
-                        onChange={handleChangeCandidate}    
-                        onSubmit = {onSubmitPreventDefault}  
+                        onChange={handleChangeCandidate}  
+                        onKeyPress={handleKeyPress}
+                        //onKeyDown = {handleKeyDown}
+                        onSubmit = {handleAdd}  
                         className = 'form-choice'  
                         placeholder = {Translations[context].addCandPlaceHolder}  
                         />               
@@ -175,9 +191,9 @@ function ElectionForm({setShowModal, setTextModal}){
                 </div>
                 <div className='form-candidates'>
                     <ul className='choices-saved'>
-                    {candidates.map(cand => (
-                        <div>
-                        <li key={cand}>
+                    {candidates.map((cand,i) => (
+                        <div key={i}>
+                        <li >
                                 {cand}
                                 <button type='button' className='delete-btn' onClick={() => handleDelete(cand)} onSubmit={onSubmitPreventDefault}>
                                 {Translations[context].delete} 
