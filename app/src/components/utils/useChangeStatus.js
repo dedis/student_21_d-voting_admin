@@ -29,11 +29,11 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
     }
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'ZfQeHvz00c+zZgRk5gnIabHytoUH4bUGjVtAkK91BT4=';
+    const PK1 = 'hOVoAuV51mzAVJw/ShzTAk0ZDOPmUScCJjv5nvfN+ek=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = 'i8hkKlEYB6dPalV8gWR5qJDP/Qyu4l1eISFyn9Rpibo=';
+    const PK2 = '5CDXN2v0b5WPUo12l5rRxADPfRwSyE1k0gzHvAIJGZQ=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'Wt2/0y4uD2xlhHe8uWlxSY7xo+c7LhmFaTwHh0HuIHA=';
+    const PK3 = 'xaYK2Cp5faB2iB91Fgn9KU3hpY5ZvTlmZC59ag5BoXY=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
     const shuffleRequest = {
         method: 'POST',

@@ -24,8 +24,8 @@ const useFetchKey = (endpoint) => {
                 console.log(response);
                 let keyReceived = await response.arrayBuffer();
                 console.log(keyReceived);
-                setKey(new Uint8Array(keyReceived));
-                //setKey(toHexString(new Uint8Array(keyReceived)));
+                //setKey(new Uint8Array(keyReceived));
+                setKey(toHexString(new Uint8Array(keyReceived)));
                 setLoading(false);
             }
         } catch(error){

@@ -16,7 +16,7 @@ const Ballot = (props) => {//props.location.data = id of the election
     
     const [context,] = useContext(LanguageContext);
     const token = sessionStorage.getItem('token');
-    const {loading, title,candidates,electionID,status,pubKey,result, setResult, setStatus} = useElection(props.location.data, token)
+    const {loading, title,candidates,electionID,status} = useElection(props.location.data, token)
     const [choice, setChoice] = useState('');
     const [userErrors, setUserErrors] = useState({});
     const edCurve = kyber.curve.newCurve("edwards25519");
@@ -41,28 +41,15 @@ const Ballot = (props) => {//props.location.data = id of the election
         }
     }, [postError])
 
-
-    /*Transform a string of type "1,2,3" to an array [1,2,3]*/ 
-    function unpack(str) {
-        var bytes = [];
-        var b  =str.split(",");
-
-        
-        
-        for(var i = 0; i < b.length; i++) {
-            var char = parseInt(b[i]);
-            bytes.push(char);
-        }
-        
-
-        return new Uint8Array(bytes);
-    }
-
     const handleCheck = e =>{
         console.log(e.target.value);
         setChoice(e.target.value);
 }
-
+    const hexToBytes = (hex) => {
+        for (var bytes = [], c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+        return new Uint8Array(bytes);
+    }
 
     const createBallot = (K,C)=>{
         let ballot = {};
@@ -78,8 +65,7 @@ const Ballot = (props) => {//props.location.data = id of the election
     const sendBallot = async() =>{
         sessionStorage.setItem(electionID, choice);
         console.log(choice);
-        const [K,C] = encryptVote(choice,Buffer.from(unpack(sessionStorage.getItem('pubKey')).buffer), edCurve);
-
+        const [K,C] = encryptVote(choice,Buffer.from(hexToBytes(sessionStorage.getItem('pubKey')).buffer), edCurve);
         //sending the ballot to evoting server
         let ballot = createBallot(K,C);
         let newRequest = {
@@ -125,7 +111,6 @@ const Ballot = (props) => {//props.location.data = id of the election
     const ballotDisplay = () => {
         return (
             <div><h3 className = 'ballot-title'>{title}</h3>
-            {console.log(props)}
             <div className='checkbox-text'>{Translations[context].pickCandidate}</div>
             {candidates !== null && candidates.length !== 0 ?
             candidates.map(candidate => (possibleChoice(candidate))) : <p>Default</p>}
@@ -134,27 +119,16 @@ const Ballot = (props) => {//props.location.data = id of the election
         )
     }
 
-    return (
-        
-        
+    return (    
         <div className = 'ballot-wrapper'>
-
-            {/*lastVote !== null ?
-                (
-                <div className='past-vote'>{Translations[context].alreadyVoted} <b>{lastVote}</b> {Translations[context].alreadyVoted2}
-                <br />
-                {Translations[context].changeVote}</div>): (<span></span>)
-                */}
             <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRight={Translations[context].close} />
-            {console.log(candidates)}
             {loading? (<p className='loading'>{Translations[context].loading}</p>)
                 :(<div> {status === OPEN? ballotDisplay():electionClosedDisplay()}
                     <Link to='/vote'>
                         <button className='back-btn'>{Translations[context].back}</button>
                     </Link>
                 </div>)}
-        </div>
-    
+        </div>   
     )
 }
 
