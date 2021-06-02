@@ -92,6 +92,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             setStatus(SHUFFLED_BALLOT);
         } else{
             setShowModalError(true);
+            setIsShuffling(false);
         }
         setPostError(null);
     }
@@ -105,6 +106,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             setStatus(RESULT_AVAILABLE);
         } else {
             setShowModalError(true);
+            setIsDecrypting(false);
         }
         setPostError(null);
     }
@@ -127,8 +129,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                             <span className='election-status-closed'></span>
                             <span className='election-status-text'>{Translations[context].statusClose}</span>
                             <button className='election-btn' onClick={handleShuffle}>{Translations[context].shuffle}</button>
-                        </span>)}
-                    
+                        </span>)}                  
                 </span>; 
             case SHUFFLED_BALLOT: 
                 return <span>
