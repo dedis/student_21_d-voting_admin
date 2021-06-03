@@ -66,7 +66,7 @@ export const Translations = {
         shuffleFail : 'The shuffle operation failed.',
         voteImpossible: 'The election is not open anymore.',
         yes: 'Yes',
-        download: 'Download',
+        download: 'Export results in JSON format',
         rowsPerPage : 'Rows per page',
         of: ' of ',
         about: <Fragment>
@@ -149,7 +149,7 @@ export const Translations = {
         shuffleFail: 'L\'opération ???????',
         voteImpossible: 'Il n\'est plus possible de voter pour l\'élection.',
         yes: 'Oui',
-        download: 'Télécharger',
+        download: 'Exporter les résultats au format json',
         rowsPerPage : 'Lignes par page',
         of: ' sur ',
         about: <Fragment>

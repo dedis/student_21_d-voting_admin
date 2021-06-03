@@ -37,14 +37,15 @@ function NavBar() {
             </NavLink>
             <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
                 <li title={Translations[lanContext].navBarAbout}>{Translations[lanContext].navBarAbout}</li>
-            </NavLink>
-                      
-            <li className='last'>
-            <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
-                    <option value='en'>en</option>
-                    <option value='fr'>fr</option>
-                </select>
-            </li>           
+            </NavLink>   
+            <a className='nodeco'>
+                <li className='last'>
+                <select value={lanContext} onChange={(e)=>setLanContext(e.target.value)}>
+                        <option value='en'>en</option>
+                        <option value='fr'>fr</option>
+                    </select>
+                </li> 
+            </a>         
         </ul>
     </div>
   );
