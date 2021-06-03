@@ -5,6 +5,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import {CREATE_ENDPOINT} from '../utils/Endpoints';
 import usePostCall from '../utils/usePostCall';
+import PropTypes from 'prop-types';
 
 
 function ElectionForm({setShowModal, setTextModal}){
@@ -28,19 +29,6 @@ function ElectionForm({setShowModal, setTextModal}){
                 setTextModal(Translations[context].electionFail);}      
         }    
     }, [isSubmitting])
-
-  /*transform string of type "1,4,5" to an array of number [1,4,5] */
-    //TODO: throw error if problem
-  function unpack(str) {
-        var bytes = [];
-        var b  =str.split(",");
-        
-        for(var i = 0; i < b.length; i++) {
-            var char = parseInt(b[i]);
-            bytes.push(char);
-        }
-        return bytes;
-    }
 
     const sendFormData = async() => {
         //create the JSON object
@@ -108,14 +96,15 @@ function ElectionForm({setShowModal, setTextModal}){
         e.preventDefault()
         let errors = {};
         if (newCandidate.length === 0){
-            errors['empty'] = 'There is nothing to add.';
+            errors['empty'] = Translations[context].nothingToAdd;
             setErrors(errors);
             return;
         }
 
         if(!isCandidateUnique(newCandidate)){
-            errors['unique'] = 'This candidate has already been added.'
+            errors['unique'] = Translations[context].duplicateCandidate
             setErrors(errors);
+            setNewCandidate('');
             return;
         }
 
@@ -159,7 +148,7 @@ function ElectionForm({setShowModal, setTextModal}){
                         onChange={handleChangeName}  
                         onKeyPress = {handleKeyPressTitle}  
                         className = 'form-name'  
-                        placeholder = {Translations[context].namePlaceHolder}          
+                        //placeholder = {Translations[context].namePlaceHolder}          
                     />
                 </div>
 
@@ -175,18 +164,17 @@ function ElectionForm({setShowModal, setTextModal}){
                         value={newCandidate} 
                         onChange={handleChangeCandidate}  
                         onKeyPress={handleKeyPress}
-                        //onKeyDown = {handleKeyDown}
                         onSubmit = {handleAdd}  
                         className = 'form-choice'  
-                        placeholder = {Translations[context].addCandPlaceHolder}  
+                        //placeholder = {Translations[context].addCandPlaceHolder}  
                         />               
                     <button type='button' className='submit-choice-btn' onClick={handleAdd} onSubmit={onSubmitPreventDefault} >
                     {Translations[context].add}
                     </button>
-                    <span className='form-error'>{errors.unique}</span>
-                    <span className='form-error'>{errors.empty}</span>
-                    <span className='form-error'>{errors.newCandidate}</span>
-                    <span className='form-error'>{errors.candidates}</span>
+                    <div className='form-error'>{errors.unique}</div>
+                    <div className='form-error'>{errors.empty}</div>
+                    <div className='form-error'>{errors.newCandidate}</div>
+                    <div className='form-error'>{errors.candidates}</div>
                     
                 </div>
                 <div className='form-candidates'>
@@ -203,7 +191,6 @@ function ElectionForm({setShowModal, setTextModal}){
                     ))}
                     </ul>
                 </div>
-
                 <div>
                     <button type='submit' className='submit-form-btn' onSubmit={handleSubmit}>
                     {Translations[context].createElec} 
@@ -213,6 +200,10 @@ function ElectionForm({setShowModal, setTextModal}){
         </div>
     </div>
     );
+}
+ElectionForm.propTypes = {
+    setShowModal : PropTypes.func.isRequired,
+    setTextModal: PropTypes.func.isRequired,
 }
 
 export default ElectionForm;

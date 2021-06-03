@@ -15,7 +15,7 @@ function CreateElection() {
 
   return (
     <div className= 'create-election-wrapper'>
-      <Modal showModal={showModal} setShowModal={setShowModal} textModal = {textModal} buttonRight={Translations[context].close} />     
+      <Modal showModal={showModal} setShowModal={setShowModal} textModal = {textModal} buttonRightText={Translations[context].close} />     
       <h4>{Translations[context].create}</h4>
       
       <div className='election-form'>

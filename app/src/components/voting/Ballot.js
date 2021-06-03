@@ -10,6 +10,7 @@ import Modal from '../modal/Modal';
 import {OPEN} from '../utils/StatusNumber';
 import {Link} from 'react-router-dom';
 import kyber from "@dedis/kyber";
+import PropTypes from 'prop-types';
 
 
 const Ballot = (props) => {//props.location.data = id of the election
@@ -35,16 +36,20 @@ const Ballot = (props) => {//props.location.data = id of the election
 
     useEffect(()=> {
         if(postError !== null){
-            setModalText(Translations[context].voteFailure);
+            if(postError.includes('ECONNREFUSED')){
+                setModalText(Translations[context].errorServerDown);
+            } else {
+                setModalText(Translations[context].voteFailure);
+            }           
         } else {
             setModalText(Translations[context].voteSuccess);
         }
     }, [postError])
 
     const handleCheck = e =>{
-        console.log(e.target.value);
         setChoice(e.target.value);
-}
+    }
+
     const hexToBytes = (hex) => {
         for (var bytes = [], c = 0; c < hex.length; c += 2)
         bytes.push(parseInt(hex.substr(c, 2), 16));
@@ -54,7 +59,6 @@ const Ballot = (props) => {//props.location.data = id of the election
     const createBallot = (K,C)=>{
         let ballot = {};
         let vote = JSON.stringify({'K': Array.from(K), 'C':Array.from(C)});
-
         ballot['ElectionID'] = electionID; 
         ballot['UserId'] = sessionStorage.getItem('id');       
         ballot['Ballot'] = [...Buffer.from(vote)];
@@ -64,8 +68,8 @@ const Ballot = (props) => {//props.location.data = id of the election
 
     const sendBallot = async() =>{
         sessionStorage.setItem(electionID, choice);
-        console.log(choice);
-        const [K,C] = encryptVote(choice,Buffer.from(hexToBytes(sessionStorage.getItem('pubKey')).buffer), edCurve);
+        const [K,C] = encryptVote(choice, Buffer.from(hexToBytes(sessionStorage.getItem('pubKey')).buffer), edCurve);
+
         //sending the ballot to evoting server
         let ballot = createBallot(K,C);
         let newRequest = {
@@ -121,7 +125,7 @@ const Ballot = (props) => {//props.location.data = id of the election
 
     return (    
         <div className = 'ballot-wrapper'>
-            <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRight={Translations[context].close} />
+            <Modal showModal={showModal} setShowModal={setShowModal} textModal = {modalText} buttonRightText={Translations[context].close} />
             {loading? (<p className='loading'>{Translations[context].loading}</p>)
                 :(<div> {status === OPEN? ballotDisplay():electionClosedDisplay()}
                     <Link to='/vote'>
@@ -130,6 +134,10 @@ const Ballot = (props) => {//props.location.data = id of the election
                 </div>)}
         </div>   
     )
+}
+
+Ballot.propTypes = {
+    location : PropTypes.any, 
 }
 
 export default Ballot;

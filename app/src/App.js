@@ -28,8 +28,6 @@ function App() {
 
   //language state
   const [lanContext, setLanContext] =  useState(getBrowserLanguage());
-  
-  
   const {token, saveToken} = useToken();
 
   return (

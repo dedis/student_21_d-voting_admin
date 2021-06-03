@@ -4,10 +4,9 @@ import {useState} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import DownloadResult from './DownloadResult';
+import PropTypes from 'prop-types';
 
-function Result(props){
-    const candidates = props.candidates;
-    const resultData = props.resultData;
+function Result({resultData, candidates}){
     const [dataToDownload, setDataToDownload] = useState(null);
     const countBallots = (result) => {
         let resultMap = {};
@@ -31,8 +30,7 @@ function Result(props){
             return (<div key = {k}>
                         <div className='progress-box'>
                             <span className='progress-box-candidate-name'>{k} :</span>
-                            <div className='progress-box-in'>
-                                
+                            <div className='progress-box-in'>                   
                                 <LinearProgress variant='determinate' className='progress-bar' value={percentage} />
                             </div>
                             <span className='progress-box-label'>
@@ -46,11 +44,15 @@ function Result(props){
     return(
         <span>
             <div className='result-title'>Result of the election:</div>
-            {displayPercentage(props.resultData)}
+            {displayPercentage(resultData)}
             <div className = 'number-votes'>Total number of votes : {resultData.length}</div>
             <DownloadResult resultData={dataToDownload}></DownloadResult>
         </span>
     )
+}
+Result.propTypes = {
+   resultData : PropTypes.object.isRequired,
+   candidates : PropTypes.array.isRequired, 
 }
 
 export default Result;

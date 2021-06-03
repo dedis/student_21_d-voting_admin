@@ -10,9 +10,8 @@ function useElection(electionID, token){
         method: 'POST',
         body: JSON.stringify({'ElectionID':electionID,'Token': token})
     }
-    const [data, loading, error] = useFetchCall(GET_ELECTION_ENDPOINT, request);
-    const {title,candidates,id,status,pubKey,result,setResult, setStatus, isResultSet, setIsResultSet} = useFillElectionFields(data);
-    //useResult(status, setResult)
+    const [data, loading, ] = useFetchCall(GET_ELECTION_ENDPOINT, request); //TODO : check error
+    const {title,candidates,status,pubKey,result,setResult, setStatus, isResultSet, setIsResultSet} = useFillElectionFields(data);
     return {loading, title, candidates,electionID,status,pubKey,result, setResult, setStatus, isResultSet, setIsResultSet}
 }
 

@@ -1,5 +1,6 @@
 import  {useState, useEffect} from 'react';
 
+/*custom hook */
 function useFillElectionFields(electionData){
     const [title, setTitle] = useState(null);
     const [candidates, setCandidates] = useState(null);

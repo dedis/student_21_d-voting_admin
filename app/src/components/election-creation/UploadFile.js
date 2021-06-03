@@ -1,10 +1,10 @@
 import {React, useState, useContext, useEffect} from 'react';
-
 import './UploadFile.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import {CREATE_ENDPOINT} from '../utils/Endpoints';
 import usePostCall from '../utils/usePostCall';
+import PropTypes from 'prop-types';
 
 function UploadFile({setShowModal, setTextModal}) {
     const [context, ] = useContext(LanguageContext);
@@ -12,7 +12,7 @@ function UploadFile({setShowModal, setTextModal}) {
     const [fileExt, setFileExt] = useState(null);
     const [errors, setErrors] = useState({});
     const [name, setName] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [, setIsSubmitting] = useState(false);
     const [postError, setPostError] = useState(null);
     const {postData} = usePostCall(setPostError);
     
@@ -28,13 +28,11 @@ function UploadFile({setShowModal, setTextModal}) {
   }, [postError])
 
     /*TODO: add fields AdminID, Token and PublicKey from sessionStorage */
-    const validateJSONFields = () => {
-        
+    const validateJSONFields = () => {    
         var data = JSON.parse(file);
         if(data.Title == ""){
           return false;
         }
-
         if(!Array.isArray(data.Candidates)){
           return false;
         } else {
@@ -64,7 +62,6 @@ function UploadFile({setShowModal, setTextModal}) {
     const validateFileExtension = () =>{
       let errors = {};
       if(fileExt === null){
-        console.log("no file")
         errors['nothing'] = Translations[context].noFile;
         setErrors(errors);
         return false;
@@ -80,23 +77,11 @@ function UploadFile({setShowModal, setTextModal}) {
     }
 
     const uploadJSON = async() => {
-        console.log(fileExt);
         if(validateFileExtension()){
-          
-          try{
-            const response =  await sendElection(JSON.parse(file));
-            if(response === -1){
-                 setTextModal(Translations[context].electionFail);
-            } else{
-                 setTextModal(Translations[context].electionSuccess);
-                 setName('');
-            }
-            setShowModal(true);
-          } catch (e){
-            alert(Translations[context].electionFail);
-          }
-        }
-          
+          sendElection(JSON.parse(file));
+          setName('');
+          setShowModal(true);
+        }          
     }
 
     const handleChange = (event) => {
@@ -107,12 +92,10 @@ function UploadFile({setShowModal, setTextModal}) {
       reader.onload = function(event) {
         setFile(event.target.result);
       };
-     reader.readAsText(newUpload);
-     
+     reader.readAsText(newUpload);   
     }
 
   return(
-
     <div className="form-content-right">
       <div className='option'>Option 2</div>
       {Translations[context].upload}
@@ -126,13 +109,13 @@ function UploadFile({setShowModal, setTextModal}) {
         <span className='error'>{errors.nothing}</span>
         <span className='error'>{errors.extension}</span>
         <input type="button" className = 'upload-json-btn' value={Translations[context].createElec} onClick={uploadJSON} />
-
-
-
     </div>
-    );
+  );
+}
 
+UploadFile.propTypes = {
+  setShowModal : PropTypes.func.isRequired,
+  setTextModal : PropTypes.func.isRequired,
+}
 
-  }
- 
 export default UploadFile;

@@ -19,12 +19,7 @@ import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints';
 
 function Election() {
 
-
     const [context, ] = useContext(LanguageContext);
-    //const electionID = localStorage.getItem('electionIDs'); //this will not be present in the final version
-    
-    //const [loading,electionRetrieved, , electionData] =  useRetrieveAllElections(sessionStorage.getItem('token'));
-    //const [loading,electionRetrieved, , electionData] =  useRetrieveElection(electionID, sessionStorage.getItem('token'));
     const token = sessionStorage.getItem('token');
     const request = {
         method: 'POST',

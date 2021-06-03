@@ -5,10 +5,10 @@ import ConfirmModal from '../modal/ConfirmModal';
 import usePostCall from '../utils/usePostCall';
 import {CLOSE_ENDPOINT, CANCEL_ENDPOINT, DECRYPT_ENDPOINT, SHUFFLE_ENDPOINT} from '../utils/Endpoints';
 import {OPEN, CLOSED, SHUFFLED_BALLOT, RESULT_AVAILABLE, CANCELED} from '../utils/StatusNumber';
+
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
 const useChangeStatus = (status, electionID, candidates, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) =>{
 
-    //const [status, setStatus] = useState(stat);
     const userID = sessionStorage.getItem('id');
     const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);
@@ -29,11 +29,11 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
     }
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'hOVoAuV51mzAVJw/ShzTAk0ZDOPmUScCJjv5nvfN+ek=';
+    const PK1 = 'y058FuJSCwYZp/oZ/JRLnaqmcgQrY2AlmKZTeZ1CvtI=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = '5CDXN2v0b5WPUo12l5rRxADPfRwSyE1k0gzHvAIJGZQ=';
+    const PK2 = 'gkXb9f6NY+GTXN/y5rYcdIkNros/SHPeYWPFl3ihwL8=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'xaYK2Cp5faB2iB91Fgn9KU3hpY5ZvTlmZC59ag5BoXY=';
+    const PK3 = 'umwaweRzi0Ew9gGlbPO/0d+6s/tJBj6oT8vMN8Cphzg=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
     const shuffleRequest = {
         method: 'POST',
@@ -150,12 +150,10 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                     <span className='election-status-cancelled'></span>
                     <span className='election-status-text'>{Translations[context].statusCancel}</span>
                 </span>;  
-
             default :
                 return null
-            }
+        }
     } 
-
     return {getStatus, modalClose, modalCancel};
 };
 

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import './ElectionTable.css';
 import {Link} from 'react-router-dom';
 import Status from './Status';
@@ -14,7 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles} from '@material-ui/core/styles';
-import {frFR, enUS} from '@material-ui/core/locale';
+import PropTypes from 'prop-types';
 
 /**
  * 
@@ -46,7 +46,7 @@ const ElectionTable = ({elections}) => {
     const constructRows = () => {
         let rows = []
         elections.map((elec) => {
-            let {title,candidates,id,status,pubKey,result, setStatus} = ElectionFields(elec);
+            let {title,candidates,id,status,setStatus} = ElectionFields(elec);
             let link = <Link className='election-link' to={{pathname:`/elections/${id}`,
             data: id}}>{title}</Link>;
             let stat = <Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/>
@@ -79,6 +79,7 @@ const ElectionTable = ({elections}) => {
     
     return(
         <div>
+            {console.log(typeof(elections))}
             <Paper>
                 <TableContainer>
                     <Table>
@@ -122,5 +123,8 @@ const ElectionTable = ({elections}) => {
         </div>
     );
 }
- 
+
+ElectionTable.propTypes = {
+    elections : PropTypes.object.isRequired,
+}
 export default ElectionTable;

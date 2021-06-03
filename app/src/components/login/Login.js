@@ -5,13 +5,13 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import {SIGNIN_ENDPOINT, PUBKEY_ENDPOINT} from '../utils/Endpoints';
 import './Login.css';
+import PropTypes from 'prop-types';
 
 
 function Login({setToken}) {
     const request = null;
     const [signinData,,] = useFetchCall(SIGNIN_ENDPOINT,request);
     const [context, ] = useContext(LanguageContext);
-    //const [loading,electionRetrieved, pubKey] =  useFetchData(PUBKEY_ENDPOINT, false); 
     const [pubKey, loading, error] = useFetchKey(PUBKEY_ENDPOINT);
 
     const handleClick = () => {
@@ -31,9 +31,13 @@ function Login({setToken}) {
     return (
         <div className='login-wrapper'>
             <div className='login-txt'>{Translations[context].loginText}</div>
-            <button id='login-button' className='login-btn' onClick={handleClick}>Login</button>
+            <button id='login-button' className='login-btn' onClick={handleClick}>{Translations[context].login}</button>
         </div>
     )
+}
+
+Login.propTypes = {
+    setToken : PropTypes.func.isRequired,
 }
 
 export default Login;

@@ -43,6 +43,8 @@
   
   .form-error{
     color: #898a8d;
+    padding-top:0.5%;
+    padding-left: 1%;
     font-size: 12px;
   }
   

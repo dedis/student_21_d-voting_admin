@@ -1,9 +1,9 @@
 
 import {React} from 'react';
-
 import './Modal.css';
+import PropTypes from 'prop-types';
 
-function Modal({showModal, setShowModal, textModal,  buttonRight}){
+function Modal({showModal, setShowModal, textModal,  buttonRightText}){
     
     const closeModal = () => {
         setShowModal(false);
@@ -12,7 +12,7 @@ function Modal({showModal, setShowModal, textModal,  buttonRight}){
     const displayButtons = () => {
         return (
             <div >            
-                <button className='btn-right' onClick={closeModal}>{buttonRight}</button>              
+                <button className='btn-right' onClick={closeModal}>{buttonRightText}</button>              
             </div>
         )
     }
@@ -32,5 +32,10 @@ function Modal({showModal, setShowModal, textModal,  buttonRight}){
         </div>
     );
 }
-
+Modal.propTypes = {
+    showModal : PropTypes.bool.isRequired,
+    setShowModal : PropTypes.func.isRequired,
+    textModal: PropTypes.string.isRequired,
+    buttonRightText: PropTypes.string.isRequired,
+}
 export default Modal;

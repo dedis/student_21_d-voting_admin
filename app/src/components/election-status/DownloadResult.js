@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
-
+import PropTypes from 'prop-types';
 
 function DownloadResult({resultData}){
     const [context, ] = useContext(LanguageContext);
@@ -23,7 +23,9 @@ function DownloadResult({resultData}){
             </div>
     );
 }
-
+DownloadResult.propTypes = {
+    resultData : PropTypes.object.isRequired,
+}
 export default DownloadResult;
 
 //https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser

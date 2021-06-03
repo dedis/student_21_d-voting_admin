@@ -1,4 +1,5 @@
 import {React} from 'react';
+import PropTypes from 'prop-types';
 
 function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
 
@@ -35,6 +36,12 @@ function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
         :null}
         </div>
     );
+}
+ConfirmModal.propTypes = {
+    showModal : PropTypes.bool.isRequired,
+    setShowModal : PropTypes.func.isRequired,
+    textModal: PropTypes.string.isRequired,
+    setUserValidate: PropTypes.func.isRequired,
 }
 
 export default ConfirmModal;
