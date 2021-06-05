@@ -1,8 +1,4 @@
-/**
- * 
- * @param {*} setError 
- * @returns 
- */
+/*custom hook that post a request to an endpoint */
 const usePostCall = (setError) => {
 
     const postData = async(endpoint, request, setIsPosting) => {
@@ -18,13 +14,9 @@ const usePostCall = (setError) => {
             }
         } catch(error){
             setError(error.message);
-            setIsPosting(prev => !prev);
-            console.log(error.message);
             return false;
         }
     }
-
-
     return {postData};
 }
 

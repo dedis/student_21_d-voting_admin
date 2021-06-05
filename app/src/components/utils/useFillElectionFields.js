@@ -1,6 +1,6 @@
 import  {useState, useEffect} from 'react';
 
-/*custom hook */
+/*custom hook that given an election object returns its fields*/
 function useFillElectionFields(electionData){
     const [title, setTitle] = useState(null);
     const [candidates, setCandidates] = useState(null);

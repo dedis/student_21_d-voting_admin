@@ -5,7 +5,6 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useFetchCall from '../utils/useFetchCall';
 import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 /*Assumption : for now an election is simply a json file with the following field
     - electionName: string
@@ -46,7 +45,7 @@ function Election() {
     {!loading?
         (showElection() )   
         : 
-        (error===null?<p className='loading'>{Translations[context].loading} <CircularProgress /></p>:<div className='error-retrieving'>{Translations[context].errorRetrievingElection}</div>)}
+        (error===null?<p className='loading'>{Translations[context].loading} </p>:<div className='error-retrieving'>{Translations[context].errorRetrievingElection}</div>)}
     </div>
   );
 }

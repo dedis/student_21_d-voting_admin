@@ -1,7 +1,7 @@
 
 import {useState, useEffect} from 'react';
 
-
+/*custom hook that fetches the public key from the given endpoint */
 const useFetchKey = (endpoint) => {
     const [key, setKey] = useState(null);
     const [error, setError] = useState(null);
