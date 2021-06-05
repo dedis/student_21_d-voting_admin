@@ -10,6 +10,7 @@ import Result from './Result';
 import {GET_RESULT_ENDPOINT} from '../utils/Endpoints';
 import {RESULT_AVAILABLE} from '../utils/StatusNumber';
 import PropTypes from 'prop-types';
+import Action from './Action';
 
 function ElectionDetails(props) { //props.location.data = id of the election
     const token = sessionStorage.getItem('token');
@@ -50,7 +51,8 @@ function ElectionDetails(props) { //props.location.data = id of the election
                 <h1>{title}</h1>
                 <div className='election-details-wrapper'>
                 {isResultSet? <div className='election-wrapper-child'><Result resultData={result} candidates={candidates}/></div>
-                    :(<div className='election-wrapper-child'> {Translations[context].status}:<Status status={status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable} /> 
+                    :(<div className='election-wrapper-child'> {Translations[context].status}:<Status status={status} /> 
+                    <span className = 'election-action'>Action :<Action status = {status} electionID={electionID} candidates={candidates} setStatus={setStatus} setResultAvailable={setIsResultAvailable}/> </span>
                         <div className='election-candidates'>
                             {Translations[context].candidates}
                             {candidates.map((cand) => <li key={cand} className='election-candidate'>{cand}</li>)}

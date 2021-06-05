@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import Action from './Action';
 
 /**
  * 
@@ -30,6 +31,7 @@ const ElectionTable = ({elections}) => {
     const columns = [
         {id: 'title', label : Translations[context].title, minWidth: 170, align: 'left'},
         {id: 'status', label : Translations[context].status, minWidth: 170, align: 'left'},
+        {id : 'action', label : Translations[context].action, minWidth: 170, align: 'left'},
     ]
 
     const StyledTableRow = withStyles((theme) => ({
@@ -40,25 +42,26 @@ const ElectionTable = ({elections}) => {
         },
       }))(TableRow);
 
-    const createData = (title, status, key) => {
-        return {title, status, key};
+    const createData = (title, status, action, key) => {
+        return {title, status, action, key};
     }
     const constructRows = () => {
         let rows = []
         elections.map((elec) => {
-            let {title,candidates,id,status,setStatus} = ElectionFields(elec);
+            let {title,id,status,setStatus} = ElectionFields(elec);
             let link = <Link className='election-link' to={{pathname:`/elections/${id}`,
             data: id}}>{title}</Link>;
-            let stat = <Status status={status} electionID={id} candidates={candidates} setStatus={setStatus}/>
-            rows.push(createData(link, stat,id));
+            let stat = <Status status={status}/>;
+            console.log(status);
+            let action = <Action status={status} electionID={id} setStatus={setStatus}/>;
+            rows.push(createData(link, stat,action, id));
         })
         return rows;
     }
     const rows = constructRows();
 
     const renderTH = () => {
-        return (
-              
+        return (            
             <TableRow className='row-head'>
                 {columns.map((col) => {
                    return(<TableCell style={{ width: 800 }} key = {col.id} align={col.align}>

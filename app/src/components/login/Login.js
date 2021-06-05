@@ -1,5 +1,4 @@
-import {React, useContext} from 'react';
-import useFetchCall from '../utils/useFetchCall';
+import {React, useContext, useState} from 'react';
 import useFetchKey from '../utils/useFetchKey';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
@@ -8,15 +7,29 @@ import './Login.css';
 import PropTypes from 'prop-types';
 
 
-function Login({setToken}) {
+const Login = ({setToken}) => {
     const request = null;
-    const [signinData,,] = useFetchCall(SIGNIN_ENDPOINT,request);
+    //const [signinData,signinLoading,signinError] = useFetchCall(SIGNIN_ENDPOINT,request);
+    const [loginError, setLoginError] = useState();
     const [context, ] = useContext(LanguageContext);
     const [pubKey, loading, error] = useFetchKey(PUBKEY_ENDPOINT);
 
-    const handleClick = () => {
-        setToken(signinData.Token);
-        sessionStorage.setItem('id', signinData.UserID);
+    const handleClick = async() => {
+        try{
+            const response = await fetch(SIGNIN_ENDPOINT,request);        
+            if(!response.ok){
+                throw Error(response.statusText);
+            } else {
+                let loginData = await response.json();
+                setToken(loginData.Token);
+                sessionStorage.setItem('id', loginData.UserID);
+                setLoginError();
+            }
+        } catch(error){
+            setLoginError(error);
+            console.log(error);
+        }
+
         return (<div>
             {loading? null 
                 :(error === null? 
@@ -25,6 +38,7 @@ function Login({setToken}) {
                       {sessionStorage.setItem('pubKey', pubKey)}
                     </div>)
                     :<div>{Translations[context].errorRetrievingKey}</div>)}  
+            {loginError === null? <div></div>: Translations[context].errorServerDown}
         </div>)
     }
 

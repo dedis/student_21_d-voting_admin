@@ -14,9 +14,12 @@ const usePostCall = (setError) => {
             }
         } catch(error){
             setError(error.message);
+            setIsPosting(prev => !prev);
             return false;
         }
     }
+
+
     return {postData};
 }
 

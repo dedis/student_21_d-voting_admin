@@ -11,7 +11,7 @@ import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints';
     - candidates: []string
     - electionStatus : number
     - collectivePublicKey :
-    - electionID :
+    - electionID : string
 */
 
 function Election() {
