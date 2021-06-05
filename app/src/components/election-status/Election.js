@@ -1,13 +1,11 @@
 import React, {useContext} from 'react';
-
-
 import './Election.css';
 import ElectionTable from './ElectionTable';
-
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useFetchCall from '../utils/useFetchCall';
 import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 /*Assumption : for now an election is simply a json file with the following field
     - electionName: string
@@ -37,7 +35,7 @@ function Election() {
                     <div className = 'election-table-wrapper'>
                         <ElectionTable elections={data.AllElectionsInfo} />
                     </div>   
-                </div>):<div>{Translations[context].noElection}</div>}
+                </div>):<div className = 'no-election'>{Translations[context].noElection}</div>}
             </div>
         )
     }
@@ -48,7 +46,7 @@ function Election() {
     {!loading?
         (showElection() )   
         : 
-        (error===null?<p className='loading'>{Translations[context].loading}</p>:<div className='error-retrieving'>{Translations[context].errorRetrievingElection}</div>)}
+        (error===null?<p className='loading'>{Translations[context].loading} <CircularProgress /></p>:<div className='error-retrieving'>{Translations[context].errorRetrievingElection}</div>)}
     </div>
   );
 }

@@ -16,8 +16,7 @@ const useFetchKey = (endpoint) => {
 
     useEffect(async() => {
         try{
-            const response = await fetch(endpoint);
-            
+            const response = await fetch(endpoint);      
             if(!response.ok){
                 throw Error(response.statusText);
             } else {

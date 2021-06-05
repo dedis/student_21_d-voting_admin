@@ -20,16 +20,16 @@ const Status = ({status, electionID, candidates, setStatus, setResultAvailable})
             {modalCancel}
             
             {getStatus()}
-            {<Modal showModal={showModalError} setShowModal={setShowModalError} textModal = {textModalError} buttonRight={Translations[context].close} />}
+            {<Modal showModal={showModalError} setShowModal={setShowModalError} textModal = {textModalError} buttonRightText={Translations[context].close} />}
         </div>
     )
 }
 
 Status.propTypes = {
-    status : PropTypes.number.isRequired,
-    electionID : PropTypes.string.isRequired,
-    candidates : PropTypes.array.isRequired,
-    setStatus : PropTypes.func.isRequired,
+    status : PropTypes.number,
+    electionID : PropTypes.string,
+    candidates : PropTypes.array,
+    setStatus : PropTypes.func,
     setResultAvailable : PropTypes.func,
 }
 

@@ -5,6 +5,7 @@ import ConfirmModal from '../modal/ConfirmModal';
 import usePostCall from '../utils/usePostCall';
 import {CLOSE_ENDPOINT, CANCEL_ENDPOINT, DECRYPT_ENDPOINT, SHUFFLE_ENDPOINT} from '../utils/Endpoints';
 import {OPEN, CLOSED, SHUFFLED_BALLOT, RESULT_AVAILABLE, CANCELED} from '../utils/StatusNumber';
+import {Link} from 'react-router-dom';
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
 const useChangeStatus = (status, electionID, candidates, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) =>{
@@ -29,11 +30,11 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
     }
     const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'y058FuJSCwYZp/oZ/JRLnaqmcgQrY2AlmKZTeZ1CvtI=';
+    const PK1 = 'sUTXcdSasLq/g0VORLVXDlk2dEW0oHYmitueOktxXHA=';
     const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = 'gkXb9f6NY+GTXN/y5rYcdIkNros/SHPeYWPFl3ihwL8=';
+    const PK2 = 'Pj2jpLKrOAtYDQkFg535WKXHEX7/7/DGdXf7d8PhiPc=';
     const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'umwaweRzi0Ew9gGlbPO/0d+6s/tJBj6oT8vMN8Cphzg=';
+    const PK3 = 'LGLR7cfYr4pyep5groCC+8GwF6eaTtmvPvr0e+bmiVk=';
     const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
     const shuffleRequest = {
         method: 'POST',
@@ -109,7 +110,7 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
             setIsDecrypting(false);
         }
         setPostError(null);
-    }
+    } 
 
     const getStatus = () => {
 
@@ -144,6 +145,8 @@ const useChangeStatus = (status, electionID, candidates, setStatus, setResultAva
                 return <span>
                     <span className='election-status-closed'></span>
                     <span>{Translations[context].resultsAvailable }</span>
+                    <Link className='election-link' to={{pathname:`/elections/${electionID}`,
+                    data: electionID}}><button className='election-btn'>{Translations[context].seeResult}</button></Link>
                 </span>;               
             case CANCELED: 
                 return <span>

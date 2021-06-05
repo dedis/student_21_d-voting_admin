@@ -79,7 +79,6 @@ const ElectionTable = ({elections}) => {
     
     return(
         <div>
-            {console.log(typeof(elections))}
             <Paper>
                 <TableContainer>
                     <Table>
@@ -125,6 +124,7 @@ const ElectionTable = ({elections}) => {
 }
 
 ElectionTable.propTypes = {
-    elections : PropTypes.object.isRequired,
+    elections : PropTypes.array,
 }
+
 export default ElectionTable;
