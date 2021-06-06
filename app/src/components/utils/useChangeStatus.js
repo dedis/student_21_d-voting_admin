@@ -28,7 +28,7 @@ const useChangeStatus = (status) =>{
             case RESULT_AVAILABLE: 
                 return <span className = 'election-status'>
                         <span className='election-status-closed'></span>
-                        <span>{Translations[context].resultsAvailable }</span>                    
+                        <span className='election-status-text'>{Translations[context].resultsAvailable }</span>                    
                      </span>;               
             case CANCELED: 
                 return <span className = 'election-status'>

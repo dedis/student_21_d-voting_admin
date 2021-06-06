@@ -1,11 +1,10 @@
+/*global , describe, it, expect, beforeEach*/
+/*eslint no-undef: "error"*/
+
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Election from '../election-status/Election';
-import renderButton from '../election-status/Election';
-import useFetchCall from '../utils/useFetchCall';
-import {render} from '@testing-library/react';
 import {LanguageContext} from '../language/LanguageContext';
-import Enzyme, {mount, shallow} from 'enzyme';
+import Enzyme, {shallow} from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -40,9 +39,6 @@ describe("renders without crashing", ()=> {
       expect(wrapper).not.toBeNull();
     });
 
-    it('a', ()=> {
-
-    });
 })
 
 

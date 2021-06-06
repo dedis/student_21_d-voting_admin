@@ -1,12 +1,17 @@
 # Front-end of the DELA evoting system
- This project is the front-end part of an evoting system based in [dela](https://github.com/dedis/dela), a distributed ledger from the DEDIS lab. It needs to have Dela nodes running.
- The user interface uses [React](https://reactjs.org/), a javascript library.
+ This project is the front-end part of an evoting system based in [dela](https://github.com/dedis/dela), a distributed ledger from the DEDIS lab.
+
+ It allows the user to create a new election, close/cancel it and also vote on on-going elections.
+ All the elections and their operations are saved on smart contracts from dela.
+ 
+  There is currently no real authentication mechanism, simply a login button that gives an id and a token to a user. When a user cast a vote, his/her vote is encrypted using the dkg public key of the nodes running the dela system. The anonymity of a voter is not guaranteed, only the content of the vote meaning that it is possible to know who voted.
+ It needs to have Dela nodes running every time you want to run the frontend web-application.
+ The user interface uses [React](https://reactjs.org/), a javascript library. You can find the instruction about running a react-app in the app folder.
  
 # Installation instruction of Dela library
  For the front-end to work, you need to have 3 dela nodes running on your computer. To do that, you first need to clone the [dela/dedis](https://github.com/dedis/dela) repository and then go on the `d-voting-code-refactoring` branch. Memcoin is the default CLI to handle Dela nodes. You can find it in “cli/node/memcoin”. Be sure to run “go install” in it and add GOPATH/bin to your PATH environment. You also need to run "go install" in cli/crypto.
 
  ## Running the Dela nodes
-
  For all the following instruction, you should be in the dela folder.
  Then run :
  ```

@@ -1,4 +1,5 @@
-
+/*global Buffer*/
+/*eslint no-undef: "error"*/
 export function encryptVote(vote, dkgKey, edCurve){
      
     //embed the vote into a curve point

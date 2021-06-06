@@ -11,6 +11,7 @@ exports[`Login should render the Login Component correctly 1`] = `
   </div>
   <button
     className="login-btn"
+    id="login-button"
     onClick={[Function]}
   >
     Login

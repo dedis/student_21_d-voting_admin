@@ -99,7 +99,7 @@ export const Translations = {
         homeTitle: 'Bienvenue sur notre platforme d\'e-voting !',
         homeText: 'Utilisez la barre de navigation au sommet de la page pour vous déplacer sur le site.',
         loginText: 'Vous devez vous connecter pour avoir accès au contenu du site.',
-        elecName:'Nom de l\'élection',
+        elecName:'Titre de l\'élection',
         namePlaceHolder: 'Tapez le nom',
         addCandidate: 'Ajouter un candidat',
         addCandPlaceHolder: 'nom du candidat',

@@ -1,34 +1,10 @@
+/*global , describe, it, expect*/
+/*eslint no-undef: "error"*/
+
 import React from 'react';
-import { shallow } from 'enzyme';
 import About from '../About';
-
 import {LanguageContext} from '../language/LanguageContext';
-import  render from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import {Translations} from '../language/Translations';
-import ShallowRenderer from 'react-test-renderer/shallow';
-
-
-
-/*
-test('render', ()=>{
-    render(<LanguageContext.Provider value = {['en',]}><About></About></LanguageContext.Provider>);
-    expect(screen.getByText("")).toHaveTextContent('This website hosts');
-});
-
-
-it('renders correctly', ()=>{
-    const tree = renderer.create(
-        <LanguageContext.Provider value = {['en',]}>
-            <About />
-        </LanguageContext.Provider>
-    ).toJSON();
-    expect(tree).toMatchSnapshot();
-})
-
-*/
-
-
 
 describe('About', () => {
   it('should render the About Component correctly in English', () => {  

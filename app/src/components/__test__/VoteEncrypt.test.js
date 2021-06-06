@@ -1,10 +1,8 @@
-/**
- * @jest-environment node
- */
+/*global require, describe, Buffer, expect, test, global*/
+/*eslint no-undef: "error"*/
 
 import kyber from "@dedis/kyber";
-
-
+global.TextEncoder = require("util").TextEncoder; //https://github.com/heineiuo/rippledb/issues/148w
 const encrypt = require('../voting/VoteEncrypt');
 
 describe("Encryption tests", () => {
@@ -40,7 +38,7 @@ describe("Encryption tests", () => {
         const voteByte = enc.encode(vote); //vote as []byte  
         const voteBuff = Buffer.from(voteByte.buffer);
         const M = edCurve.point().embed(voteBuff); 
-        const [ephemeralKey, encryptedVote] = encrypt.encryptVote(vote, publicKey, edCurve);
+        const [, encryptedVote] = encrypt.encryptVote(vote, publicKey, edCurve);
         const encryptedVoteUnmarsh = edCurve.point();
         encryptedVoteUnmarsh.unmarshalBinary(encryptedVote);
         expect(M.equals(encryptedVoteUnmarsh)).toBe(false);

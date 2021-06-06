@@ -32,6 +32,7 @@
     display: inline-flex;
     height: 15px;
     width: 15px;
+    margin-top:1.5%;
     background-color: green;
     border-radius: 50%;
     display: inline-block;
@@ -41,6 +42,7 @@
     display: inline-flex;
     height: 15px;
     width: 15px;
+    margin-top:1.5%;
     background-color: grey;
     border-radius: 50%;
     display: inline-block;
@@ -50,6 +52,7 @@
     display: inline-flex;
     height: 15px;
     width: 15px;
+    margin-top:1.5%;
     background-color: red;
     border-radius: 50%;
     display: inline-block;
