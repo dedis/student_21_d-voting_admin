@@ -3,7 +3,7 @@
  The user interface uses [React](https://reactjs.org/), a javascript library.
  
 # Installation instruction of Dela library
- For the front-end to work, you need to have 3 dela nodes running on your computer. To do that, you first need to clone the [dela/dedis](https://github.com/dedis/dela) repository and then go on the d-voting-code-refactoring branch. Memcoin is the default CLI to handle Dela nodes. You can find it in “cli/node/memcoin”. Be sure to run “go install” in it and add GOPATH/bin to your PATH environment. You also need to run "go install" in cli/crypto.
+ For the front-end to work, you need to have 3 dela nodes running on your computer. To do that, you first need to clone the [dela/dedis](https://github.com/dedis/dela) repository and then go on the `d-voting-code-refactoring` branch. Memcoin is the default CLI to handle Dela nodes. You can find it in “cli/node/memcoin”. Be sure to run “go install” in it and add GOPATH/bin to your PATH environment. You also need to run "go install" in cli/crypto.
 
  ## Running the Dela nodes
 
@@ -19,7 +19,8 @@ Now run the file `3nodes.sh` (that can be found in the dela folder).
 Next, setup the server of the dkg key by running : 
 `memcoin --config /tmp/node1 dkg initHttpServer --portNumber 2000`
 
-You also need to run ```
+You also need to run 
+```
  memcoin --config /tmp/node1 dkg export
  memcoin --config /tmp/node2 dkg export
  memcoin --config /tmp/node3 dkg export
