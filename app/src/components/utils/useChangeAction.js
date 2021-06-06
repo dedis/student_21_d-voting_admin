@@ -6,6 +6,7 @@ import usePostCall from './usePostCall';
 import {CLOSE_ENDPOINT, CANCEL_ENDPOINT, DECRYPT_ENDPOINT, SHUFFLE_ENDPOINT} from './Endpoints';
 import {OPEN, CLOSED, SHUFFLED_BALLOT, RESULT_AVAILABLE, CANCELED} from './StatusNumber';
 import {Link} from 'react-router-dom';
+import {COLLECTIVE_AUTHORITY_MEMBERS} from'../utils/CollectiveAuthorityMembers'
 
 const Action = (status, electionID, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) => {
     const userID = sessionStorage.getItem('id');
@@ -27,16 +28,10 @@ const Action = (status, electionID, setStatus, setResultAvailable=null, setTextM
         method: 'POST',
         body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token})
     }
-    const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-    const PK1 = 'sUTXcdSasLq/g0VORLVXDlk2dEW0oHYmitueOktxXHA=';
-    const address2 = 'RjEyNy4wLjAuMToyMDAy';
-    const PK2 = 'Pj2jpLKrOAtYDQkFg535WKXHEX7/7/DGdXf7d8PhiPc=';
-    const address3 = 'RjEyNy4wLjAuMToyMDAz';
-    const PK3 = 'LGLR7cfYr4pyep5groCC+8GwF6eaTtmvPvr0e+bmiVk=';
-    const CollectiveAuthorityMembers = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
+   
     const shuffleRequest = {
         method: 'POST',
-        body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token, 'Members': CollectiveAuthorityMembers})
+        body: JSON.stringify({'ElectionID':electionID, 'UserId':userID,'Token': token, 'Members': COLLECTIVE_AUTHORITY_MEMBERS})
     }
 
     useEffect(()=>{
