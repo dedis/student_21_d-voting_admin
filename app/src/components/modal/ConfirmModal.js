@@ -3,7 +3,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import PropTypes from 'prop-types';
 
-function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
+const ConfirmModal = ({showModal, setShowModal, textModal, setUserConfirmedAction}) => {
     const [context, ] = useContext(LanguageContext);
     
     const closeModal = () => {
@@ -11,7 +11,7 @@ function ConfirmModal({showModal, setShowModal, textModal, setUserValidate}){
     }
 
     const validateChoice = () => {
-        setUserValidate(true);
+        setUserConfirmedAction(true);
         closeModal();
     }
 
@@ -43,7 +43,7 @@ ConfirmModal.propTypes = {
     showModal : PropTypes.bool.isRequired,
     setShowModal : PropTypes.func.isRequired,
     textModal: PropTypes.string.isRequired,
-    setUserValidate: PropTypes.func.isRequired,
+    setUserConfirmedAction: PropTypes.func.isRequired,
 }
 
 export default ConfirmModal;

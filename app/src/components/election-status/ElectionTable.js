@@ -1,5 +1,4 @@
 import React, {useState, useContext} from 'react';
-import './ElectionTable.css';
 import {Link} from 'react-router-dom';
 import Status from './Status';
 import ElectionFields from '../utils/ElectionFields';

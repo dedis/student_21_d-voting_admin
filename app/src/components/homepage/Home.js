@@ -3,7 +3,7 @@ import './Home.css';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
-function Home(){
+const Home = () => {
   const [context, ] = useContext(LanguageContext);
 
   return(

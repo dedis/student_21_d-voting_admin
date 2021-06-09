@@ -8,7 +8,7 @@ import {OPEN, CLOSED, SHUFFLED_BALLOT, RESULT_AVAILABLE, CANCELED} from './Statu
 import {Link} from 'react-router-dom';
 import {COLLECTIVE_AUTHORITY_MEMBERS} from'../utils/CollectiveAuthorityMembers'
 
-const Action = (status, electionID, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) => {
+const useChangeAction = (status, electionID, setStatus, setResultAvailable=null, setTextModalError, setShowModalError) => {
     const userID = sessionStorage.getItem('id');
     const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);
@@ -18,10 +18,10 @@ const Action = (status, electionID, setStatus, setResultAvailable=null, setTextM
     const [isDecrypting, setIsDecrypting] = useState(false);
     const [showModalClose, setShowModalClose] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
-    const [userValidateClose, setUserValidateClose] = useState(false);
-    const [userValidateCancel, setUserValidateCancel] = useState(false);
-    const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserValidate={setUserValidateClose} />;
-    const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserValidate={setUserValidateCancel} />;
+    const [userConfirmedClosing, setUserConfirmedClosing] = useState(false);
+    const [userConfirmedCanceling, setUserConfirmedCanceling] = useState(false);
+    const modalClose =  <ConfirmModal id='close-modal'showModal={showModalClose} setShowModal={setShowModalClose} textModal = {Translations[context].confirmCloseElection} setUserConfirmedAction={setUserConfirmedClosing} />;
+    const modalCancel =  <ConfirmModal showModal={showModalCancel} setShowModal={setShowModalCancel} textModal = {Translations[context].confirmCancelElection}  setUserConfirmedAction={setUserConfirmedCanceling} />;
     const [postError, setPostError] = useState(Translations[context].operationFailure);
     const {postData} = usePostCall(setPostError); 
     const simplePostRequest = {
@@ -43,27 +43,27 @@ const Action = (status, electionID, setStatus, setResultAvailable=null, setTextM
 
     useEffect(async() => {        
             //check if close button was clicked and the user validated the confirmation window
-            if(isClosing && userValidateClose){
+            if(isClosing && userConfirmedClosing){
                 const closeSuccess = await postData(CLOSE_ENDPOINT, simplePostRequest, setIsClosing);            
                 if(closeSuccess){
                     setStatus(CLOSED);
                 } else {                                
                     setShowModalError(true);
                 }
-                setUserValidateClose(false);
+                setUserConfirmedClosing(false);
         }
     }, [isClosing, showModalClose])
     
 
     useEffect(async() => {
-        if(isCanceling && userValidateCancel) {
+        if(isCanceling && userConfirmedCanceling) {
             const cancelSuccess = await postData(CANCEL_ENDPOINT, simplePostRequest, setIsCanceling);
             if(cancelSuccess){
                 setStatus(CANCELED);
             } else {
                 setShowModalError(true);
             }
-            setUserValidateCancel(false);   
+            setUserConfirmedCanceling(false);   
             setPostError(null);        
         } 
     }, [isCanceling, showModalCancel])
@@ -131,13 +131,13 @@ const Action = (status, electionID, setStatus, setResultAvailable=null, setTextM
                     data: electionID}}><button className='election-btn'>{Translations[context].seeResult}</button></Link>
                 </span>;               
             case CANCELED: 
-                return <span> ---
+                return <span>    ---
                 </span>;  
             default :
-                return <span> --- </span>
+                return <span>    --- </span>
         }
     }
     return {getAction, modalClose, modalCancel};
 }
 
-export default Action;
+export default useChangeAction;

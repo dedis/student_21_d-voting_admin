@@ -3,7 +3,7 @@ import {React} from 'react';
 import './Modal.css';
 import PropTypes from 'prop-types';
 
-function Modal({showModal, setShowModal, textModal,  buttonRightText}){
+const Modal = ({showModal, setShowModal, textModal,  buttonRightText}) => {
     
     const closeModal = () => {
         setShowModal(false);

@@ -66,8 +66,7 @@ const Ballot = (props) => {//props.location.data = id of the election
         return ballot;
     }
 
-    const sendBallot = async() =>{
-        sessionStorage.setItem(electionID, choice);
+    const sendBallot = async() => {
         const [K,C] = encryptVote(choice, Buffer.from(hexToBytes(sessionStorage.getItem('pubKey')).buffer), edCurve);
 
         //sending the ballot to evoting server

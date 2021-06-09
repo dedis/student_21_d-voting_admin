@@ -16,6 +16,8 @@
   .choices-saved{
     list-style: none;
     display: block;
+    font-size: smaller;
+    font-weight: bolder;
   }
   
   .form-name{

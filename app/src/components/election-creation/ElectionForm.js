@@ -56,7 +56,7 @@ function ElectionForm({setShowModal, setTextModal}){
             isValid = false;
         }
         if(newCandidate.length !== 0){
-           errors['newCandidate'] = Translations[context].errorNewCandidate;
+           errors['newCandidate'] = Translations[context].errorNewCandidate  + newCandidate +  "?";
             isValid = false;
         }
         setErrors(errors);

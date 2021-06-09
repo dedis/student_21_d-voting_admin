@@ -4,7 +4,7 @@ import useFillElectionFields from './useFillElectionFields';
 import {GET_ELECTION_ENDPOINT} from './Endpoints';
 
 /* custom hook that fetches an election given its id and
-returns different parameters*/
+returns its different parameters*/
 function useElection(electionID, token){
 
     const request = {

@@ -2,8 +2,8 @@
 import {React,useContext} from 'react';
 
 import './About.css';
-import {Translations} from './language/Translations';
-import {LanguageContext} from './language/LanguageContext';
+import {Translations} from '../language/Translations';
+import {LanguageContext} from '../language/LanguageContext';
 
 
 function About() {

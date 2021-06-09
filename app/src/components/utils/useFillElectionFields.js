@@ -18,7 +18,7 @@ function useFillElectionFields(electionData){
             setStatus(electionData.Status)
             setPubKey(electionData.Pubkey);
             setResult(electionData.Result);
-            if(electionData.Result.length !== 0){
+            if(electionData.Result.length > 0){
                 setIsResultSet(true);
             }
         }

@@ -7,7 +7,7 @@ import NavBar from './components/navigation/NavBar';
 import Home from './components/homepage/Home';
 import BallotsGrid from './components/voting/BallotsGrid';
 import Ballot from './components/voting/Ballot';
-import About from './components/About';
+import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ElectionDetails from './components/election-status/ElectionDetails';
@@ -16,7 +16,7 @@ import Login from './components/login/Login';
 import useToken from './components/utils/useToken';
 
 
-function App() {
+const App = () => {
   
   const getBrowserLanguage = () => {
     var userLang = navigator.userLanguage || navigator.language; 
