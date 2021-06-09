@@ -7,6 +7,8 @@ import NavBar from './components/navigation/NavBar';
 import Home from './components/homepage/Home';
 import BallotsGrid from './components/voting/BallotsGrid';
 import Ballot from './components/voting/Ballot';
+import ResultTable from './components/result/ResultTable';
+import ResultPage from './components/result/ResultPage';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -47,6 +49,8 @@ const App = () => {
               <Route path="/elections" exact component={Election}/>
               <Route path="/elections/:id" component={ElectionDetails}/>
               <Route path="/vote" exact component={BallotsGrid}/>
+              <Route path="/results" exact component={ResultTable}/>
+              <Route path="/results/:id" exact component={ResultPage}/>
               <Route path = "/vote/:id" component = {Ballot}/>
               <Route path="/about" component={About}/>
             </Switch>

@@ -6,7 +6,7 @@ import Status from './Status';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
-import Result from './Result';
+import Result from '../result/Result';
 import {GET_RESULT_ENDPOINT} from '../utils/Endpoints';
 import {RESULT_AVAILABLE} from '../utils/StatusNumber';
 import PropTypes from 'prop-types';
@@ -16,8 +16,8 @@ function ElectionDetails(props) { //props.location.data = id of the election
     const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);   
     const {loading,title,candidates,electionID,status,result, setResult, setStatus, isResultSet, setIsResultSet} = useElection(props.location.data,token);
-    const [loadingResult, setLoadingResult] = useState(false);
-    const [error, setError] = useState(null);  
+    const [, setLoadingResult] = useState(false);
+    const [, setError] = useState(null);  
     const [isResultAvailable, setIsResultAvailable] = useState(false); 
 
     // fetch result when available

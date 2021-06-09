@@ -35,6 +35,9 @@ function NavBar() {
             <NavLink className='nodeco' to='/vote'  activeStyle={activeStyle}>
                 <li title={Translations[lanContext].navBarVote}>{Translations[lanContext].navBarVote}</li>
             </NavLink>
+            <NavLink className='nodeco' to='/results'  activeStyle={activeStyle}>
+                <li title='result'>Result</li>
+            </NavLink>
             <NavLink className='nodeco' to='/about'  activeStyle={activeStyle}>
                 <li title={Translations[lanContext].navBarAbout}>{Translations[lanContext].navBarAbout}</li>
             </NavLink>   

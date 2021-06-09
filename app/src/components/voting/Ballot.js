@@ -13,8 +13,7 @@ import kyber from "@dedis/kyber";
 import PropTypes from 'prop-types';
 
 
-const Ballot = (props) => {//props.location.data = id of the election
-    
+const Ballot = (props) => {//props.location.data = id of the election  
     const [context,] = useContext(LanguageContext);
     const token = sessionStorage.getItem('token');
     const {loading, title,candidates,electionID,status,pubKey} = useElection(props.location.data, token)

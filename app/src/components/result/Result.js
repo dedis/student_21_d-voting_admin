@@ -3,7 +3,7 @@ import './Result.css';
 import {useState} from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import DownloadResult from './DownloadResult';
+import DownloadResult from '../election-status/DownloadResult';
 import PropTypes from 'prop-types';
 
 function Result({resultData, candidates}){
