@@ -37,7 +37,6 @@ function ElectionForm({setShowModal, setTextModal}){
         election['AdminId'] = sessionStorage.getItem('id');
         election['Candidates'] = candidates;
         election['Token'] = sessionStorage.getItem('token');
-        election['PublicKey'] = sessionStorage.getItem('pubKey');
 
         let postRequest = {
             method: 'POST',
