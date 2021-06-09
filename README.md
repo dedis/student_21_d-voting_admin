@@ -21,9 +21,6 @@
  ```
 Now run the file `3nodes.sh` (that can be found in the dela folder). 
 
-Next, setup the server of the dkg key by running : 
-`memcoin --config /tmp/node1 dkg initHttpServer --portNumber 2000`
-
 You also need to run 
 ```
  memcoin --config /tmp/node1 dkg export

@@ -17,7 +17,7 @@ const Ballot = (props) => {//props.location.data = id of the election
     
     const [context,] = useContext(LanguageContext);
     const token = sessionStorage.getItem('token');
-    const {loading, title,candidates,electionID,status} = useElection(props.location.data, token)
+    const {loading, title,candidates,electionID,status,pubKey} = useElection(props.location.data, token)
     const [choice, setChoice] = useState('');
     const [userErrors, setUserErrors] = useState({});
     const edCurve = kyber.curve.newCurve("edwards25519");
@@ -67,7 +67,7 @@ const Ballot = (props) => {//props.location.data = id of the election
     }
 
     const sendBallot = async() => {
-        const [K,C] = encryptVote(choice, Buffer.from(hexToBytes(sessionStorage.getItem('pubKey')).buffer), edCurve);
+        const [K,C] = encryptVote(choice, Buffer.from(hexToBytes(pubKey).buffer), edCurve);
 
         //sending the ballot to evoting server
         let ballot = createBallot(K,C);

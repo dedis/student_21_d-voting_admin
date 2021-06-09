@@ -1,18 +1,15 @@
 import {React, useContext, useState} from 'react';
-import useFetchKey from '../utils/useFetchKey';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
-import {SIGNIN_ENDPOINT, PUBKEY_ENDPOINT} from '../utils/Endpoints';
+import {SIGNIN_ENDPOINT} from '../utils/Endpoints';
 import './Login.css';
 import PropTypes from 'prop-types';
 
 
 const Login = ({setToken}) => {
     const request = null;
-    //const [signinData,signinLoading,signinError] = useFetchCall(SIGNIN_ENDPOINT,request);
     const [loginError, setLoginError] = useState();
     const [context, ] = useContext(LanguageContext);
-    const [pubKey, loading, error] = useFetchKey(PUBKEY_ENDPOINT);
 
     const handleClick = async() => {
         try{
@@ -31,13 +28,6 @@ const Login = ({setToken}) => {
         }
 
         return (<div>
-            {loading? null 
-                :(error === null? 
-                    (<div>
-                      {console.log(pubKey, " ", pubKey.length)}
-                      {sessionStorage.setItem('pubKey', pubKey)}
-                    </div>)
-                    :<div>{Translations[context].errorRetrievingKey}</div>)}  
             {loginError === null? <div></div>: Translations[context].errorServerDown}
         </div>)
     }
