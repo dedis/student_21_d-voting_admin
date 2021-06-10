@@ -53,7 +53,7 @@ const Result = ({resultData, candidates}) =>{
     )
 }
 Result.propTypes = {
-   resultData : PropTypes.object.isRequired,
+   resultData : PropTypes.any,
    candidates : PropTypes.array.isRequired, 
 }
 

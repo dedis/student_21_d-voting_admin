@@ -51,7 +51,6 @@ const ElectionTable = ({elections}) => {
             let link = <Link className='election-link' to={{pathname:`/elections/${id}`,
             data: id}}>{title}</Link>;
             let stat = <Status status={status}/>;
-            console.log(status);
             let action = <Action status={status} electionID={id} setStatus={setStatus}/>;
             rows.push(createData(link, stat,action, id));
         })

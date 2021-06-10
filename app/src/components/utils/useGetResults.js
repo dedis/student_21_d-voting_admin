@@ -1,9 +1,8 @@
 import {GET_RESULT_ENDPOINT} from './Endpoints';
 
-function useGetResults(){
-    const getElectionResultEndpoint = "/evoting/result";
+const useGetResults = () => {
 
-    async function getResults(electionID, token, setError){
+    async function getResults(electionID, token, setError, setResult, setIsResultSet){
         const request = {
             method: 'POST',
             body: JSON.stringify({'ElectionID':electionID,'Token': token})
@@ -15,12 +14,11 @@ function useGetResults(){
                 throw Error(response.statusTest);
             } else {
                 let data = await response.json();
-                //setResult(data.Result);
-                console.log(data.Result);
+                setResult(data.Result);
+                setIsResultSet(true);
             }
         } catch(error){
             setError(error);
-            console.log(error);
         }       
     }
     return {getResults};

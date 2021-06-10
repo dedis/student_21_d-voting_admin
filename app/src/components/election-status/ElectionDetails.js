@@ -6,40 +6,22 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
 import Result from '../result-page/Result';
-import {GET_RESULT_ENDPOINT} from '../utils/Endpoints';
 import {RESULT_AVAILABLE} from '../utils/StatusNumber';
 import PropTypes from 'prop-types';
 import Action from './Action';
+import useGetResults from '../utils/useGetResults';
 
 function ElectionDetails(props) { //props.location.data = id of the election
     const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);   
     const {loading,title,candidates,electionID,status,result, setResult, setStatus, isResultSet, setIsResultSet} = useElection(props.location.data,token);
-    const [, setLoadingResult] = useState(false);
     const [, setError] = useState(null);  
     const [isResultAvailable, setIsResultAvailable] = useState(false); 
-
+    const {getResults} = useGetResults();
     // fetch result when available
     useEffect(async() => {
         if(status===RESULT_AVAILABLE && isResultAvailable){
-            setLoadingResult(true);
-            const resultRequest = {
-                method: 'POST',
-                body: JSON.stringify({'ElectionID':electionID,'Token': token})
-            }
-            try{
-                const response = await fetch(GET_RESULT_ENDPOINT,resultRequest);
-                if(!response.ok){
-                    throw Error(response.statusText);
-                } else {
-                    let dataReceived = await response.json();
-                    setResult(dataReceived.Result);
-                    setLoadingResult(false);
-                    setIsResultSet(true);
-                }
-            } catch(error) {
-                setError(error);
-            }
+            getResults(electionID, token, setError, setResult, setIsResultSet)        
         }
     }, [status, isResultAvailable])
 

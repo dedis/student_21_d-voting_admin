@@ -12,14 +12,12 @@ function useFetchCall(endpoint, request){
             if(!response.ok){
                 throw Error(response.statusText);
             } else {
-                console.log(response);
                 let dataReceived = await response.json();
                 setData(dataReceived);
                 setLoading(false);
             }
         } catch(error){
             setError(error);
-            console.log(error);
         }
     }
   

@@ -24,7 +24,7 @@ function DownloadResult({resultData}){
     );
 }
 DownloadResult.propTypes = {
-    resultData : PropTypes.object.isRequired,
+    resultData : PropTypes.object,
 }
 export default DownloadResult;
 

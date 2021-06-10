@@ -13,7 +13,7 @@ function useFillElectionFields(electionData){
     useEffect(() => {
         if(electionData !== null){
             setTitle(electionData.Title);
-            setCandidates(electionData.Candidates);
+            setCandidates(JSON.parse(electionData.Format).Candidates);
             setId(electionData.ElectionID);
             setStatus(electionData.Status)
             setPubKey(electionData.Pubkey);

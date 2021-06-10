@@ -1,9 +1,9 @@
 /*addresses and public keys of each node*/
 
 const address1 = 'RjEyNy4wLjAuMToyMDAx'; //address of a collective authority member
-const PK1 = 'dFDPxXmPEN4Pff/TlyZoDJNp22SRqK0tJ0r9joBUj3Y='; //key of a collective authority memeber
+const PK1 = 'wtxsvHDkV9ahgEf1Nn6jgURmKyCVYWwc58xDSme4kxA='; //key of a collective authority memeber
 const address2 = 'RjEyNy4wLjAuMToyMDAy';
-const PK2 = 'Ce14DkVwhZ6VTbg8jlFOy3ByqBah1L61lsT98rqanv8=';
+const PK2 = 'ww6wDduiJhH+xiCHpqIC+0D0vgrBLVRHBQq0Zjt9hWI=';
 const address3 = 'RjEyNy4wLjAuMToyMDAz';
-const PK3 = '/hHKaTYRYGcIY23mOB77w1p2E1p+YXr2gP+XImZylxA=';
+const PK3 = 'aS9Na4kQGah07l2cU9fCGzv8RImJDH+kPxO9Ge00BqY=';
 export const COLLECTIVE_AUTHORITY_MEMBERS = [{'Address' : address1,'PublicKey':PK1}, {'Address' : address2,'PublicKey':PK2}, {'Address' : address3,'PublicKey':PK3}];
