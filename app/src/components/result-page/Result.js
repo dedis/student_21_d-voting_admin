@@ -6,7 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import DownloadResult from '../election-status/DownloadResult';
 import PropTypes from 'prop-types';
 
-function Result({resultData, candidates}){
+/*functional component that counts the ballots and display
+ the result as total percentage of the votes */
+const Result = ({resultData, candidates}) =>{
     const [dataToDownload, setDataToDownload] = useState(null);
     const countBallots = (result) => {
         let resultMap = {};

@@ -2,6 +2,7 @@ import {React, useContext} from 'react';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useFetchCall from '../utils/useFetchCall';
+import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints'
 import {Link} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -24,8 +25,7 @@ const SimpleTable = ({statusToKeep,pathLink, textWhenData, textWhenNoData}) => {
         method: 'POST',
         body: JSON.stringify({'Token': token})
     }
-    const getAllElectionsEndpoint = "/evoting/all";
-    const [data, loading, error] = useFetchCall(getAllElectionsEndpoint, fetchRequest);
+    const [data, loading, error] = useFetchCall(GET_ALL_ELECTIONS_ENDPOINT, fetchRequest);
     const StyledTableRow = withStyles((theme) => ({
         root: {
           '&:nth-of-type(odd)': {

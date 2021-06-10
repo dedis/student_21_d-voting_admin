@@ -1,12 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-
 import './ElectionDetails.css';
 import Status from './Status';
 import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import useElection from '../utils/useElection';
-import Result from '../result/Result';
+import Result from '../result-page/Result';
 import {GET_RESULT_ENDPOINT} from '../utils/Endpoints';
 import {RESULT_AVAILABLE} from '../utils/StatusNumber';
 import PropTypes from 'prop-types';
