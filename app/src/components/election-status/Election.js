@@ -8,13 +8,17 @@ import {GET_ALL_ELECTIONS_ENDPOINT} from '../utils/Endpoints';
 
 /*Assumption : for now an election is simply a json file with the following field
     - electionName: string
-    - candidates: []string
+    - Format: []byte -> it stores the election questions 
     - electionStatus : number
     - collectivePublicKey :
     - electionID : string
 */
+/*Disclaimer : 
+Currently the Format parameter of an election is always a []string
+called Candidates
+ */
 
-function Election() {
+const Election = () => {
 
     const [context, ] = useContext(LanguageContext);
     const token = sessionStorage.getItem('token');
@@ -52,5 +56,5 @@ function Election() {
 
 export default Election;
 
-/* https://60475e95b801a40017ccbff6.mockapi.io/api/election */
+
 

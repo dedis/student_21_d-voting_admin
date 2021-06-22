@@ -6,7 +6,7 @@ import {CREATE_ENDPOINT} from '../utils/Endpoints';
 import usePostCall from '../utils/usePostCall';
 import PropTypes from 'prop-types';
 
-function UploadFile({setShowModal, setTextModal}) {
+const UploadFile = ({setShowModal, setTextModal})=> {
     const [context, ] = useContext(LanguageContext);
     const [file, setFile] = useState(null);
     const [fileExt, setFileExt] = useState(null);
@@ -27,18 +27,19 @@ function UploadFile({setShowModal, setTextModal}) {
       }    
   }, [postError])
 
-    /*TODO: add fields AdminID, Token and PublicKey from sessionStorage */
-    const validateJSONFields = () => {    
+    const validateJSONFields = () => {   
+      
         var data = JSON.parse(file);
+        var candidates = JSON.parse(data.Format).Candidates;
         if(data.Title == ""){
           return false;
         }
-        if(!Array.isArray(data.Candidates)){
+        if(!Array.isArray(candidates)){
           return false;
         } else {
           /*check if the elements of the array are string*/
-          for(var i = 0; i < data.Candidates.length; i++){
-            if(typeof data.Candidates[i] !== "string"){
+          for(var i = 0; i < candidates.length; i++){
+            if(typeof candidates[i] !== "string"){
               return false;
             }
           }

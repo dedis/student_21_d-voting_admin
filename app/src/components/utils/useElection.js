@@ -5,7 +5,7 @@ import {GET_ELECTION_ENDPOINT} from './Endpoints';
 
 /* custom hook that fetches an election given its id and
 returns its different parameters*/
-function useElection(electionID, token){
+const useElection = (electionID, token) => {
 
     const request = {
         method: 'POST',

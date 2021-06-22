@@ -6,7 +6,7 @@ import {LanguageContext} from '../language/LanguageContext';
 import {Translations} from '../language/Translations';
 import {NavLink} from 'react-router-dom';
 
-function NavBar() {
+const NavBar = () => {
 
     const [lanContext, setLanContext] = useContext(LanguageContext);
     const activeStyle = {

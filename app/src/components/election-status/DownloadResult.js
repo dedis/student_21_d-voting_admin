@@ -4,7 +4,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 import PropTypes from 'prop-types';
 
-function DownloadResult({resultData}){
+const DownloadResult = ({resultData}) => {
     const [context, ] = useContext(LanguageContext);
     const fileName = 'result.json';
 

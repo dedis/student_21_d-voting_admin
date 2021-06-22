@@ -6,10 +6,10 @@ import {LanguageContext} from '../language/LanguageContext';
 import {CREATE_ENDPOINT} from '../utils/Endpoints';
 import usePostCall from '../utils/usePostCall';
 import PropTypes from 'prop-types';
-import {COLLECTIVE_AUTHORITY_MEMBERS} from'../utils/CollectiveAuthorityMembers'
+import {COLLECTIVE_AUTHORITY_MEMBERS,  SHUFFLE_THRESHOLD} from'../utils/CollectiveAuthorityMembers'
 
 
-function ElectionForm({setShowModal, setTextModal}){
+const ElectionForm = ({setShowModal, setTextModal}) => {
     const [context, ] = useContext(LanguageContext);
     const [electionName, setElectionName] = useState('');
     const [newCandidate, setNewCandidate] = useState('');
@@ -33,15 +33,14 @@ function ElectionForm({setShowModal, setTextModal}){
 
     const sendFormData = async() => {
         //create the JSON object
-        console.log([...Buffer.from(JSON.stringify({'Candidates' : candidates}))]);
         const election = {};
         election['Title']=electionName;
         election['AdminId'] = sessionStorage.getItem('id');
-        election['ShuffleThreshold'] = 2;
+        election['ShuffleThreshold'] = SHUFFLE_THRESHOLD;
         election['Members'] = COLLECTIVE_AUTHORITY_MEMBERS;
         election['Format'] = JSON.stringify({'Candidates' : candidates});
         election['Token'] = sessionStorage.getItem('token');
-
+        console.log(JSON.stringify(election));
         let postRequest = {
             method: 'POST',
             body: JSON.stringify(election)

@@ -11,14 +11,14 @@ import PropTypes from 'prop-types';
 import Action from './Action';
 import useGetResults from '../utils/useGetResults';
 
-function ElectionDetails(props) { //props.location.data = id of the election
+const ElectionDetails = (props) => { //props.location.data = id of the election
     const token = sessionStorage.getItem('token');
     const [context, ] = useContext(LanguageContext);   
     const {loading,title,candidates,electionID,status,result, setResult, setStatus, isResultSet, setIsResultSet} = useElection(props.location.data,token);
     const [, setError] = useState(null);  
     const [isResultAvailable, setIsResultAvailable] = useState(false); 
     const {getResults} = useGetResults();
-    // fetch result when available
+    //fetch result when available after a status change
     useEffect(async() => {
         if(status===RESULT_AVAILABLE && isResultAvailable){
             getResults(electionID, token, setError, setResult, setIsResultSet)        

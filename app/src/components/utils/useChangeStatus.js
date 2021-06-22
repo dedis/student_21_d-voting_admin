@@ -5,7 +5,6 @@ import {OPEN, CLOSED, SHUFFLED_BALLOT, RESULT_AVAILABLE, CANCELED} from '../util
 
 /*Custom hook that can display the status of an election and enable changes of status (closing, cancelling,...)*/ 
 const useChangeStatus = (status) =>{
-
     const [context, ] = useContext(LanguageContext);
 
     const getStatus = () => {

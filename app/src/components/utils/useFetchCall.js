@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 
 /*custom hook to fetch data from an endpoint */
-function useFetchCall(endpoint, request){
+const useFetchCall = (endpoint, request) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);

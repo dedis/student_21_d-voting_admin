@@ -5,7 +5,7 @@ import CreateElection from './components/election-creation/CreateElection';
 import Election from './components/election-status/Election';
 import NavBar from './components/navigation/NavBar';
 import Home from './components/homepage/Home';
-import BallotsGrid from './components/voting/BallotsGrid';
+import BallotsTable from './components/voting/BallotsTable';
 import Ballot from './components/voting/Ballot';
 import ResultTable from './components/result-page/ResultTable';
 import ResultPage from './components/result-page/ResultPage';
@@ -48,7 +48,7 @@ const App = () => {
               <Route path="/create-election" component={CreateElection}/>
               <Route path="/elections" exact component={Election}/>
               <Route path="/elections/:id" component={ElectionDetails}/>
-              <Route path="/vote" exact component={BallotsGrid}/>
+              <Route path="/vote" exact component={BallotsTable}/>
               <Route path="/results" exact component={ResultTable}/>
               <Route path="/results/:id" exact component={ResultPage}/>
               <Route path = "/vote/:id" component = {Ballot}/>

@@ -6,7 +6,7 @@ import {Translations} from '../language/Translations';
 import {LanguageContext} from '../language/LanguageContext';
 
 
-function About() {
+const About = () => {
  const [context, ] = useContext(LanguageContext)
   
   return(

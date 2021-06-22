@@ -8,7 +8,7 @@ import {LanguageContext} from '../language/LanguageContext';
 import Modal from '../modal/Modal';
 
 
-function CreateElection() {
+const CreateElection = () => {
   const [context, ] = useContext(LanguageContext);
   const [showModal, setShowModal] = useState(false);
   const [textModal, setTextModal] = useState('');
